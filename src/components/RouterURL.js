@@ -14,52 +14,43 @@ import EditDiagnosis from './Admin/Diagnosis/EditDiagnosis';
 // import Result from './Result/Result';
 export default class RouterURL extends Component {
     render() {
-        return ( <
-            div >
-            <
-            Switch >
-            <
-            Route exact path = "/" > < Login / > < /Route> <
-            Route path = "/home" > < Home / > < /Route> <
-            Route path = "/admin" > < Admin / > < /Route> <
-            Route path = "/list-doc" > < ListDoc / > < /Route>
+        return ( 
+        <div>
+            <Switch >
+            <Route exact path = "/" > <Login/></Route> 
+            <Route path = "/home" > <Home/> </Route>
+            <Route path = "/admin" > <Admin/>
+            </Route> <Route path = "/list-doc" ><ListDoc/></Route>
 
-            <
-            Route path = "/edit/:id"
+            <Route path = "/edit/:_id"
             render = {
-                (props) => ( <
-                    Edit {...props }
-                    key = { this.props.id }
-                    />
+                (props) => (<Edit {...props}
+                    key = {this.props._id}/>
                 )
-            } > < /Route>
+            }> 
+            </Route>
 
-            <
-            Route path = "/admin-doctor" > < DashboardDoctor / > < /Route> <
-            Route path = "/admin-khoa" > < DBoardListKhoa / > < /Route>
+            <Route path = "/admin-doctor" > < DashboardDoctor / > </Route> 
+            <Route path = "/admin-khoa" > < DBoardListKhoa / > </Route>
 
-            <
-            Route path = "/editkhoa/:_id"
+            <Route path = "/editkhoa/:_id"
             render = {
-                (props) => ( <
-                    EditKhoa {...props }
-                    key = { this.props._id }
-                    />
+                (props) => ( <EditKhoa {...props }
+                    key = { this.props._id }/>
                 )
-            } > < /Route> <
-            Route path = "/admin-chandoan" > < Diagnosis / > < /Route> <
-            Route path = "/editdiagnosis/:id"
+            }> </Route>
+            <Route path = "/admin-chandoan" > <Diagnosis/>
+            </Route> 
+            <Route path = "/editdiagnosis/:id"
             render = {
-                (props) => ( <
-                    EditDiagnosis {...props }
-                    key = { this.props.id }
-                    />
+                (props) => ( <EditDiagnosis {...props }
+                    key = { this.props.id }/>
                 )
-            } > < /Route> <
-            Route path = "/result" > < Ketqua / > < /Route> <
-            Route > < Home / > < /Route> <
-            /Switch> <
-            /div>
+            } > </Route> 
+            <Route path = "/result"> <Ketqua/> </Route>
+             <Route> <Home/> </Route> 
+            </Switch> 
+            </div>
         )
     }
 }

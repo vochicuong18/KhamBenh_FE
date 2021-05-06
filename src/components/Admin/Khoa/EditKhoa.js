@@ -8,13 +8,14 @@ export default class Edit extends Component {
         super(props);
         this.myRef = React.createRef();
         this.fileInput= React.createRef();
-      }
-      state = {
+    }
+    state = {
         name: '',
         chuyenkhoa: '',
         noidaotao:'',
         bangcap: ''
     }
+    
     handleClick = event =>{
         console.log(event.target.files[0])
         event.preventDefault();
@@ -42,27 +43,6 @@ export default class Edit extends Component {
         })
         
     }
-    // uploadFile = (file) => {
-    //     const params = {
-    //       ACL: 'public-read',
-    //       Key: file,
-    //       ContentType :'image/jpeg',
-    //       Body: file,
-    //     }
-    //     this.myBucket.putObject(params)
-    //       .on('httpUploadProgress', (evt) => {
-    //         // that's how you can keep track of your upload progress
-    //         console.log('a');
-    //         this.setState({
-    //           progress: Math.round((evt.loaded / evt.total) * 100),
-    //         })
-    //       })
-    //       .send((err) => {
-    //          if (err) {
-    //            console.log("Upload error");
-    //          }
-    //       })
-    //   }
     state = {
         name: '',
         chuyenkhoa: '',
@@ -70,6 +50,7 @@ export default class Edit extends Component {
         bangcap: ''
     }
     componentDidMount() {
+        
         axios.get('http://localhost:9000/api/faculty/get/'+ this.props.match.params._id)
             .then(response => {
                 this.setState({

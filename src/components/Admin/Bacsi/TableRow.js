@@ -11,7 +11,7 @@ class TableRow extends Component {
         this.delete = this.delete.bind(this);
     }
     delete() {
-        axios.delete('http://10.200.0.160:9000/api/doctor/delete/'+ this.props.obj._id)
+        axios.delete('http://localhost:9000/api/doctor/delete/'+ this.props.obj._id)
             .then(console.log(this.props.obj._id)) 
             .catch(err => console.log(err))
             window.location.reload();       
@@ -23,9 +23,9 @@ class TableRow extends Component {
                 <td>{this.props.obj.Faculty.name}</td>
                 <td>{this.props.obj.address}</td>
                 <td>{this.props.obj.degree}</td>
-                <td width="200"><Image src={this.props.obj.avatar} width="25%" /></td>
+                <td width="200"><Image src={this.props.obj.avatar} width="25%"/></td>
                 <td>
-                <Link to={"/edit/"+ this.props.obj.id}>
+                <Link to={"/edit/"+ this.props.obj._id}>
                     <FontAwesomeIcon icon ={faUserEdit} style={{fontSize:'20px'}} />
                 </Link>
 
