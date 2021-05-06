@@ -1,0 +1,33 @@
+.result__wapper {
+    margin: 50px;
+}
+
+.result__ketqua {
+    display: flex;
+    /* background-color: rgb(161, 89, 89); */
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px 20px;
+    font-weight: 500;
+    font-size: 20px;
+    margin-top: 50px;
+}
+
+.ketqua__khoa {
+    margin-left: 100px;
+    padding: 20px 20px;
+    /*  border: 1px solid #e6e6e6;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 5%), 0 8px 16px rgb(0 0 0 / 5%); */
+}
+
+.ketqua__benh {
+    padding: 20px 20px;
+    /* border: 1px solid #e6e6e6;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 5%), 0 8px 16px rgb(0 0 0 / 5%); */
+}
+
+.result__bacsi {
+    background-color: red;
+}
