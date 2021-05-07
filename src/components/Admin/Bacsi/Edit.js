@@ -1,33 +1,14 @@
-import React, { Component } from 'react';
+import React, {useRef, useState,useEffect} from 'react';
 import axios from 'axios';
+import { useParams } from "react-router-dom";
 import S3 from 'react-aws-s3';
-export default class Edit extends Component {     
-    constructor(props) {
-        super(props);
-        this.idFaculty = [];
-        this.myRef = React.createRef();
-        this.fileInput= React.createRef();
-    }
-    state = {
-        fullname:'',
-        avatar:'',
-        nickname:'',
-        address:'',
-        phoneNumber:'',
-        mail:'',
-        idFaculty:[],
-        username:'',
-        password:'',
-        degree:'',
-        trainingPlaces:'',
-        description:'',
-        idRole:'',
-    }
-    handleClick = event =>{
-        console.log(event.target.files[0])
+function Edit (props) {     
+    const id  = props.match.params._id;
+    const fileInput= useRef();
+    function handleClick(event) {
         event.preventDefault();
-        let file = event.target.files[0]
-        let newFileName  = event.target.files[0].name
+        let file = fileInput.current.files[0]
+        let newFileName  = fileInput.current.files[0].name
         const config ={
             bucketName:'imagebucketkhambenhonl-1',
             region: 'ap-southeast-1',
@@ -41,97 +22,139 @@ export default class Edit extends Component {
         .then( data =>{
             console.log(data);
             if(data.status === 204){
-                console.log('success');
+                console.log('success')
                 console.log(data.location)
-               this.setState({avatar:data.location})
+                setAvatar(data.location)
             }else {
                 console.log('fail');
             }
         })
+    }
+
+    useEffect(() => {
+        async function getAPI(){
+             await axios.get('http://localhost:9000/api/faculty/get')
+            .then((response) => {
+                setKhoa(response.data);
+                return response.data
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        }
+        getAPI();
+    },[])
+    const [fullname, setFullName] = useState('');
+    const [avatar, setAvatar] = useState('')
+    const [nickname, setNickName] = useState('')
+    const [address, setAddress] = useState('')
+    const [phoneNumber, setPhoneNumber] = useState('')
+    const [mail, setMail] = useState('')
+    const [idFaculty, setKhoa] = useState([])
+    const [savekhoa, setSaveKhoa] = useState('')
+    const [username, setUserName] = useState('')
+    const [password, setPassword] = useState('')
+    const [trainingPlaces, settrainingPlaces] = useState('')
+    const [degree , setBangCap] = useState('')
+    const [description , setDescription] = useState('')
+    const [idRole] = useState('608d10b88057022ea4f4c2c6')
+    function handleNameBS(e){
+        setFullName(e.target.value)
+    }
+    function handleNickName(e){
+        setNickName(e.target.value)
+    }
+    function handleAddress(e){
+        setAddress(e.target.value)
+    }
+    function handlePhone(e){
+        setPhoneNumber(e.target.value)
+    }
+    function handleMail(e){
+        setMail(e.target.value)
+    }
+    function handleKhoa (e){
+        setSaveKhoa(e.target.value)
+        console.log(e.target.value)
+    }
+    function handleUserName(e){
+        setUserName(e.target.value)
+    }
+    function handlePassword(e){
+        setPassword(e.target.value)
+    }
+    function handleNoiDaoTao(e){
+        settrainingPlaces(e.target.value)
+    }
+    function handleBangCap(e){
+        setBangCap(e.target.value)
+    }
+    function handleDes(e){
+        setDescription(e.target.value)
+    }
+    const formData = {
+        fullname:fullname,
+        avatar:avatar,
+        nickname:nickname,
+        address:address,
+        phoneNumber:phoneNumber,
+        mail:mail,
+        idFaculty:savekhoa,
+        username:username,
+        password:password,
+        degree:degree,
+        trainingPlaces:trainingPlaces,
+        description:description,
+        idRole:idRole,
+    }
+   
+    useEffect(() => {
+        async function getAPI(props){
+             await axios.get('http://localhost:9000/api/doctor/get/' + id)
+             .then(response => {
+                    console.log(response.data[0]);
+                     setFullName(response.data[0].fullname)
+                        //  avatar:response.data[0].avatar,
+                    //  nickname:response.data[0].nickname,
+                    setNickName(response.data[0].nickname)
+                    setAddress(response.data[0].address)
+                    setPhoneNumber(response.data[0].phoneNumber)
+                    setMail(response.data[0].mail)
+                    setUserName(response.data[0].idAccount.username)
+                    setPassword(response.data[0].idAccount.password)
+                    setBangCap(response.data[0].degree)
+                    settrainingPlaces(response.data[0].trainingPlaces)
+                    setDescription(response.data[0].description)
+             })
+             .catch(function (error) {
+                 console.log(error);              
+             }) 
+            }         
+        getAPI();
+    },[])
+        
+    
+    const updateDoctor = async () => {
+        console.log(formData);
+        axios.put('http://10.200.0.160:9000/api/doctor/admin/update/' + id, formData)
+        .then(response =>{
+            
+        })
+        .catch((err, response) => {
+            console.log(err)
+        })
         
     }
-    getDataDropDown(){
-        axios.get('http://localhost:9000/api/faculty/get')
-        .then((response) => {
-            this.setState({idFaculty:response.data});
-            return response.data
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }
-    
-    componentDidMount() {
-        console.log('aaaaaa');
-        axios.get('http://localhost:9000/api/doctor/get/'+ this.props.match.params._id)
-            .then(response => {
-                console.log(response.data[0].idAccount.username)
-                console.log();
-                this.setState({
-                    fullname:response.data[0].fullname,
-                    avatar:response.data[0].avatar,
-                    nickname:response.data[0].nickname,
-                    address:response.data[0].address,
-                    phoneNumber:response.data[0].phoneNumber,
-                    mail:response.data[0].mail,
-                    idFaculty:response.data[0].idFaculty,
-                    username:response.data[0].idAccount.username,
-                    password:response.data[0].idAccount.password,
-                    degree:response.data[0].degree,
-                    trainingPlaces:response.data[0].trainingPlaces,
-                    description:response.data[0].description,
-                    idRole:response.data[0].idRole,
-                });
-            })
-            .catch(function (error) {
-                console.log(error);              
-            })          
-    }
-
-    handleChangeName = event => {
-        this.setState({name:event.target.value})
-    }
-    handleChangeCK = event => {
-        this.setState({chuyenkhoa:event.target.value})
-    }
-    handleChangeNDT = event => {
-        this.setState({noidaotao:event.target.value})
-    }
-    handleChangeBC = event => {
-        this.setState({bangcap:event.target.value})
-    }
-    handleSubmit = event =>{
-        event.preventDefault(); 
-        const obj ={
-            fullname:this.state.fullname,
-            avatar:this.state.avatar,
-            nickname:this.state.nickname,
-            address:this.state.address,
-            phoneNumber:this.state.phoneNumber,
-            mail:this.state.mail,
-            idFaculty:this.state.idFaculty,
-            username:this.state.username,
-            password:this.state.password,
-            degree:this.state.degree,
-            trainingPlaces:this.state.trainingPlaces,
-            description:this.state.description,
-            idRole:this.state.idRole,
-        }
-        axios.put('http://localhost:3000/api/bacsi/'+ this.props.match.params.id, obj)
-            .then(res => {console.log(res.data)});
-            this.props.history.push('/admin');
-    }
-
-    render() {             
-        return (
-            <div>
-               <div className="" id="themBacSi" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+           
+    return (
+        <div>
+            <div className="" id="themBacSi" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
                             <h3 className="modal-title" id="exampleModalLabel">Cập nhật thông tin bác sĩ</h3>
                         </div>
-                    <form>
+                    <form >
                         <div className="modalbody">                           
                             <div className="form-group">
                                 <div className='form__info'>
@@ -142,12 +165,12 @@ export default class Edit extends Component {
                                         <div className="col">
                                             <label htmlFor="">Họ tên:</label>
                                             <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                            defaultValue = {this.state.fullname} />   
+                                            defaultValue = {fullname}  onChange = {handleNameBS}  />   
                                         </div>
                                         <div className="col">
                                             <label htmlFor="">Nick name:</label>
                                             <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                            defaultValue = {this.state.nickname} />   
+                                            defaultValue = {nickname} onChange = {handleNickName}/>   
                                         </div>
                                     </div>
                                     
@@ -155,26 +178,26 @@ export default class Edit extends Component {
                                         <div className="col">
                                             <label htmlFor="">Description:</label>
                                             <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                            defaultValue = {this.state.description} />   
+                                             defaultValue = {description} onChange = {handleDes}/>   
                                         </div>
-                                        {/* <div className="col">
+                                        <div className="col">
                                             <label htmlFor="">Avatar:</label>
                                             <input type="file"  ref={fileInput} className="form-control-file" onChange ={handleClick}/>
-                                        </div> */}
+                                        </div>
                                     </div>
                                     <label htmlFor="">Địa chỉ:</label>
                                     <input type="text"  className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                    defaultValue = {this.state.address} />
+                                    defaultValue = {address} onChange = {handleAddress}/>
                                     <div className="row">
                                         <div className="col">
                                             <label htmlFor="">Phone number:</label>
                                             <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                            defaultValue={this.state.phoneNumber} />
+                                             defaultValue = {phoneNumber} onChange = {handlePhone}/>
                                         </div>
                                         <div className="col">
                                             <label htmlFor="">Email:</label>
                                             <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                            defaultValue ={this.state.mail} />
+                                            defaultValue = {mail} onChange = {handleMail}  />
                                         </div>
                                     </div>
                                 </div>
@@ -183,27 +206,28 @@ export default class Edit extends Component {
                                         <h5>Trình độ học vấn</h5>
                                     </div>
                                     <label htmlFor="">Chuyên khoa:</label>
-                                    <select className= 'form-control'> 
-                                        {this.state.idFaculty.map((item) => (
+                                    <select className= 'form-control' onChange={handleKhoa}>
+                                        <option>Chọn chuyên khoa</option>
+                                        {idFaculty.map((item) => (
                                             <option
                                                 key={item._id}
                                                 value={item._id}
                                             >
                                                 {item.name}
                                             </option>
-                                        ))}
+                                        ))} 
                                     </select>
                                     <br/>
                                     <div className='row'>
                                         <div className='col'>
                                             <label htmlFor="">Nơi đào tạo:</label>
                                             <input type="text" className="form-control" placeholder="" aria-describedby="helpId"
-                                            defaultValue={this.state.trainingPlaces}/>
+                                            defaultValue={trainingPlaces} onChange={handleNoiDaoTao}/>
                                         </div>
                                         <div className='col'>
                                             <label htmlFor="">Bằng cấp:</label>
                                             <input type="text" className="form-control" placeholder="" aria-describedby="helpId"
-                                            defaultValue={this.state.degree} />
+                                            defaultValue={degree} onChange = {handleBangCap}   />
                                         </div>
                                     </div>                             
                                 </div>
@@ -215,27 +239,28 @@ export default class Edit extends Component {
                                     <div className='col'>
                                         <label htmlFor="">Username:</label>
                                         <input type="text" className="form-control" placeholder="" aria-describedby="helpId"
-                                        defaultValue = {this.state.username}/>
+                                        defaultValue={username} onChange = {handleUserName}/>
                                     </div>
                                     <div className='col'>
                                         <label htmlFor="">Mật khẩu:</label>
                                         <input type="text" className="form-control" placeholder="" aria-describedby="helpId" 
-                                        defaultValue = {this.state.password}/>
+                                       defaultValue ={password} onChange = {handlePassword} />
                                     </div>
                                 </div>         
                                 </div>
-                                          
+                                            
                             </div>  
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                            <button type="submit" className="btn btn-primary">Lưu</button>
+                            <button type="button" onClick={updateDoctor} className="btn btn-primary">Lưu</button>
                         </div>
                     </form>  
-                </div>
+                    </div>
                 </div>
             </div>
-            </div>
-        )
-    }
+        </div>
+    )
+                    
 }
+export default Edit;

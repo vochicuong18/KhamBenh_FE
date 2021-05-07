@@ -1,9 +1,9 @@
 import React, {useRef, useState,useEffect} from 'react';
-// import {Form, } from 'react-bootstrap'
-import DropdownKhoa from '../../Default/DropdownKhoa'
 import axios from 'axios';
 import S3 from 'react-aws-s3';
+
 function Modal_AddDoctor() {
+    console.log();
     const fileInput= useRef();
     function handleClick(event) {
         event.preventDefault();
@@ -44,8 +44,6 @@ function Modal_AddDoctor() {
         }
         getAPI();
     },[])
-   
-
     const [fullname, setFullName] = useState('');
     const [avatar, setAvatar] = useState('')
     const [nickname, setNickName] = useState('')
@@ -112,11 +110,12 @@ function Modal_AddDoctor() {
     const addDoctor = async () => {
         axios.post('http://localhost:9000/api/doctor/admin/create', formData)
         .then(response =>{
-            console.log(response.data)
+            alert(response.data)
         })
-        .catch((err) => {
+        .catch((err, response) => {
             console.log(err)
         })
+        
     }
   
     return(
@@ -130,7 +129,7 @@ function Modal_AddDoctor() {
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form onSubmit={addDoctor}>
+                    <form>
                         <div className="modal-body">                           
                             <div className="form-group ">
                                 <div className='form__info'>
@@ -182,7 +181,7 @@ function Modal_AddDoctor() {
                                         <h5>Trình độ học vấn</h5>
                                     </div>
                                     <label htmlFor="">Chuyên khoa:</label>
-                                    {/* <select className= 'form-control' onChange = {handleKhoa}> 
+                                    <select className= 'form-control' onChange = {handleKhoa}> 
                                         {idFaculty.map((item) => (
                                             <option
                                                 key={item._id}
@@ -191,8 +190,7 @@ function Modal_AddDoctor() {
                                                 {item.name}
                                             </option>
                                         ))}
-                                    </select> */}
-                                    <DropdownKhoa onChange = {handleKhoa}></DropdownKhoa>
+                                    </select>
                                     <br/>
                                     <div className='row'>
                                         <div className='col'>
@@ -229,7 +227,7 @@ function Modal_AddDoctor() {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                            <button type="submit" className="btn btn-primary">Lưu</button>
+                            <button type="button" onClick = {addDoctor} className="btn btn-primary">Lưu</button>
                         </div>
                     </form>  
                 </div>
