@@ -1,9 +1,16 @@
 import React, {useRef, useState,useEffect} from 'react';
 import axios from 'axios';
-import { useParams } from "react-router-dom";
+import { toast } from 'react-toastify'
+
 import S3 from 'react-aws-s3';
-function Edit (props) {     
-    const id  = props.match.params._id;
+function Edit (props) {  
+    toast.configure({
+        autoClose: 2000,
+        draggable: true,
+        position: toast.POSITION.TOP_RIGHT
+      })   
+    const id = props.match.params._id
+    console.log({id});
     const fileInput= useRef();
     function handleClick(event) {
         event.preventDefault();
@@ -59,37 +66,48 @@ function Edit (props) {
     const [description , setDescription] = useState('')
     const [idRole] = useState('608d10b88057022ea4f4c2c6')
     function handleNameBS(e){
+        e.preventDefault()
         setFullName(e.target.value)
     }
     function handleNickName(e){
+        e.preventDefault()
         setNickName(e.target.value)
     }
     function handleAddress(e){
+        e.preventDefault()
         setAddress(e.target.value)
     }
     function handlePhone(e){
+        e.preventDefault()
         setPhoneNumber(e.target.value)
     }
     function handleMail(e){
+        e.preventDefault()
         setMail(e.target.value)
     }
     function handleKhoa (e){
+        e.preventDefault()
         setSaveKhoa(e.target.value)
         console.log(e.target.value)
     }
     function handleUserName(e){
+        e.preventDefault()
         setUserName(e.target.value)
     }
     function handlePassword(e){
+        e.preventDefault()
         setPassword(e.target.value)
     }
     function handleNoiDaoTao(e){
+        e.preventDefault()
         settrainingPlaces(e.target.value)
     }
     function handleBangCap(e){
+        e.preventDefault()
         setBangCap(e.target.value)
     }
     function handleDes(e){
+        e.preventDefault()
         setDescription(e.target.value)
     }
     const formData = {
@@ -112,36 +130,34 @@ function Edit (props) {
         async function getAPI(props){
              await axios.get('http://localhost:9000/api/doctor/get/' + id)
              .then(response => {
-                    console.log(response.data[0]);
-                     setFullName(response.data[0].fullname)
-                        //  avatar:response.data[0].avatar,
-                    //  nickname:response.data[0].nickname,
-                    setNickName(response.data[0].nickname)
-                    setAddress(response.data[0].address)
-                    setPhoneNumber(response.data[0].phoneNumber)
-                    setMail(response.data[0].mail)
-                    setUserName(response.data[0].idAccount.username)
-                    setPassword(response.data[0].idAccount.password)
-                    setBangCap(response.data[0].degree)
-                    settrainingPlaces(response.data[0].trainingPlaces)
-                    setDescription(response.data[0].description)
+                    setFullName(response.data.idUser.fullname)
+                    setNickName(response.data.nickname)
+                    setAddress(response.data.idUser.address)
+                    setPhoneNumber(response.data.idUser.phoneNumber)
+                    setMail(response.data.idUser.mail)
+                    setUserName(response.data.idUser.idAccount.username)
+                    setPassword(response.data.idUser.idAccount.password)
+                    setBangCap(response.data.degree)
+                    settrainingPlaces(response.data.trainingPlaces)
+                    setDescription(response.data.description)
              })
              .catch(function (error) {
                  console.log(error);              
              }) 
             }         
         getAPI();
-    },[])
+    },[id])
         
     
     const updateDoctor = async () => {
-        console.log(formData);
-        axios.put('http://10.200.0.160:9000/api/doctor/admin/update/' + id, formData)
-        .then(response =>{
-            
-        })
-        .catch((err, response) => {
-            console.log(err)
+        axios.put('http://localhost:9000/api/doctor/admin/update/' +id, formData)
+        .then(
+            toast.success("Chỉnh sửa thành công"),
+            props.history.push('/admin-doctor')
+        )
+
+        .catch((err) => {
+            toast.error("a")
         })
         
     }

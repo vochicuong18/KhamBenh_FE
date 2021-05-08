@@ -1,9 +1,14 @@
 import React, {useRef, useState,useEffect} from 'react';
 import axios from 'axios';
 import S3 from 'react-aws-s3';
-
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 function Modal_AddDoctor() {
-    console.log();
+    toast.configure({
+        autoClose: 2000,
+        draggable: true,
+        position: toast.POSITION.TOP_RIGHT
+      })
     const fileInput= useRef();
     function handleClick(event) {
         event.preventDefault();
@@ -59,37 +64,48 @@ function Modal_AddDoctor() {
     const [description , setDescription] = useState('')
     const [idRole] = useState('608d10b88057022ea4f4c2c6')
     function handleNameBS(e){
+        e.preventDefault()
         setFullName(e.target.value)
     }
     function handleNickName(e){
+        e.preventDefault()
         setNickName(e.target.value)
     }
     function handleAddress(e){
+        e.preventDefault()
         setAddress(e.target.value)
     }
     function handlePhone(e){
+        e.preventDefault()
         setPhoneNumber(e.target.value)
     }
     function handleMail(e){
+        e.preventDefault()
         setMail(e.target.value)
     }
     function handleKhoa (e){
+        e.preventDefault()
         setSaveKhoa(e.target.value)
         console.log(e.target.value)
     }
     function handleUserName(e){
+        e.preventDefault()
         setUserName(e.target.value)
     }
     function handlePassword(e){
+        e.preventDefault()
         setPassword(e.target.value)
     }
     function handleNoiDaoTao(e){
+        e.preventDefault()
         settrainingPlaces(e.target.value)
     }
     function handleBangCap(e){
+        e.preventDefault()
         setBangCap(e.target.value)
     }
     function handleDes(e){
+        e.preventDefault()
         setDescription(e.target.value)
     }
     const formData = {
@@ -107,17 +123,19 @@ function Modal_AddDoctor() {
         description:description,
         idRole:idRole,
     }
-    const addDoctor = async () => {
+
+      
+    
+    const addDoctor = async () =>{
         axios.post('http://localhost:9000/api/doctor/admin/create', formData)
         .then(response =>{
-            alert(response.data)
+            toast.success('Thêm thành công')
+            window.location.reload()
+        })              
+        .catch((err) => {
+            toast.error(err.response.data.message)
         })
-        .catch((err, response) => {
-            console.log(err)
-        })
-        
-    }
-  
+     }
     return(
         <div>
             <div className="modal fade" id="themBacSi" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -182,7 +200,9 @@ function Modal_AddDoctor() {
                                     </div>
                                     <label htmlFor="">Chuyên khoa:</label>
                                     <select className= 'form-control' onChange = {handleKhoa}> 
+                                        <option>Chọn khoa</option>
                                         {idFaculty.map((item) => (
+                                            
                                             <option
                                                 key={item._id}
                                                 value={item._id}

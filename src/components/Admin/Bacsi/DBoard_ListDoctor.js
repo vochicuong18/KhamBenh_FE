@@ -12,13 +12,13 @@ class DBoard_ListDortor extends Component{
     componentDidMount() {
         axios.get('http://localhost:9000/api/doctor/get')
             .then(response => {
-                console.log(response.data);
                 this.setState({bacsi: response.data});               
             })
             .catch(function (error) {
                 console.log(error);
             })
     }
+    
     tabRow() {
         return this.state.bacsi.map(function (object, i) {
             return <TableRow obj={object} key={i}/>;
