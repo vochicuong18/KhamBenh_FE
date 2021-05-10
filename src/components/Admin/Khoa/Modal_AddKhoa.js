@@ -72,7 +72,7 @@ function Modal_AddKhoa (props) {
                             <div className="form-group">
                                 <label htmlFor="">Tên khoa:</label>
                                 <input type="text" name = "name" className="form-control" placeholder="" aria-describedby="helpId" maxLength =  {50} onChange = {handleName}/>
-                                <label htmlFor="">Chuyên khoa:</label>
+                                <label htmlFor="">Description:</label>
                                 <input type="text" name = "description"  className="form-control" placeholder="" aria-describedby="helpId" onChange = {handleDes} />
                                 <label htmlFor="">Logo:</label>
                                 <input type="file" ref={fileInput} className="form-control" crossOrigin="anonymous" onChange={handleClick}/>

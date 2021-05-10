@@ -12,7 +12,8 @@ class DBoard_ListDortor extends Component{
     componentDidMount() {
         axios.get('http://localhost:9000/api/faculty/get')
             .then(response => {
-                this.setState({bacsi: response.data});               
+                this.setState({bacsi: response.data});      
+                console.log(response.data);         
             })
             .catch(function (error) {
                 console.log(error);
@@ -40,8 +41,9 @@ class DBoard_ListDortor extends Component{
                         <thead className="thead-light">
                             <tr>
                                 <th scope="col">Tên Khoa</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Avatar</th>
+                                <th scope="col">Mô tả</th>
+                                <th scope="col">Đơn giá</th>
+                                <th scope="col">Logo</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>

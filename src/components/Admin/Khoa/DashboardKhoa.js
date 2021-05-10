@@ -1,7 +1,8 @@
 import React,{ Component } from 'react';
 import 'antd/dist/antd.css';
 import { Layout, Menu } from 'antd';
-import DBoardListKhoa from './DBoard_ListKhoa'
+import DBoardListKhoa from '../Khoa/DBoard_ListKhoa';
+
 import {Link} from "react-router-dom"
 
 import {
@@ -37,14 +38,14 @@ class Dashboard extends Component {
               Option 2
             </Menu.Item>
             <SubMenu key="sub1" icon={<UserOutlined />} title="User">
+            <Menu.Item key="8"><Link to={'/admin-account'}>Danh sách Tài khoản</Link></Menu.Item>
               <Menu.Item key="3"><Link to={'/admin-doctor'}>Danh sách bác sĩ</Link></Menu.Item>
               <Menu.Item key="8"><Link to={'/admin-user'}>Danh sách Bệnh nhân</Link></Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" icon={<TeamOutlined />} title="Hệ thống">
-              <Menu.Item key="6"><Link to={'/admin-khoa'}>Danh sách Khoa</Link></Menu.Item>
-              <Menu.Item key="8"><Link to={'/admin-chandoan'}>Danh sách Chẩn đoán</Link></Menu.Item>
+              <Menu.Item><Link to={'/admin-khoa'}>Danh sách Khoa</Link></Menu.Item>
+              <Menu.Item><Link to={'/admin-chandoan'}>Danh sách Chẩn đoán</Link></Menu.Item>
             </SubMenu>
-
           </Menu>
         </Sider>
         <Layout className="site-layout">

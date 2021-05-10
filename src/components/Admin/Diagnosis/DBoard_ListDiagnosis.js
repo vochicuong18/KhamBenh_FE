@@ -33,7 +33,6 @@ class DBoard_ListDiagnosis extends Component{
                 <strong className="title__table">Danh sách triệu chứng</strong>              
               </Breadcrumb.Item>
               <Breadcrumb.Item> 
-                <button type="button" className="btn btn-info btn-sm button__table" data-toggle="modal" data-target="#themBacSi">Thêm mới</button>
               </Breadcrumb.Item>
             </Breadcrumb>
             <div>
@@ -42,7 +41,7 @@ class DBoard_ListDiagnosis extends Component{
                         <thead className="thead-light">
                             <tr>
                                 <th scope="col">Name</th>
-                                <th scope="col">Description</th>
+                                <th scope="col">Mô tả</th>
                                 <th scope="col">Sympton</th>
                                 <th scope="col">Faculty</th>
                                 <th scope="col">Action</th>

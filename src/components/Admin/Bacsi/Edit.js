@@ -1,16 +1,14 @@
 import React, {useRef, useState,useEffect} from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify'
-
 import S3 from 'react-aws-s3';
-function Edit (props) {  
+function Edit (props) {
     toast.configure({
         autoClose: 2000,
         draggable: true,
         position: toast.POSITION.TOP_RIGHT
-      })   
+    })   
     const id = props.match.params._id
-    console.log({id});
     const fileInput= useRef();
     function handleClick(event) {
         event.preventDefault();
@@ -88,7 +86,6 @@ function Edit (props) {
     function handleKhoa (e){
         e.preventDefault()
         setSaveKhoa(e.target.value)
-        console.log(e.target.value)
     }
     function handleUserName(e){
         e.preventDefault()
@@ -150,14 +147,15 @@ function Edit (props) {
         
     
     const updateDoctor = async () => {
+        console.log(formData);
         axios.put('http://localhost:9000/api/doctor/admin/update/' +id, formData)
-        .then(
-            toast.success("Chỉnh sửa thành công"),
+        .then(response => {
+            toast.success("Chỉnh sửa thành công")
             props.history.push('/admin-doctor')
-        )
+        })
 
         .catch((err) => {
-            toast.error("a")
+            toast.error(err.response.data.message)
         })
         
     }

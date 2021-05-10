@@ -37,6 +37,7 @@ class Dashboard extends Component {
               Option 2
             </Menu.Item>
             <SubMenu key="sub1" icon={<UserOutlined />} title="User">
+            <Menu.Item key="8"><Link to={'/admin-account'}>Danh sách Tài khoản</Link></Menu.Item>
               <Menu.Item key="3"><Link to={'/admin-doctor'}>Danh sách bác sĩ</Link></Menu.Item>
               <Menu.Item key="8"><Link to={'/admin-user'}>Danh sách Bệnh nhân</Link></Menu.Item>
             </SubMenu>

@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios';
@@ -16,9 +16,9 @@ function TableRow (props) {
 
     const delDoctor =  async () => {
         axios.delete('http://localhost:9000/api/doctor/delete/'+ props.obj._id)
-            .then(
+            .then(response => {
                 toast.success('Xóa thành công!')  
-            )
+            })
             .catch(err => console.log(err))
             window.location.reload()
     }

@@ -86,7 +86,6 @@ function Modal_AddDoctor() {
     function handleKhoa (e){
         e.preventDefault()
         setSaveKhoa(e.target.value)
-        console.log(e.target.value)
     }
     function handleUserName(e){
         e.preventDefault()
@@ -128,10 +127,10 @@ function Modal_AddDoctor() {
     
     const addDoctor = async () =>{
         axios.post('http://localhost:9000/api/doctor/admin/create', formData)
-        .then(response =>{
+        .then(response => {
             toast.success('Thêm thành công')
             window.location.reload()
-        })              
+        })
         .catch((err) => {
             toast.error(err.response.data.message)
         })

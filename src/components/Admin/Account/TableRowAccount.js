@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios';
@@ -6,38 +6,27 @@ import {Link} from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons'
 
-function TableRow (props) {
-    const [name] = useState(props.obj.name)
-    const [description] = useState(props.obj.description)
-    const [symptom] = useState(props.obj.symptom.join(', '))
-    const [faculty] = useState(setFac)
-    function setFac (){
-        if (!props.obj.idFaculty) {
-            return ('');
-        } 
-        else {
-        return props.obj.idFaculty.name
-        }
-    }
-    
-
-
+function TableRowUser (props) {
+    toast.configure({
+        autoClose: 2000,
+        draggable: true,
+        position: toast.POSITION.TOP_RIGHT
+    })
     const delDoctor =  async () => {
-        axios.delete('http://localhost:9000/api/doctor/delete/'+ props.obj._id)
-            .then(response => {
+        axios.delete('http://localhost:9000/api/member/delete/'+ props.obj._id)
+            .then(
                 toast.success('Xóa thành công!')  
-            })
+            )
             .catch(err => console.log(err))
             window.location.reload()
     }
     return (
         <tr>
-            <td>{name}</td>
-            <td>{description}</td>
-            <td>{symptom}</td>
-            <td>{faculty}</td>
-            <td>
-            <Link to={"/editdiagnosis/"+ props.obj._id}>
+            <td>{props.obj.username}</td>
+            <td>{props.obj.password}</td>
+            <td>{props.obj.idRole.name}</td>
+             <td>
+            <Link to={"/editaccount/"+ props.obj._id}>
                 <FontAwesomeIcon icon ={faUserEdit} style={{fontSize:'20px'}} />
             </Link>
 
@@ -48,4 +37,4 @@ function TableRow (props) {
     );
 }
 
-export default TableRow;
+export default TableRowUser;

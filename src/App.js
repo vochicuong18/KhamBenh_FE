@@ -8,7 +8,10 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <RouterURL></RouterURL>
+          <React.StrictMode>
+            <RouterURL></RouterURL>
+          </React.StrictMode>
+          
         </div>
       </Router>
     )

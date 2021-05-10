@@ -47,6 +47,10 @@
     width: 332px;
 }
 
+.login__google {
+    text-align: center;
+}
+
 .forgot {
     margin: 10px 0px;
     text-align: center;

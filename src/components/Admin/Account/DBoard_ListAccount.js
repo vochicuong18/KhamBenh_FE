@@ -1,8 +1,8 @@
 import React,{ Component } from 'react';
 import { Layout, Breadcrumb } from 'antd';
 import axios from 'axios';
-import TableRowUser from './TableRowUser';
-import ModalAddUser from '../User/Modal_AddUser';
+import TableRowUser from './TableRowAccount';
+import ModalAddAccount from '../Account/Modal_AddAccount';
 const Content = Layout;
 class DBoard_ListDortor extends Component{
     constructor(props) {
@@ -10,7 +10,7 @@ class DBoard_ListDortor extends Component{
         this.state = {bacsi: []};
     }
     componentDidMount() {
-        axios.get('http://localhost:9000/api/member/get')
+        axios.get('http://localhost:9000/api/account/get')
             .then(response => {
                 console.log(response.data);
                 this.setState({bacsi: response.data});               
@@ -29,7 +29,7 @@ class DBoard_ListDortor extends Component{
             <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>
-                <strong className="title__table">Danh sách người dùng</strong>              
+                <strong className="title__table">Danh sách tài khoản</strong>              
               </Breadcrumb.Item>
               <Breadcrumb.Item> 
                 <button type="button" className="btn btn-info btn-sm button__table" data-toggle="modal" data-target="#themBacSi">Thêm mới</button>
@@ -40,13 +40,9 @@ class DBoard_ListDortor extends Component{
                     <table className = "table">
                         <thead className="thead-light">
                             <tr>
-                                <th scope="col">Họ tên</th>
-                                <th scope="col">Đỉa chỉ</th>
-                                <th scope="col">Số điện thoại</th>
-                                <th scope="col">Email</th>
                                 <th scope="col">Username</th>
                                 <th scope="col">Password</th>
-                                <th scope="col">Avatar</th>
+                                <th scope="col">Chức vụ</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
@@ -55,7 +51,7 @@ class DBoard_ListDortor extends Component{
                         </tbody>
                     </table>
                 </div>             
-                <ModalAddUser></ModalAddUser> 
+                <ModalAddAccount></ModalAddAccount> 
             </div>
           </Content>
 

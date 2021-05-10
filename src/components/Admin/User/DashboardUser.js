@@ -1,7 +1,7 @@
 import React,{ Component } from 'react';
 import 'antd/dist/antd.css';
 import { Layout, Menu } from 'antd';
-import DBoardListKhoa from './DBoard_ListKhoa'
+import DBoardListUser from './DBoard_ListUser'
 import {Link} from "react-router-dom"
 
 import {
@@ -31,12 +31,13 @@ class Dashboard extends Component {
           <div className="logo" />
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
             <Menu.Item key="1" icon={<PieChartOutlined />}>
-              Danh sách lịch khám
+              Danh sách Bệnh nhân
             </Menu.Item>
             <Menu.Item key="2" icon={<DesktopOutlined />}>
               Option 2
             </Menu.Item>
             <SubMenu key="sub1" icon={<UserOutlined />} title="User">
+            <Menu.Item key="8"><Link to={'/admin-account'}>Danh sách Tài khoản</Link></Menu.Item>
               <Menu.Item key="3"><Link to={'/admin-doctor'}>Danh sách bác sĩ</Link></Menu.Item>
               <Menu.Item key="8"><Link to={'/admin-user'}>Danh sách Bệnh nhân</Link></Menu.Item>
             </SubMenu>
@@ -49,7 +50,7 @@ class Dashboard extends Component {
         </Sider>
         <Layout className="site-layout">
           <Header className="site-layout-background" style={{ padding: 0 }} />
-            <DBoardListKhoa/>
+            <DBoardListUser/>
           <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
         </Layout>
       </Layout>

@@ -8,13 +8,16 @@ import Post from '../components/Home/Post';
 import Footer from '../components/Default/Footer';
 import Sercal from '../components/Home/SerCal';
 import Header from '../components/Default/Header';
+import Covid19 from '../components/Home/Covid19';
 class Home extends Component {
   render () {
     return (
       <div className="body">
         <Header></Header>
+        <Covid19/>
         <Carsousel></Carsousel>
         <NhapTrieuChung></NhapTrieuChung> 
+        
         <Services></Services>
         <Sercal></Sercal>
         <Post></Post>
