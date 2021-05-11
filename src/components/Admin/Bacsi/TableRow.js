@@ -23,7 +23,7 @@ function TableRow (props) {
             window.location.reload()
     }
     return (
-        <tr>
+        <tr style={{marginTop:'20px'}}>
             <td>{fullName}</td>
             <td>{khoa}</td>
             <td>{address}</td>

@@ -32,7 +32,7 @@ class DBoard_ListDortor extends Component{
                 <strong className="title__table">Danh sách tài khoản</strong>              
               </Breadcrumb.Item>
               <Breadcrumb.Item> 
-                <button type="button" className="btn btn-info btn-sm button__table" data-toggle="modal" data-target="#themBacSi">Thêm mới</button>
+                <button disabled type="button" className="btn btn-info btn-sm button__table" data-toggle="modal" data-target="#themBacSi">Thêm mới</button>
               </Breadcrumb.Item>
             </Breadcrumb>
             <div>

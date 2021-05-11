@@ -15,6 +15,7 @@ import DBoardListUser from './Admin/User/DashboardUser'
 import EditUser from './Admin/User/EditUser';
 import DashboardAccount from './Admin/Account/DashboardAccount'
 import EditAccount from './Admin/Account/EditAccount'
+import Booking from '../page/booking'
 // import Result from './Result/Result';
 export default class RouterURL extends Component {
     render() {
@@ -70,10 +71,8 @@ export default class RouterURL extends Component {
                         )
                     } >
                 </Route> 
-
-
-
                 <Route path = "/result"> <Ketqua/> </Route>
+                <Route path = "/booking"><Booking/></Route>
                 <Route> <Home/> </Route> 
             </Switch> 
         </div>

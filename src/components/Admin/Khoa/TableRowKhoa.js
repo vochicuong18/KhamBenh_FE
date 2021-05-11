@@ -23,13 +23,8 @@ class TableRow extends Component {
             <tr>
                 <td>{this.props.obj.name}</td>
                 <td>{this.props.obj.description}</td>
-                
                 <td>
-                    <NumberFormat value = {this.props.obj.price} thousandSeparator={true} suffix={' VND'} displayType={'text'}
-                    />
-                        
-                    
-                   
+                    <NumberFormat value = {this.props.obj.price} thousandSeparator={true} suffix={' VND'} displayType={'text'}/>
                 </td>
                 <td width="200"><Image src={this.props.obj.logo} width="25%" /></td>
                 <td>

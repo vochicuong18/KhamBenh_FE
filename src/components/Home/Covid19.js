@@ -26,7 +26,7 @@ export default function Covid19() {
             <div className="covid">
                 <div className="title">
                     <h3>Tổng quan về số ca nhiễm COVID-19</h3>
-                    <img src={flagVN} alt='VN' style = {{marginTop:'-16px',marginLeft:'16px'}} />
+                    <img src={flagVN} alt='VN' style = {{marginBottom:'15px',marginLeft:'16px'}} />
                 </div>
                 <div className="covid__vietnam">
                     <div className="vietnam__data">
