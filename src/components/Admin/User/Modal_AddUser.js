@@ -78,9 +78,6 @@ function Modal_AddUser() {
         password:password,
         idRole:idRole,
     }
-
-      
-    
     const addDoctor = async () =>{
         axios.post('http://localhost:9000/api/member/admin/create', formData)
         .then(response => {

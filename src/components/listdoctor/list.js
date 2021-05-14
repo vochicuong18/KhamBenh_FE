@@ -1,27 +1,32 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import Image from 'react-bootstrap/Image'
 import { Form, Button} from "react-bootstrap"
-export default class list extends Component {
-    render() {
+function ListDoctor (props){
+    const [doctor, setDoctor] = useState(props.obj._id)
+    function handleDoctor(e){
+        // setDoctor(props.obj._id)
+        // localStorage.removeItem('bookDoctor')
+        localStorage.setItem('bookDoctor', doctor)
+    }
         return (
-            <div className="list__item">
+            <div className="list__item faculty">
                 <div  className="item__avatar">
-                    <Image src={this.props.obj.logo} width="37%" roundedCircle />
+                    <Image src={props.obj.idUser.avatar} width="100px" height="100px" roundedCircle style={{objectFit:'cover'}}/>
                 </div>
                 <div className="item__name">
-                    <Form.Label >{this.props.obj.name}</Form.Label>
+                    <Form.Label >{props.obj.idUser.fullname}</Form.Label>
                 </div>
                 <div className="item__chuyenkhoa">
-                    <Form.Label >{this.props.obj.description}</Form.Label>
+                    <Form.Label >{props.obj.idFaculty.name}</Form.Label>
                 </div>
                 {/* <div className="br"> </div> */}
                 <div className="item__content">
-                    <Form.Label >Description</Form.Label>
+                    <Form.Label >{props.obj.degree}</Form.Label>
                 </div>
                 <div className="item__btn">
-                    <Button variant='primary'>Xem thêm</Button>
+                    <Button onClick={handleDoctor} variant='primary'>Xem thêm</Button>
                 </div>
             </div>
         )
-    }
 }
+export default ListDoctor

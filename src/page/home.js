@@ -1,5 +1,4 @@
-import React,{ useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import './assets/home.css'
 import './assets/phone.css'
 import Carsousel from '../components/Home/Carsousel'

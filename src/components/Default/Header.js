@@ -1,6 +1,6 @@
 import React,{ useEffect, useState } from 'react';
 import axios from 'axios';
-import { Navbar, Nav, NavDropdown,Form, Button, Image } from "react-bootstrap"
+import { Navbar, Nav, NavDropdown,Form, Image } from "react-bootstrap"
 function Header(props) {
     const [fullname,setFullname] = useState('')
     const [avatar, setAvatar] = useState('')
