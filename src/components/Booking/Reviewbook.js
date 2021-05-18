@@ -2,28 +2,35 @@ import React,{useEffect,useState} from 'react'
 import axios from 'axios'
 import {Form, Button} from "react-bootstrap"
 import Image from 'react-bootstrap/Image'
+import { toast } from 'react-toastify'
+
 export default function Reviewbook() {
-    const [idDoctor, setIdDoctor] = useState(localStorage.getItem('bookDoctor'))
-    const [idFaculty, setIdFaculty] = useState(localStorage.getItem('bookFac'))
-    const [idMember, setIdMember] = useState(localStorage.getItem('idUser'))
+    toast.configure({
+        autoClose: 2000,
+        draggable: true,
+        position: toast.POSITION.TOP_RIGHT
+    })  
+    const Swal = require('sweetalert2')
+    const [idDoctor] = useState(localStorage.getItem('bookDoctor'))
+    const [idFaculty] = useState(localStorage.getItem('bookFac'))
+    const [idMember] = useState(localStorage.getItem('idUser'))
     const [phone,setPhone] = useState('')
     const [address, setAddress] = useState('')
     const [email,setEmail] = useState('')
-    const [nameUser, setNameUser] = useState('')
+    const [customer,setCustomer] = useState('')
     const [nameDoctor, setNameDoctor] = useState('')
-    const [bookDate, setBookDate] = useState(localStorage.getItem('bookDate'))
-    const [bookTime, setBookTime] = useState(localStorage.getItem('bookTime'))
+    const [bookDate] = useState(localStorage.getItem('bookDate'))
+    const [bookTime] = useState(localStorage.getItem('bookTime'))
     const [nameFaculty,setNameFaculty] = useState('')
     useEffect(() => {
         async function getAPI(){
              await axios.get('http://localhost:9000/api/member/get/'+localStorage.getItem('idUser'))
             .then((response) => {
                 // console.log(response.data);
-                setNameUser(response.data.idUser.fullname)
+                setCustomer(response.data.idUser.fullname)
                 setPhone(response.data.idUser.phoneNumber)
                 setAddress(response.data.idUser.address)
                 setEmail(response.data.idUser.mail)
-
                 return response.data
             })
             .catch((err) => {
@@ -32,6 +39,18 @@ export default function Reviewbook() {
         }
         getAPI();
     },[])
+    function handleName(e){
+        e.preventDefault();
+        setCustomer(e.target.value)
+    }
+    function handlePhone(e){
+        e.preventDefault();
+        setPhone(e.target.value)
+    }
+    function handleMail(e){
+        e.preventDefault();
+        setEmail(e.target.value)
+    }
     useEffect(() => {
         async function getAPI(){
              await axios.get('http://localhost:9000/api/doctor/get/'+localStorage.getItem('bookDoctor'))
@@ -60,7 +79,8 @@ export default function Reviewbook() {
         }
         getAPI();
     },[])
-    const formData =   {
+    const formData =  {
+        customer:customer,
         idFaculty: idFaculty,
         idDoctor:idDoctor,
         idMember: idMember,
@@ -69,21 +89,61 @@ export default function Reviewbook() {
         day:bookDate,
         time:bookTime,
     }
+   
     const addBook = async () => {
-        console.log(formData);
         // await axios.post('http://113.173.154.51:9000/api/faculty/create', formData)
         axios.post('http://localhost:9000/api/booking/create', formData)
         .then(response =>{
-            console.log('thành công');
-            console.log(response.data.message);
+            Swal.fire(
+                'Đặt khám thành công',
+                ' ',
+                'success'
+            )
         })
         .catch((err) => {
-            console.log(err)
+            toast.error(err.response.data.message)
+            console.log(err.response.data)
         })
     }
+    const Payment = async () => {
+        // console.log(formData);
+        // await axios.post('http://113.173.154.51:9000/api/faculty/create', formData)
+        await axios.post('http://localhost:9000/api/booking/create', formData)
+        .then(response =>{
+            console.log('thành công');
+            console.log(response.data);
+            const formDataPayment={
+                idOrder: response.data.idOrder._id,
+                amount: response.data.idOrder.price,
+                orderDescription: "Thanh toan lich kham LCHEALTH",
+                language: "vn"
+            }
+            axios.post('http://localhost:9000/api/payment/create',formDataPayment)
+            .then((response) => {
+                console.log(response.data);
+                window.location.href = response.data.data
+
+                // history.push()
+            })
+            .catch((err) => {
+                console.log(err.response.data);
+            })
+            console.log(response.data.idOrder._id)
+            Swal.fire(
+                'Đặt khám thành công',
+                ' ',
+                'success'
+            )
+            
+        })
+        .catch((err) => {
+            console.log(err.response.data.message)
+        })
+       
+    }
     return (
-        <div className='wapper__faculty' style= {{padding: '20px 20px'}}>
-            			<div style={{display: 'flex' , marginLeft:'70px'}} >
+        <div className='wapper__faculty' style= {{padding: '20px 200px'}}>
+            <div style={{display: 'flex' , marginLeft:'70px'}} >
 				<Image src='https://cdn.jiohealth.com/jio-website/home-page/jio-website-v2.1.4/assets/icons/smart-clinic/note-icon.svg' alt = 'iconchonkhoa'/> 
 				<h3 style={{marginLeft:'15px',marginTop:'18px'}}>Thông tin hóa đơn</h3>
 			</div>
@@ -96,13 +156,13 @@ export default function Reviewbook() {
                         <div className='col'>
                             <Form.Group>
                                 <Form.Label>Họ tên:</Form.Label>
-                                <Form.Control type="text" defaultValue = {nameUser}/>
+                                <Form.Control type="text" defaultValue = {customer} onChange = {handleName}/>
                             </Form.Group>
                         </div>
                         <div className='col'>
                             <Form.Group>
                                 <Form.Label>Số điện thoại:</Form.Label>
-                                <Form.Control type="text" defaultValue = {phone} />
+                                <Form.Control type="text" defaultValue = {phone}  onChange = {handlePhone}/>
                             </Form.Group>   
                         </div>
                     </div>
@@ -116,7 +176,7 @@ export default function Reviewbook() {
                         <div className='col'>
                             <Form.Group>
                                 <Form.Label>Email:</Form.Label>
-                                <Form.Control type="text" defaultValue = {email} />
+                                <Form.Control type="text" defaultValue = {email}  onChange = {handleMail}/>
                             </Form.Group>   
                         </div>
                     </div>
@@ -154,9 +214,17 @@ export default function Reviewbook() {
                         </div>
                     </div>
                 </div>
-                <Button variant="primary" onClick = {addBook}>
-                    Lưu
-                </Button>
+                <div className='button__bill'>
+                    <Button variant="primary"
+                        onClick = {addBook}
+                        style = {{marginRight:'10px'}}>
+                        Đặt khám
+                    </Button>
+                    <Button variant="outline-danger" onClick = {Payment}>
+                        Thanh toán ngay
+                    </Button>
+                </div>
+              
             </Form>
         </div>
     )

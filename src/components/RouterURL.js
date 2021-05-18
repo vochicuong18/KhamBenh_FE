@@ -5,8 +5,9 @@ import Home from '../page/home';
 import Edit from './Admin/Bacsi/Edit';
 import Login from '../page/Login';
 import ListDoc from '../page/listdoctor';
-import Ketqua from '../page/Ketqua'
+import Ketqua from '../page/Booking1'
 import DashboardDoctor from './Admin/Bacsi/Dashboard';
+import DashboardBook from './Admin/Book/DashboardBooking';
 import DBoardListKhoa from './Admin/Khoa/DashboardKhoa'
 import EditKhoa from './Admin/Khoa/EditKhoa';
 import Diagnosis from './Admin/Diagnosis/DashboardDiagnosis';
@@ -16,6 +17,7 @@ import EditUser from './Admin/User/EditUser';
 import DashboardAccount from './Admin/Account/DashboardAccount'
 import EditAccount from './Admin/Account/EditAccount'
 import Booking from '../page/booking'
+import Historybook from '../components/Booking/Historybook'
 // import Result from './Result/Result';
 export default class RouterURL extends Component {
     render() {
@@ -39,6 +41,7 @@ export default class RouterURL extends Component {
                 <Route path = "/admin-khoa" > <DBoardListKhoa / > </Route>
                 <Route path = "/admin-user"><DBoardListUser/></Route>
                 <Route path = "/admin-account"><DashboardAccount/></Route>
+                <Route path = "/admin-book"> <DashboardBook / > </Route> 
                 <Route path = "/edituser/:_id"
                     render = {
                         (props) => ( <EditUser {...props}
@@ -72,7 +75,9 @@ export default class RouterURL extends Component {
                     } >
                 </Route> 
                 <Route path = "/result"> <Ketqua/> </Route>
-                <Route path = "/booking"><Booking/></Route>
+                <Route path = "/booking"><Booking/> </Route>
+                <Route path = "/history-book"><Historybook/></Route>
+               
                 <Route> <Home/> </Route> 
             </Switch> 
         </div>

@@ -1,8 +1,6 @@
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify'
-console.log('a');
-
 function EditDiagnosis (props) {  
     toast.configure({
         autoClose: 2000,

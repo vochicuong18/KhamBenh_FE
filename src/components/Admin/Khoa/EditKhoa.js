@@ -46,8 +46,8 @@ export default class Edit extends Component {
     state = {
         name: '',
         chuyenkhoa: '',
-        noidaotao:'',
-        bangcap: ''
+        price:'',
+        description: ''
     }
     componentDidMount() {
         
@@ -56,6 +56,8 @@ export default class Edit extends Component {
                 this.setState({
                     name: response.data.name,
                     description: response.data.description,
+                    price:response.data.price,
+                    logo: response.data.logo
                     
                 });
             })
@@ -70,12 +72,16 @@ export default class Edit extends Component {
     handleChangeDes = event => {
         this.setState({description:event.target.value})
     }
+    handleChangePrice = event => {
+        this.setState({price:event.target.value})
+    }
 
     handleSubmit = event =>{
         event.preventDefault(); 
         const obj ={
             name: this.state.name,
             description:this.state.description,
+            price: this.state.price,
             logo:this.state.logo
             
         }
@@ -111,6 +117,8 @@ export default class Edit extends Component {
                                     <input type="text" name="" className="form-control" placeholder="" aria-describedby="helpId" defaultValue={this.state.description} onChange={this.handleChangeDes}/>
                                     <label htmlFor="">Logo:</label>
                                     <input type="file" name="" className="form-control" placeholder="" aria-describedby="helpId" onChange={this.handleClick}/>
+                                    <label htmlFor="">Giá khám:</label>
+                                    <input type="text" name="" className="form-control" placeholder="" aria-describedby="helpId" defaultValue={this.state.price} onChange={this.handleChangePrice}/>
                                 
                                 </div>  
                             </div>

@@ -49,14 +49,15 @@ function Edit (props) {
         }
         getAPI();
     },[])
-    const [fullname, setFullName] = useState('');
+    const [fullname, setFullName] = useState('')
+    const [nameKhoa, setNameKhoa] = useState('')
     const [avatar, setAvatar] = useState('')
     const [nickname, setNickName] = useState('')
     const [address, setAddress] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [mail, setMail] = useState('')
     const [idFaculty, setKhoa] = useState([])
-    const [savekhoa, setSaveKhoa] = useState('')
+    const [savekhoa, setSaveKhoa] = useState()
     const [username, setUserName] = useState('')
     const [password, setPassword] = useState('')
     const [trainingPlaces, settrainingPlaces] = useState('')
@@ -127,6 +128,10 @@ function Edit (props) {
         async function getAPI(props){
              await axios.get('http://localhost:9000/api/doctor/get/' + id)
              .then(response => {
+                    console.log(response.data);
+                    setAvatar(response.data.idUser.avatar)
+                    setSaveKhoa(response.data.idFaculty._id)
+                    setNameKhoa(response.data.idFaculty.name)
                     setFullName(response.data.idUser.fullname)
                     setNickName(response.data.nickname)
                     setAddress(response.data.idUser.address)
@@ -221,8 +226,12 @@ function Edit (props) {
                                     </div>
                                     <label htmlFor="">Chuyên khoa:</label>
                                     <select className= 'form-control' onChange={handleKhoa}>
-                                        <option>Chọn chuyên khoa</option>
+                                        <option>{nameKhoa}</option>
+                                        <option>-------------------------------------------------------------------</option>
                                         {idFaculty.map((item) => (
+                                            // if(nameKhoa === item.name){
+
+                                            // }
                                             <option
                                                 key={item._id}
                                                 value={item._id}

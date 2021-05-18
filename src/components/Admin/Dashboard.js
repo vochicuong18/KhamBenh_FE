@@ -42,6 +42,7 @@ class Dashboard extends Component {
             </SubMenu>
             <SubMenu key="sub2" icon={<TeamOutlined />} title="Hệ thống">
               <Menu.Item key="6"><Link to={'/admin-khoa'}>Danh sách Khoa</Link></Menu.Item>
+              <Menu.Item key="6"><Link to={'/admin-book'}>Danh sách Đặt khám</Link></Menu.Item>
               <Menu.Item key="8"><Link to={'/admin-chandoan'}>Danh sách Chẩn đoán</Link></Menu.Item>
               
             </SubMenu>

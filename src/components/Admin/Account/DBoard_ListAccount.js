@@ -40,6 +40,7 @@ class DBoard_ListDortor extends Component{
                     <table className = "table">
                         <thead className="thead-light">
                             <tr>
+                                <th scope="col">#</th>
                                 <th scope="col">Username</th>
                                 <th scope="col">Password</th>
                                 <th scope="col">Chức vụ</th>

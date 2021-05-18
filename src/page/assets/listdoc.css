@@ -17,7 +17,7 @@
     padding-top: 0px;
     margin: 0 auto;
     flex-wrap: wrap;
-    justify-content: space-between;
+    /* justify-content: space-evenly; */
     overflow-y: scroll;
 }
 
@@ -59,6 +59,7 @@
     flex-basis: 23%;
     height: 330px;
     margin-bottom: 40px;
+    margin-top: 10px;
     text-align: center;
     border: none;
     border-radius: 8px;
@@ -68,6 +69,15 @@
     box-sizing: border-box;
     display: block;
     padding-top: 20px;
+}
+
+.doctor:focus {
+    background-color: red;
+}
+
+.faculty:focus {
+    border: 2px solid #007bff;
+    transform: scale(1.04)
 }
 
 .item__name {
@@ -127,4 +137,10 @@
     padding-bottom: 50px;
     display: flex;
     justify-content: center;
+}
+
+.button__bill {
+    width: 30%;
+    margin-top: 20px;
+    margin-left: 70%;
 }

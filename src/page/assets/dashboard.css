@@ -44,6 +44,20 @@
       padding: 0px 20px;
   }
   
+  table {
+      counter-reset: serial-number + 1;
+  }
+  
+  table tr {
+      counter-increment: serial-number;
+  }
+  
+  table tr td:first-child::before {
+      content: counter(serial-number);
+      min-width: 1em;
+      margin-right: 0.5em;
+  }
+  
   .form__info {
       margin-top: 20px;
       border-radius: 8px;

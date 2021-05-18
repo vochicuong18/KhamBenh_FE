@@ -45,7 +45,7 @@ function EditUser (props) {
         password:password,
         idRole:idRole,
     }
-   
+
     useEffect(() => {
         async function getAPI(props){
              await axios.get('http://localhost:9000/api/account/get/' + id)

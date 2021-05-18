@@ -2,53 +2,73 @@ import React, {useState} from 'react'
 import { Row, Col } from 'antd';
 import {FormGroup, Form,Button } from 'react-bootstrap';
 import {useHistory} from "react-router-dom"
-import Background from "../Video/bg.mp4"
 import GoogleLogin from 'react-google-login';
 import { toast } from 'react-toastify'
 import axios from 'axios';
+import Image from 'react-bootstrap/Image'
+import { useForm } from "react-hook-form";
+import RegisterModal from '../components/Register/RegisterModal'
 function Login () {
+    // const [ggID,setGgID] = useState('')
+    // const [avatar,setAvatar] = useState('')
+    // const [fullname,setFullname] = useState('')
+    // const [email,setEmail] = useState('')
     toast.configure({
-        autoClose: 2000,
+        autoClose: 700,
         draggable: true,
         position: toast.POSITION.TOP_RIGHT
       })
+    const {handleSubmit} = useForm()
     const[username, setUserName]= useState('')
     const[password, setPassword] = useState('')
     let history = useHistory();
+   
     const responseGoogle = response =>{
-        console.log(response);
-        console.log(response.profileObj.googleId);
-        console.log(response.profileObj.email);
-        console.log(response.profileObj.name);
-        console.log(response.profileObj.imageUrl);
-        // history.push("/home");
-        // toast.success('Đăng nhập thành công')
+        const formDataGG = {
+            googleId:response.profileObj.googleId,
+            fullname:response.profileObj.name,
+            avatar:response.profileObj.imageUrl,
+            mail:response.profileObj.email
+        }
+        console.log(formDataGG);
+        axios.post('http://localhost:9000/api/login/gg', formDataGG)
+        .then(response => {
+            console.log(response.data);
+            // toast.success('Thêm thành công')
+            localStorage.setItem('idUser',response.data._id)
+            history.push("/home")
+            toast.success('Đăng nhập thành công')
+        })
+        .catch((err) => {
+            toast.error(err.response.data.message)
+        })
     }
-    const formData = {
-        username:username,
-        password:password
-    }
-    const login = async () => {
-        console.log(formData);
-        await axios.post('http://localhost:9000/api/login/log',formData)
+   
+    const login = () =>{
+        const formData = {
+            username:username,
+            password:password
+        }
+        axios.post('http://localhost:9000/api/login/log',formData)
         .then(response=>{
-            console.log(response.data.idUser._id);
             if(response.data.admin){
-                history.push("/admin")
                 console.log(response.data.admin);
+                history.push("/admin")
                 toast.success('Đăng nhập thành công')
+                return
             }
             if(response.data.idUser.idAccount.idRole._id === '608d70c9c7b4fa2708e30e6a'){
                 localStorage.setItem('idUser',response.data._id)
                 history.push("/home")
                 toast.success('Đăng nhập thành công')
+                return
             }
             if(response.data.idUser.idAccount.idRole._id === '608d10b88057022ea4f4c2c6'){
                 localStorage.setItem('idUser',response.data._id)
                 history.push("/admin-user")
                 toast.success('Đăng nhập thành công')
+                return
             }
-           
         })
         .catch(err=>{
             toast.error(err.response.data.message)
@@ -72,18 +92,23 @@ function Login () {
     return (
         <div>
             <div>
-                <video autoPlay loop muted style={{position: 'absolute',width:'100%',height:'100vh',objectFit: 'cover'}}>
-                    <source src={Background}></source>                       
-                </video>
+                <Image src='https://imagebucketkhambenhonl-1.s3-ap-southeast-1.amazonaws.com/1.png'
+                    style={{position: 'absolute',width:'100%',height:'100vh',objectFit: 'cover'}}
+                />
             </div>
             <div className="container">
                     <Row>   
                         <Col flex={4}>
+                            <div className = "wapper__background">
+                                <Image src='https://imagebucketkhambenhonl-1.s3-ap-southeast-1.amazonaws.com/123.png'
+                                    style={{objectFit: 'cover'}}
+                                />
+                            </div>
                         </Col>
                         <Col flex={1}>
                             <div className="wapper__login">
                                 <div className="form__login">                                   
-                                    <Form>
+                                    <Form onSubmit = {handleSubmit(login)}>
                                         <FormGroup>
                                             <Form.Label className="lable">Username:</Form.Label>
                                             <Form.Control 
@@ -99,13 +124,10 @@ function Login () {
                                                 type="password"
                                                 onChange={handlePassword}/>
                                         </FormGroup>
-                                        
-                                            <Button onClick={login} className = 'btn__login' variant='primary' style = {{marginBottom:'20px'}}>
-                                                Sign in
-                                            </Button>
-                                
+                                        <Button type="submit" className = 'btn__login' variant='primary' style = {{marginBottom:'20px'}}>
+                                            Sign in
+                                        </Button>
                                         <br/>
-                                        
                                         <div className="login__google">
                                             <GoogleLogin 
                                                 clientId="356717259951-ejjrh6jq8sdsihp24u46cvramt37mes2.apps.googleusercontent.com"
@@ -120,13 +142,12 @@ function Login () {
                                             <p>Forgot Password?</p>
                                         </div>
                                         <div className="br"> </div>                                       
-                                        <Button className = 'btn__login' variant='success' type = 'button'>
+                                        <Button className = 'btn__login' variant='success' type = 'button' data-toggle="modal" data-target="#DangKi">
                                             Đăng kí
                                         </Button>
 
-                                        
+                                        <RegisterModal/>
                                     </Form>
-                                    
                                 </div>
                             </div>
                         </Col>

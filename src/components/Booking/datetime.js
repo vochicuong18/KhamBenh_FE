@@ -1,12 +1,9 @@
 import React, {useState} from 'react'
-import moment from 'moment'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Image from 'react-bootstrap/Image'
 import {Form} from 'react-bootstrap';
 function Datetime() {
-	
-	const [selectDate] = useState('');
 	const [time,setTime] = useState('')
 	localStorage.setItem('bookTime',time)
 	function handleTime (e){
@@ -14,7 +11,10 @@ function Datetime() {
 		console.log(e.target.value);
 	}
 	
-		
+	function getDate (date){
+		const month = date.getMonth()+1;
+		localStorage.setItem('bookDate',date.getDate() +'/'+ month +'/'+ date.getFullYear())
+	}	
 		
 		
     return (
@@ -26,9 +26,8 @@ function Datetime() {
 			<div className='datetime'>
 			<div className="date">
 				<DatePicker className = 'form-control' 
-					placeholderText="Chọn giờ"
-					onChange={date => localStorage.setItem('bookDate',date.getDate() +'/'+ date.getMonth() +'/'+ date.getFullYear())}
-					// defaultValue={localStorage.getItem('bookDate')} 
+					placeholderText="Chọn ngày khám"
+					onChange={getDate}
 					minDate={new Date()}
 				/>
 			</div>

@@ -19,11 +19,8 @@ function TableRow (props) {
         return props.obj.idFaculty.name
         }
     }
-    
-
-
     const delDoctor =  async () => {
-        axios.delete('http://localhost:9000/api/doctor/delete/'+ props.obj._id)
+        axios.delete('http://localhost:9000/api/diagnostic/delete/'+ props.obj._id)
             .then(response => {
                 toast.success('Xóa thành công!')  
             })
@@ -32,6 +29,7 @@ function TableRow (props) {
     }
     return (
         <tr>
+            <td></td>
             <td>{name}</td>
             <td>{description}</td>
             <td>{symptom}</td>

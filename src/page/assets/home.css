@@ -384,7 +384,7 @@ iframe {
     box-shadow: 0 2px 4px 0 rgba(158, 158, 158, 0), 0 2px 15px 0 rgba(0, 0, 0, 0.12);
     padding-left: 20px;
     padding-bottom: 20px;
-    width: 35%;
+    width: 40%;
     right: 10%;
 }
 
@@ -425,6 +425,15 @@ iframe {
 
 .khoi {
     color: #28A745;
+}
+
+.dropdown-menu {
+    left: -100%;
+    min-width: 100px;
+}
+
+.dropdown-toggle::after {
+    content: none;
 }
 
 

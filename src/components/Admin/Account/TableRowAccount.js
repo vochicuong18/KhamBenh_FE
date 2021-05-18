@@ -12,16 +12,20 @@ function TableRowUser (props) {
         draggable: true,
         position: toast.POSITION.TOP_RIGHT
     })
-    const delDoctor =  async () => {
+    const delAcc =  async () => {
         axios.delete('http://localhost:9000/api/member/delete/'+ props.obj._id)
-            .then(
-                toast.success('Xóa thành công!')  
-            )
-            .catch(err => console.log(err))
+        .then((response) => {
+            console.log('a');
+           
+        })
+        .catch((err) => {
+            console.log(err.response.data.message);
+        });
             window.location.reload()
     }
     return (
         <tr>
+            <td></td>
             <td>{props.obj.username}</td>
             <td>{props.obj.password}</td>
             <td>{props.obj.idRole.name}</td>
@@ -30,7 +34,7 @@ function TableRowUser (props) {
                 <FontAwesomeIcon icon ={faUserEdit} style={{fontSize:'20px'}} />
             </Link>
 
-            <button className='btn__row' onClick = {delDoctor}><FontAwesomeIcon icon ={faTrash} style={{fontSize:'20px', color:'red',marginLeft:'5px'}}/></button> 
+            <button className='btn__row' onClick = {delAcc}><FontAwesomeIcon icon ={faTrash} style={{fontSize:'20px', color:'red',marginLeft:'5px'}}/></button> 
             </td>
             
         </tr>       

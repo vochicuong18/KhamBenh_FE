@@ -40,6 +40,7 @@ class DBoard_ListDiagnosis extends Component{
                     <table className = "table">
                         <thead className="thead-light">
                             <tr>
+                                <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Mô tả</th>
                                 <th scope="col">Sympton</th>

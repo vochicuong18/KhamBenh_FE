@@ -21,6 +21,7 @@ class TableRow extends Component {
     render() {      
         return (
             <tr>
+                <td></td>
                 <td>{this.props.obj.name}</td>
                 <td>{this.props.obj.description}</td>
                 <td>

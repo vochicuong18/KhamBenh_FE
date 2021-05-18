@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import Image from 'react-bootstrap/Image'
 import { Form, Button} from "react-bootstrap"
 function ListDoctor (props){
-    const [doctor, setDoctor] = useState(props.obj._id)
+    const [doctor] = useState(props.obj._id)
     function handleDoctor(e){
         // setDoctor(props.obj._id)
         // localStorage.removeItem('bookDoctor')
         localStorage.setItem('bookDoctor', doctor)
     }
         return (
-            <div className="list__item faculty">
+            <div className="list__item doctor">
                 <div  className="item__avatar">
                     <Image src={props.obj.idUser.avatar} width="100px" height="100px" roundedCircle style={{objectFit:'cover'}}/>
                 </div>

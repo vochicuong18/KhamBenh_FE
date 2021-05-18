@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../components/Default/Header'
-import ListFaculty from '../components/Booking/bookhome'
+import Result from '../components/Result/Result'
 import ListDoc from './ListdoctorBook'
 import Date from '../components/Booking/datetime'
 import Reviewbook from '../components/Booking/Reviewbook'
@@ -9,19 +9,11 @@ import StepProgressBar from 'react-step-progress';
 // import the stylesheet
 import 'react-step-progress/dist/index.css';
 
-
 export default function Booking(props) {
-    localStorage.removeItem('bookDoctor')
-    localStorage.removeItem('bookDate')
-    localStorage.removeItem('bookTime')
-    localStorage.removeItem('bookFac')
-    localStorage.removeItem('Khoa')
-    localStorage.removeItem('Name')
-    const step1Content = <ListFaculty/>;
+    const step1Content = <Result/>;
     const step2Content = <ListDoc/>
     const step3Content = <Date/>
     const step4content = <Reviewbook/>
-
     return(
         <div>
         <Header/>
@@ -30,7 +22,7 @@ export default function Booking(props) {
             startingStep={0}
             steps={[
                 {
-                    label: 'Chọn chuyên khoa',
+                    label: 'Kết quả chẩn đoán',
                     content: step1Content,
                     
                 },

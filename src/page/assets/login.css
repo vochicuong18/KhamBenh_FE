@@ -3,16 +3,20 @@
 }
 
 .wapper__login {
-    color: white;
+    /* color: white; */
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(255, 255, 255, 1);
     border: none;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgb(255 255 255 / 10%), 0 8px 16px rgb(255 255 255 / 10%);
+    box-shadow: 0 4px 8px rgb(0 0 0 / 20%), 0 8px 16px rgb(255 255 255 / 10%);
     box-sizing: border-box;
     margin-top: 100px;
     padding: 20px 30px;
     width: 396px;
+}
+
+.wapper__background {
+    margin-top: 90px;
 }
 
 .wapper__bg {
