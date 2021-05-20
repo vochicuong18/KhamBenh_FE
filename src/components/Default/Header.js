@@ -36,6 +36,9 @@ function Header(props) {
     function historybook(){
         history.push("/history-book")
     }
+    function ChangePass(){
+        history.push("/change-pass")
+    }
     if(localStorage.getItem('idUser')){
         return (
             <div>
@@ -69,6 +72,7 @@ function Header(props) {
                                 }
                             >
                                 <NavDropdown.Item onClick = {logout}>Đăng xuất</NavDropdown.Item>
+                                <NavDropdown.Item onClick = {ChangePass}>Đổi mật khẩu</NavDropdown.Item>
                                 <NavDropdown.Item onClick = {historybook}>Lịch khám của tôi</NavDropdown.Item>
                             </NavDropdown>
                                 

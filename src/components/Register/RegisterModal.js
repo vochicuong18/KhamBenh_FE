@@ -1,51 +1,24 @@
-import React, {useRef, useState} from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
-import S3 from 'react-aws-s3';
 import { toast } from 'react-toastify'
 import { Radio, RadioGroup} from 'react-radio-group'
-
 import 'react-toastify/dist/ReactToastify.css'
+import {useHistory} from "react-router-dom"
 export default function RegisterModal() {
+    let history = useHistory();
     toast.configure({
         autoClose: 2000,
         draggable: true,
         position: toast.POSITION.TOP_RIGHT
       })
-    const fileInput= useRef();
-    function handleClick(event) {
-        event.preventDefault();
-        let file = fileInput.current.files[0]
-        let newFileName  = fileInput.current.files[0].name
-        const config ={
-            bucketName:'imagebucketkhambenhonl-1',
-            region: 'ap-southeast-1',
-            accessKeyId: 'AKIA2MU3WQQLMHPPIHGJ',
-            secretAccessKey: '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',
-            ContentType :'image/jpeg', //<-- this is what you need!
-            ACL         :'public-read'//<-- this makes it public so people can see it
-        }
-        const ReactS3Client = new S3 (config)
-        ReactS3Client.uploadFile(file,newFileName)
-        .then( data =>{
-            console.log(data);
-            if(data.status === 204){
-                console.log('success')
-                console.log(data.location)
-                setAvatar(data.location)
-            }else {
-                console.log('fail');
-            }
-        })
-    }
     const [fullname, setFullName] = useState('');
-    const [avatar, setAvatar] = useState('')
     const [address, setAddress] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [mail, setMail] = useState('')
     const [username, setUserName] = useState('')
     const [password, setPassword] = useState('')
-    const [idRole] = useState('608d70c9c7b4fa2708e30e6a')
-    function handleNameBS(e){
+    const [gender,setGender] = useState('')
+    function handleName(e){
         e.preventDefault()
         setFullName(e.target.value)
     }
@@ -70,24 +43,29 @@ export default function RegisterModal() {
         e.preventDefault()
         setPassword(e.target.value)
     }
+    function handleGener(e){
+        setGender(e);
+    }
     const formData = {
         fullname:fullname,
-        avatar:avatar,
+        gender:gender,
         address:address,
         phoneNumber:phoneNumber,
         mail:mail,
         username:username,
         password:password,
-        idRole:idRole,
     }
-    const addDoctor = async () =>{
-        axios.post('http://localhost:9000/api/member/admin/create', formData)
+    const addNewMember = async () =>{
+        console.log(formData);
+        axios.post('http://localhost:9000/api/account/create', formData)
         .then(response => {
-            toast.success('Thêm thành công')
+            console.log(response.data);
+            localStorage.setItem('idUser',response.data._id)
+            history.push("/home")
             window.location.reload()
         })
         .catch((err) => {
-            toast.error(err.response.data.message)
+            // toast.error(err.response.data.message)
         })
      }
     return (
@@ -95,7 +73,7 @@ export default function RegisterModal() {
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                     <div className="modal-header">
-                        <h3 className="modal-title" id="exampleModalLabel">Thông tin bệnh nhân</h3>
+                        <h3 className="modal-title" id="exampleModalLabel">Đăng kí ngay</h3>
                         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                         </button>
@@ -103,6 +81,23 @@ export default function RegisterModal() {
                     <form>
                         <div className="modal-body">                           
                             <div className="form-group ">
+                            <div className='form__info'>
+                                    <div className="title__info">
+                                        <h5>Tài khoản</h5>
+                                    </div>
+                                    <div className='row'>
+                                        <div className='col'>
+                                            <label htmlFor="">Username:</label>
+                                            <input type="text" className="form-control" placeholder="" aria-describedby="helpId"
+                                         onChange={handleUserName} />
+                                        </div>
+                                        <div className='col'>
+                                            <label htmlFor="">Mật khẩu:</label>
+                                            <input type="text" className="form-control" placeholder="" aria-describedby="helpId" 
+                                        onChange={handlePassword}   />
+                                        </div>
+                                    </div>              
+                                </div>
                                 <div className='form__info'>
                                     <div className="title__info first__title">
                                         <h5>Thông tin cá nhân</h5>
@@ -111,19 +106,19 @@ export default function RegisterModal() {
                                         <div className="col">
                                             <label htmlFor="">Họ tên:</label>
                                             <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                            onChange = {handleNameBS} />   
+                                            onChange = {handleName} />   
                                         </div>
                                         <div className='col'>
                                             <label htmlFor="">Giới tính:</label>
-                                            <RadioGroup name="fruits" style={{display: 'flex',justifyContent: 'space-around'}}>
+                                            <RadioGroup name="gender" style={{display: 'flex',justifyContent: 'space-around'}}selectedValue={gender} onChange={handleGener}>
                                                 <div className="radio-button-background">
-                                                    <Radio value="Nam" className="radio-button" />Nam
+                                                    <Radio value="Nam" className="radio-button" />  Nam
                                                 </div>
                                                 <div className="radio-button-background">
-                                                    <Radio value="Nữ" className="radio-button" />Nữ
+                                                    <Radio value="Nữ" className="radio-button" />  Nữ
                                                 </div>
                                                 <div className="radio-button-background">
-                                                    <Radio value="Khác" className="radio-button" />Khác
+                                                    <Radio value="Khác" className="radio-button" />  Khác
                                                 </div>
                                             </RadioGroup>
                                         </div>
@@ -131,44 +126,28 @@ export default function RegisterModal() {
                                     </div>
                                     <label htmlFor="">Địa chỉ:</label>
                                     <input type="text"  className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                     />
+                                    onChange={handleAddress} />
                                     <div className="row">
                                         <div className="col">
                                             <label htmlFor="">Phone number:</label>
                                             <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                          />
+                                          onChange={handlePhone}/>
                                         </div>
                                         <div className="col">
                                             <label htmlFor="">Email:</label>
                                             <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                           />
+                                          onChange = {handleMail} />
                                         </div>
                                     </div>
                                 </div>
                                 
-                                <div className='form__info'>
-                                    <div className="title__info">
-                                        <h5>Tài khoản</h5>
-                                    </div>
-                                    <div className='row'>
-                                        <div className='col'>
-                                            <label htmlFor="">Username:</label>
-                                            <input type="text" className="form-control" placeholder="" aria-describedby="helpId"
-                                          />
-                                        </div>
-                                        <div className='col'>
-                                            <label htmlFor="">Mật khẩu:</label>
-                                            <input type="text" className="form-control" placeholder="" aria-describedby="helpId" 
-                                           />
-                                        </div>
-                                    </div>              
-                                </div>
+                                
                                      
                             </div>  
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                            <button type="button" className="btn btn-primary">Lưu</button>
+                            <button type="button" onClick={addNewMember} className="btn btn-primary">Lưu</button>
                         </div>
                     </form>  
                 </div>

@@ -16,12 +16,10 @@ function TableRowUser (props) {
     console.log( props.obj._id);
     const delDoctor =  async () => {
         axios.delete('http://localhost:9000/api/member/delete/'+ props.obj._id)
-            .then(
-                toast.success('Xóa thành công!')  
-            )
-            .catch(err => console.log(err))
-            window.location.reload()
-    }
+        .then() 
+        .catch(err => console.log(err))
+        window.location.reload();       
+}
     return (
         <tr>
             <td></td>

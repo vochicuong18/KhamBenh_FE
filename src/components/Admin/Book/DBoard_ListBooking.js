@@ -49,6 +49,7 @@ class DBoard_ListDortor extends Component{
                                 <th scope="col">Giờ</th>
                                 <th scope="col">Đơn giá</th>
                                 <th scope="col">Thanh toán</th>
+                                <th scope='col'>Trạng thái</th>
                                 <th></th>
                             </tr>
                         </thead>

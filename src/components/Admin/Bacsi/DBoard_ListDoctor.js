@@ -3,6 +3,7 @@ import { Layout, Breadcrumb } from 'antd';
 import axios from 'axios';
 import TableRow from './TableRow';
 import ModalAddDoctor from './Modal_AddDoctor';
+
 const Content = Layout;
 class DBoard_ListDortor extends Component{
     constructor(props) {

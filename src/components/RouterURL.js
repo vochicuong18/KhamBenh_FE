@@ -18,6 +18,9 @@ import DashboardAccount from './Admin/Account/DashboardAccount'
 import EditAccount from './Admin/Account/EditAccount'
 import Booking from '../page/booking'
 import Historybook from '../components/Booking/Historybook'
+import EditBook from '../components/Admin/Book/EditBook'
+import ForgotPass from '../components/Password/ForgotPass'
+import ChangePass from '../components/Password/ChangePass'
 // import Result from './Result/Result';
 export default class RouterURL extends Component {
     render() {
@@ -36,7 +39,8 @@ export default class RouterURL extends Component {
                         )
                     }> 
                 </Route>
-
+                <Route path = "/forgotpassword"><ForgotPass/></Route>
+                <Route path = "/change-pass"><ChangePass/></Route>
                 <Route path = "/admin-doctor" > <DashboardDoctor / > </Route> 
                 <Route path = "/admin-khoa" > <DBoardListKhoa / > </Route>
                 <Route path = "/admin-user"><DBoardListUser/></Route>
@@ -52,6 +56,13 @@ export default class RouterURL extends Component {
                 <Route path = "/editkhoa/:_id"
                     render = {
                         (props) => ( <EditKhoa {...props }
+                            key = { this.props._id }/>
+                        )
+                    }> 
+                </Route>
+                <Route path = "/editbook/:_id"
+                    render = {
+                        (props) => ( <EditBook {...props }
                             key = { this.props._id }/>
                         )
                     }> 

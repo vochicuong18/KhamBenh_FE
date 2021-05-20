@@ -18,6 +18,7 @@ function FrmNhapTC() {
     setSymtom(event.target.value)
   }
   const formData = {
+    idMember:localStorage.getItem('idUser'),
     symptom:symptom
   }
   const Chuandoan = async () =>{

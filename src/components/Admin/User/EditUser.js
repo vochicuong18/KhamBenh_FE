@@ -20,7 +20,7 @@ function EditUser (props) {
             region: 'ap-southeast-1',
             accessKeyId: 'AKIA2MU3WQQLMHPPIHGJ',
             secretAccessKey: '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',
-            ContentType :'image/jpeg', //<-- this is what you need!
+            ContentType :'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', //<-- this is what you need!
             ACL         :'public-read'//<-- this makes it public so people can see it
         }
         const ReactS3Client = new S3 (config)

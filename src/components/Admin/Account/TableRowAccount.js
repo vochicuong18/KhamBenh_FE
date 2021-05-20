@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios';
@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons'
 
 function TableRowUser (props) {
+    const [name] = useState(checkName)
     toast.configure({
         autoClose: 2000,
         draggable: true,
@@ -23,12 +24,21 @@ function TableRowUser (props) {
         });
             window.location.reload()
     }
+    function checkName(){
+        if(!props.obj.idRole){
+            return ('')
+        }
+        else{
+            return props.obj.idRole.name
+        }
+    }
+    
     return (
         <tr>
             <td></td>
             <td>{props.obj.username}</td>
             <td>{props.obj.password}</td>
-            <td>{props.obj.idRole.name}</td>
+            <td>{name}</td>
              <td>
             <Link to={"/editaccount/"+ props.obj._id}>
                 <FontAwesomeIcon icon ={faUserEdit} style={{fontSize:'20px'}} />

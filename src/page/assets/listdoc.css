@@ -56,7 +56,7 @@
 
 .list__item {
     margin-left: 16px;
-    flex-basis: 23%;
+    flex-basis: 27%;
     height: 330px;
     margin-bottom: 40px;
     margin-top: 10px;
@@ -72,7 +72,8 @@
 }
 
 .doctor:focus {
-    background-color: red;
+    border: 2px solid #007bff;
+    transform: scale(1.04)
 }
 
 .faculty:focus {

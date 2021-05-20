@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Image from 'react-bootstrap/Image'
-import { Form, Button} from "react-bootstrap"
+import { Form} from "react-bootstrap"
 function ListDoctor (props){
     const [doctor] = useState(props.obj._id)
     function handleDoctor(e){
@@ -9,7 +9,7 @@ function ListDoctor (props){
         localStorage.setItem('bookDoctor', doctor)
     }
         return (
-            <div className="list__item doctor">
+            <div className="list__item doctor" tabIndex="-1"  onClick={handleDoctor} >
                 <div  className="item__avatar">
                     <Image src={props.obj.idUser.avatar} width="100px" height="100px" roundedCircle style={{objectFit:'cover'}}/>
                 </div>
@@ -23,9 +23,9 @@ function ListDoctor (props){
                 <div className="item__content">
                     <Form.Label >{props.obj.degree}</Form.Label>
                 </div>
-                <div className="item__btn">
+                {/* <div className="item__btn">
                     <Button onClick={handleDoctor} variant='primary'>Xem thêm</Button>
-                </div>
+                </div> */}
             </div>
         )
 }

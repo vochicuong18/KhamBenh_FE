@@ -8,6 +8,18 @@
     justify-content: space-between;
 }
 
+.wapper2 {
+    display: flex;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px 0 rgba(158, 158, 158, 0), 0 2px 15px 0 rgba(0, 0, 0, 0.12);
+    width: 70%;
+    margin-top: 20px;
+    justify-content: space-between;
+    background-color: #F5F5F5;
+    color: #7C7C7C;
+}
+
 .wapper__history {
     font-size: 17px;
     padding: 20px 20px;
@@ -41,4 +53,8 @@
 .action__history {
     margin-top: 70px;
     margin-right: 40px;
+}
+
+.thanhtoan {
+    min-width: 125px;
 }

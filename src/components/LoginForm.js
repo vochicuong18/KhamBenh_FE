@@ -8,6 +8,7 @@ import axios from 'axios';
 import Image from 'react-bootstrap/Image'
 import { useForm } from "react-hook-form";
 import RegisterModal from '../components/Register/RegisterModal'
+import {Link} from 'react-router-dom'
 function Login () {
     // const [ggID,setGgID] = useState('')
     // const [avatar,setAvatar] = useState('')
@@ -137,10 +138,11 @@ function Login () {
                                             >
                                             </GoogleLogin>
                                         </div>
-                                        
+                                        <Link to={"/forgotpassword"}>
                                         <div  className="forgot">
                                             <p>Forgot Password?</p>
                                         </div>
+                                        </Link>
                                         <div className="br"> </div>                                       
                                         <Button className = 'btn__login' variant='success' type = 'button' data-toggle="modal" data-target="#DangKi">
                                             Đăng kí
