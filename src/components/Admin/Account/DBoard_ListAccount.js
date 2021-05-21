@@ -5,12 +5,13 @@ import TableRowUser from './TableRowAccount';
 import ModalAddAccount from '../Account/Modal_AddAccount';
 const Content = Layout;
 class DBoard_ListDortor extends Component{
+    
     constructor(props) {
         super(props);
         this.state = {bacsi: []};
     }
     componentDidMount() {
-        axios.get('http://localhost:9000/api/account/get')
+        axios.get(process.env.REACT_APP_API_URL+'/api/account/get')
             .then(response => {
                 console.log(response.data);
                 this.setState({bacsi: response.data});               

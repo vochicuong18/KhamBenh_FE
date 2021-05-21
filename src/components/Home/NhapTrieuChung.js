@@ -23,12 +23,11 @@ function FrmNhapTC() {
   }
   const Chuandoan = async () =>{
     console.log(formData);
-    axios.post('http://localhost:9000/api/diagnostic/searchdiagnostic', formData)
+    axios.post(process.env.REACT_APP_API_URL+'/api/diagnostic/searchdiagnostic', formData)
     .then(res =>{
       console.log(res.data)
        if(res.data.message){
            toast.error(res.data.message)
-
        }else{
          localStorage.setItem('Name',res.data.name)
          localStorage.setItem('Khoa',res.data.idFaculty.name)

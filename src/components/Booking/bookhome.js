@@ -9,7 +9,7 @@ export default class listdoctor extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:9000/api/faculty/get')
+        axios.get(process.env.REACT_APP_API_URL+'/api/faculty/get')
             .then(response => {
                 console.log(response.data);
                 this.setState({faculty: response.data});               

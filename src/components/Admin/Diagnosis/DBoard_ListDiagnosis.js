@@ -10,7 +10,7 @@ class DBoard_ListDiagnosis extends Component{
         this.state = {diagnosis: []};
     }
     componentDidMount() {
-        axios.get('http://localhost:9000/api/diagnostic/get')
+        axios.get(process.env.REACT_APP_API_URL+'/api/diagnostic/get')
             .then(response => {
                 this.setState({diagnosis: response.data});     
                 const diagnosis = response.data;

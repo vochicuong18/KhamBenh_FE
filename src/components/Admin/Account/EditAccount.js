@@ -15,7 +15,7 @@ function EditUser (props) {
     })   
     useEffect(() => {
         async function getAPI(){
-             await axios.get('http://localhost:9000/api/role/get')
+             await axios.get(process.env.REACT_APP_API_URL+'/api/role/get')
             .then((response) => {
                 setRole(response.data);
                 return response.data
@@ -48,7 +48,7 @@ function EditUser (props) {
 
     useEffect(() => {
         async function getAPI(props){
-             await axios.get('http://localhost:9000/api/account/get/' + id)
+             await axios.get(process.env.REACT_APP_API_URL+'/api/account/get/' + id)
              .then(response => {
                  console.log(response.data);
                     setUserName(response.data.username)
@@ -64,7 +64,7 @@ function EditUser (props) {
     
     const updateAccount = async () => {
         console.log(formData);
-        axios.put('http://10.200.0.160:9000/api/account/update/' +id, formData)
+        axios.put(process.env.REACT_APP_API_URL+'/api/account/update/' +id, formData)
         .then(response => {
             toast.success("Chỉnh sửa thành công")
             props.history.push('/admin-user')

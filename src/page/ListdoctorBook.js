@@ -13,7 +13,7 @@ export default class listdoctor extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:9000/api/doctor/getbyfaculty/' + localStorage.getItem('bookFac'))
+        axios.get(process.env.REACT_APP_API_URL+'/api/doctor/getbyfaculty/' + localStorage.getItem('bookFac'))
             .then(response => {
                 console.log(response.data);
                 this.setState({bacsi: response.data});               

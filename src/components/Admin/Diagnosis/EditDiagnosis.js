@@ -10,7 +10,7 @@ function EditDiagnosis (props) {
     const id = props.match.params._id
     useEffect(() => {
         async function getAPI(){
-             await axios.get('http://localhost:9000/api/faculty/get')
+             await axios.get(process.env.REACT_APP_API_URL+'/api/faculty/get')
             .then((response) => {
                 setKhoa(response.data);
                 return response.data
@@ -50,7 +50,7 @@ function EditDiagnosis (props) {
    
     useEffect(() => {
         async function getAPI(props){
-             await axios.get('http://localhost:9000/api/diagnostic/get/' + id)
+             await axios.get(process.env.REACT_APP_API_URL+'/api/diagnostic/get/' + id)
              .then(response => {
                     console.log(response.data);
                     setName(response.data.name)
@@ -67,7 +67,7 @@ function EditDiagnosis (props) {
     
     const updateDoctor = async () => {
         console.log(formData);
-        axios.put('http://localhost:9000/api/diagnostic/update/' + id, formData)
+        axios.put(process.env.REACT_APP_API_URL+'/api/diagnostic/update/' + id, formData)
         .then(response => {
             toast.success("Chỉnh sửa thành công")
             props.history.push('/admin-chandoan')

@@ -51,7 +51,7 @@ export default class Edit extends Component {
     }
     componentDidMount() {
         
-        axios.get('http://localhost:9000/api/faculty/get/'+ this.props.match.params._id)
+        axios.get(process.env.REACT_APP_API_URL+'/api/faculty/get/'+ this.props.match.params._id)
             .then(response => {
                 this.setState({
                     name: response.data.name,
@@ -85,7 +85,7 @@ export default class Edit extends Component {
             logo:this.state.logo
             
         }
-        axios.put('http://localhost:9000/api/faculty/update/'+ this.props.match.params._id, obj)
+        axios.put(process.env.REACT_APP_API_URL+'/api/faculty/update/'+ this.props.match.params._id, obj)
             .then(res => {console.log(res.data)});
             this.props.history.push('/admin-khoa');
             window.location.reload()

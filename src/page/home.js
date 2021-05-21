@@ -11,7 +11,8 @@ import Footer from '../components/Default/Footer';
 import Header from '../components/Default/Header';
 import Covid19 from '../components/Home/Covid19';
 function Home () {
- 
+  console.log(process.env);
+  console.log('a');
     return (
       <div className="body">
         <Header/>

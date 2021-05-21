@@ -9,7 +9,7 @@ function Header(props) {
     const [avatar, setAvatar] = useState('')
     useEffect(() => {
       async function getAPI(){
-           await axios.get('http://localhost:9000/api/member/get/' + localStorage.getItem('idUser'))
+           await axios.get(process.env.REACT_APP_API_URL+'/api/member/get/' + localStorage.getItem('idUser'))
           .then((response) => {
             setFullname(response.data.idUser.fullname);
             setAvatar(response.data.idUser.avatar)

@@ -87,7 +87,7 @@ function EditUser (props) {
    
     useEffect(() => {
         async function getAPI(props){
-             await axios.get('http://localhost:9000/api/member/get/' + id)
+             await axios.get(process.env.REACT_APP_API_URL+'/api/member/get/' + id)
              .then(response => {
                  console.log(response.data);
                     setFullName(response.data.idUser.fullname)
@@ -107,7 +107,7 @@ function EditUser (props) {
     
     const updateDoctor = async () => {
         console.log(formData);
-        axios.put('http://localhost:9000/api/member/admin/update/' +id, formData)
+        axios.put(process.env.REACT_APP_API_URL+'/api/member/admin/update/' +id, formData)
         .then(response => {
             toast.success("Chỉnh sửa thành công")
             props.history.push('/admin-user')

@@ -24,7 +24,7 @@ export default function Reviewbook() {
     const [nameFaculty,setNameFaculty] = useState('')
     useEffect(() => {
         async function getAPI(){
-             await axios.get('http://localhost:9000/api/member/get/'+localStorage.getItem('idUser'))
+             await axios.get(process.env.REACT_APP_API_URL+'/api/member/get/'+localStorage.getItem('idUser'))
             .then((response) => {
                 // console.log(response.data);
                 setCustomer(response.data.idUser.fullname)
@@ -53,7 +53,7 @@ export default function Reviewbook() {
     }
     useEffect(() => {
         async function getAPI(){
-             await axios.get('http://localhost:9000/api/doctor/get/'+localStorage.getItem('bookDoctor'))
+             await axios.get(process.env.REACT_APP_API_URL+'/api/doctor/get/'+localStorage.getItem('bookDoctor'))
             .then((response) => {
                 console.log(response.data.idUser.fullname);
                 setNameDoctor(response.data.idUser.fullname)
@@ -67,7 +67,7 @@ export default function Reviewbook() {
     },[])
     useEffect(() => {
         async function getAPI(){
-             await axios.get('http://localhost:9000/api/faculty/get/'+ localStorage.getItem('bookFac'))
+             await axios.get(process.env.REACT_APP_API_URL+'/api/faculty/get/'+ localStorage.getItem('bookFac'))
             .then((response) => {
                 // console.log(response.data.name);
                 setNameFaculty(response.data.name)
@@ -92,7 +92,7 @@ export default function Reviewbook() {
    
     const addBook = async () => {
         // await axios.post('http://113.173.154.51:9000/api/faculty/create', formData)
-        axios.post('http://localhost:9000/api/booking/create', formData)
+        axios.post(process.env.REACT_APP_API_URL+'/api/booking/create', formData)
         .then(response =>{
             Swal.fire(
                 'Đặt khám thành công',
@@ -108,7 +108,7 @@ export default function Reviewbook() {
     const Payment = async () => {
         // console.log(formData);
         // await axios.post('http://113.173.154.51:9000/api/faculty/create', formData)
-        await axios.post('http://localhost:9000/api/booking/create', formData)
+        await axios.post(process.env.REACT_APP_API_URL+'/api/booking/create', formData)
         .then(response =>{
             console.log('thành công');
             console.log(response.data);
@@ -118,7 +118,7 @@ export default function Reviewbook() {
                 orderDescription: "Thanh toan lich kham LCHEALTH",
                 language: "vn"
             }
-            axios.post('http://localhost:9000/api/payment/create',formDataPayment)
+            axios.post(process.env.REACT_APP_API_URL+'/api/payment/create',formDataPayment)
             .then((response) => {
                 console.log(response.data);
                 window.location.href = response.data.data

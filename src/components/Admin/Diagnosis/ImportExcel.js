@@ -23,7 +23,7 @@ function ImportExcel() {
         })
         promise.then((response)=>{
             console.log(response);
-            axios.post('http://10.200.0.160:9000/api/diagnostic/create', response)
+            axios.post(process.env.REACT_APP_API_URL+'/api/diagnostic/create', response)
             .then(response => {
                 console.log(response.data);
                 toast.success(response.data.message)

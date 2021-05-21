@@ -10,7 +10,7 @@ class DBoard_ListDortor extends Component{
         this.state = {book: []};
     }
     componentDidMount() {
-        axios.get('http://localhost:9000/api/booking/get')
+        axios.get(process.env.REACT_APP_API_URL+'/api/booking/get')
             .then(response => {
                 console.log(response.data);
                 this.setState({book: response.data});               

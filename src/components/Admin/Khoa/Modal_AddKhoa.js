@@ -48,7 +48,7 @@ function Modal_AddKhoa (props) {
     
     const add = async () => {
         // await axios.post('http://113.173.154.51:9000/api/faculty/create', formData)
-        axios.post('http://localhost:9000/api/faculty/create', formData)
+        axios.post(process.env.REACT_APP_API_URL+'/api/faculty/create', formData)
         .then(response =>{
             console.log(response.formData)
         })

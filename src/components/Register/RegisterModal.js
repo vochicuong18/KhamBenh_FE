@@ -57,7 +57,7 @@ export default function RegisterModal() {
     }
     const addNewMember = async () =>{
         console.log(formData);
-        axios.post('http://localhost:9000/api/account/create', formData)
+        axios.post(process.env.REACT_APP_API_URL+'/api/account/create', formData)
         .then(response => {
             console.log(response.data);
             localStorage.setItem('idUser',response.data._id)

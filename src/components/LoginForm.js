@@ -32,7 +32,7 @@ function Login () {
             mail:response.profileObj.email
         }
         console.log(formDataGG);
-        axios.post('http://localhost:9000/api/login/gg', formDataGG)
+        axios.post(process.env.REACT_APP_API_URL+'/api/login/gg', formDataGG)
         .then(response => {
             console.log(response.data);
             // toast.success('Thêm thành công')
@@ -50,7 +50,7 @@ function Login () {
             username:username,
             password:password
         }
-        axios.post('http://localhost:9000/api/login/log',formData)
+        axios.post(process.env.REACT_APP_API_URL+'/api/login/log',formData)
         .then(response=>{
             if(response.data.admin){
                 console.log(response.data.admin);

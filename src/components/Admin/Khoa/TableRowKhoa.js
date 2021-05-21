@@ -12,7 +12,7 @@ class TableRow extends Component {
         this.delete = this.delete.bind(this);
     }
     delete() {
-        axios.delete('http://localhost:9000/api/faculty/delete/'+ this.props.obj._id)
+        axios.delete(process.env.REACT_APP_API_URL+'/api/faculty/delete/'+ this.props.obj._id)
             .then(console.log(this.props.obj._id)) 
             .catch(err => console.log(err))
             window.location.reload();       

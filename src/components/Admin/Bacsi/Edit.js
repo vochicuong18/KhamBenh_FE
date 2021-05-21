@@ -38,7 +38,7 @@ function Edit (props) {
 
     useEffect(() => {
         async function getAPI(){
-             await axios.get('http://localhost:9000/api/faculty/get')
+             await axios.get(process.env.REACT_APP_API_URL+'/api/faculty/get')
             .then((response) => {
                 setKhoa(response.data);
                 return response.data
@@ -126,7 +126,7 @@ function Edit (props) {
    
     useEffect(() => {
         async function getAPI(props){
-             await axios.get('http://localhost:9000/api/doctor/get/' + id)
+             await axios.get(process.env.REACT_APP_API_URL+'/api/doctor/get/' + id)
              .then(response => {
                     console.log(response.data);
                     setAvatar(response.data.idUser.avatar)
@@ -153,7 +153,7 @@ function Edit (props) {
     
     const updateDoctor = async () => {
         console.log(formData);
-        axios.put('http://localhost:9000/api/doctor/admin/update/' +id, formData)
+        axios.put(process.env.REACT_APP_API_URL+'/api/doctor/admin/update/' +id, formData)
         .then(response => {
             toast.success("Chỉnh sửa thành công")
             props.history.push('/admin-doctor')

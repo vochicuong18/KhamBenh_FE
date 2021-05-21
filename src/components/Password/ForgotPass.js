@@ -48,7 +48,7 @@ export default function ForgotPass() {
             mail:email
         }
         console.log(formData);
-        axios.post('http://localhost:9000/api/login/forgotpassword',formData)
+        axios.post(process.env.REACT_APP_API_URL+'/api/login/forgotpassword',formData)
         .then(response =>{
             console.log(response.data);
             setIdAccount(response.data.idAccount)
@@ -75,7 +75,7 @@ export default function ForgotPass() {
                 newpassword:newPass
             }
             console.log(formData);
-            axios.put('http://localhost:9000/api/login/changepasswordforgot/'+ idAccount,formData)
+            axios.put(process.env.REACT_APP_API_URL+'/api/login/changepasswordforgot/'+ idAccount,formData)
             .then(response =>{
                 toast.success(response.data)
                 history.push("/")

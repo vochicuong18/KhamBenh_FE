@@ -79,7 +79,7 @@ function Modal_AddUser() {
         idRole:idRole,
     }
     const addDoctor = async () =>{
-        axios.post('http://localhost:9000/api/member/admin/create', formData)
+        axios.post(process.env.REACT_APP_API_URL+'/api/member/admin/create', formData)
         .then(response => {
             toast.success('Thêm thành công')
             window.location.reload()

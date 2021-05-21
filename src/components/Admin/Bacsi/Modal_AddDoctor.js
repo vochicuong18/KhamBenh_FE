@@ -38,7 +38,7 @@ function Modal_AddDoctor() {
 
     useEffect(() => {
         async function getAPI(){
-             await axios.get('http://localhost:9000/api/faculty/get')
+             await axios.get(process.env.REACT_APP_API_URL+'/api/faculty/get')
             .then((response) => {
                 setKhoa(response.data);
                 return response.data
@@ -126,7 +126,7 @@ function Modal_AddDoctor() {
       
     
     const addDoctor = async () =>{
-        axios.post('http://localhost:9000/api/doctor/admin/create', formData)
+        axios.post(process.env.REACT_APP_API_URL+'/api/doctor/admin/create', formData)
         .then(response => {
             toast.success('Thêm thành công')
             window.location.reload()

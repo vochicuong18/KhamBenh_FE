@@ -46,7 +46,7 @@ function TableRow (props) {
         }
     }
     const delBook =  async () => {
-        axios.delete('http://localhost:9000/api/booking/delete/'+ props.obj._id)
+        axios.delete(process.env.REACT_APP_API_URL+'/api/booking/delete/'+ props.obj._id)
             .then(response => {
                 toast.success('Xóa thành công!')  
             })
@@ -57,7 +57,7 @@ function TableRow (props) {
 
     }
     const ChangeStatus = async () => {
-        axios.put('http://localhost:9000/api/booking/cancel/'+ props.obj._id,formData)
+        axios.put(process.env.REACT_APP_API_URL+'/api/booking/cancel/'+ props.obj._id,formData)
         .then(response => {
             window.location.reload()
         })

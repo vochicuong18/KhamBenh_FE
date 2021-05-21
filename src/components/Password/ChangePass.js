@@ -34,7 +34,7 @@ export default function ChangePass() {
     function ChangePass(){
         console.log(formData);
         if(newPass === newPassCheck){
-            axios.put('http://localhost:9000/api/login/changepassword/'+localStorage.getItem('idUser'),formData)
+            axios.put(process.env.REACT_APP_API_URL+'/api/login/changepassword/'+localStorage.getItem('idUser'),formData)
             .then(response =>{
                 console.log(response.data);
                 toast.success(response.data.message);
@@ -67,7 +67,6 @@ export default function ChangePass() {
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
-
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Nhập lại mật khẩu mới:</Form.Label>
                     <Form.Control type="password" className="login__input" style={{width:'440px'}} onChange={handleNewPassCheck}/>

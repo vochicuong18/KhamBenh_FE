@@ -8,7 +8,7 @@ export default function Historybook() {
     const [idOrder] = useState('')
     useEffect(() => {
         async function getAPI(){
-             await axios.get('http://localhost:9000/api/booking/member/get/' + localStorage.getItem('idUser'))
+             await axios.get(process.env.REACT_APP_API_URL+'/api/booking/member/get/' + localStorage.getItem('idUser'))
             .then((response) => {
                 console.log(response.data)
                 setListBooking(response.data)
@@ -24,7 +24,7 @@ export default function Historybook() {
     }
     const ChangeStatus = value => event => {
         console.log(value);
-        axios.put('http://localhost:9000/api/booking/cancel/' + value, formData)
+        axios.put(process.env.REACT_APP_API_URL+'/api/booking/cancel/' + value, formData)
         .then(response => {
             window.location.reload()
         })
@@ -37,7 +37,7 @@ export default function Historybook() {
             idOrder: value,
         }
         // axios.post('http://113.173.154.51:9000/api/faculty/create', formData)
-        axios.post('http://localhost:9000/api/payment/create/',formData)
+        axios.post(process.env.REACT_APP_API_URL+'/api/payment/create/',formData)
         .then((response) => {
             console.log(response.data);
             window.location.href = response.data.data

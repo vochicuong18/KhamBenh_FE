@@ -15,7 +15,7 @@ function Modal_AddAccount() {
     })   
     useEffect(() => {
         async function getAPI(){
-             await axios.get('http://localhost:9000/api/role/get')
+             await axios.get(process.env.REACT_APP_API_URL+'/api/role/get')
             .then((response) => {
                 setRole(response.data);
                 return response.data
@@ -47,7 +47,7 @@ function Modal_AddAccount() {
     }
     const addAccount = async () =>{
         console.log(formData);
-        axios.post('http://localhost:9000/api/account/create', formData)
+        axios.post(process.env.REACT_APP_API_URL+'/api/account/create', formData)
         .then(response => {
             toast.success('Thêm thành công')
             window.location.reload()

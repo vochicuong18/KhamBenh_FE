@@ -14,7 +14,7 @@ function TableRowUser (props) {
         position: toast.POSITION.TOP_RIGHT
     })
     const delAcc =  async () => {
-        axios.delete('http://localhost:9000/api/member/delete/'+ props.obj._id)
+        axios.delete(process.env.REACT_APP_API_URL+'/api/member/delete/'+ props.obj._id)
         .then((response) => {
             console.log('a');
            

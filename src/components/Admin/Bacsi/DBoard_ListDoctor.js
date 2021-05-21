@@ -11,7 +11,7 @@ class DBoard_ListDortor extends Component{
         this.state = {bacsi: []};
     }
     componentDidMount() {
-        axios.get('http://localhost:9000/api/doctor/get')
+        axios.get(process.env.REACT_APP_API_URL+'/api/doctor/get')
             .then(response => {
                 this.setState({bacsi: response.data});               
             })

@@ -20,7 +20,7 @@ function TableRow (props) {
         }
     }
     const delDoctor =  async () => {
-        axios.delete('http://localhost:9000/api/diagnostic/delete/'+ props.obj._id)
+        axios.delete(process.env.REACT_APP_API_URL+'/api/diagnostic/delete/'+ props.obj._id)
             .then(response => {
                 toast.success('Xóa thành công!')  
             })

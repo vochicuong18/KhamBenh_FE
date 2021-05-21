@@ -21,6 +21,9 @@ import Historybook from '../components/Booking/Historybook'
 import EditBook from '../components/Admin/Book/EditBook'
 import ForgotPass from '../components/Password/ForgotPass'
 import ChangePass from '../components/Password/ChangePass'
+import CheckPay from './Booking/CheckPaySuccess'
+import CheckPayFailed from './Booking/CheckPayFailed'
+
 // import Result from './Result/Result';
 export default class RouterURL extends Component {
     render() {
@@ -46,6 +49,9 @@ export default class RouterURL extends Component {
                 <Route path = "/admin-user"><DBoardListUser/></Route>
                 <Route path = "/admin-account"><DashboardAccount/></Route>
                 <Route path = "/admin-book"> <DashboardBook / > </Route> 
+                <Route path = "/home-thanhcongne"><CheckPay/></Route>
+                <Route path = "/home-thatbaine"><CheckPayFailed/></Route>
+
                 <Route path = "/edituser/:_id"
                     render = {
                         (props) => ( <EditUser {...props}
@@ -88,8 +94,8 @@ export default class RouterURL extends Component {
                 <Route path = "/result"> <Ketqua/> </Route>
                 <Route path = "/booking"><Booking/> </Route>
                 <Route path = "/history-book"><Historybook/></Route>
-               
-                <Route> <Home/> </Route> 
+                    
+                {/* <Route> <Home/> </Route>  */}
             </Switch> 
         </div>
         )
