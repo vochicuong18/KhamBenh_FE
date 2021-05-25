@@ -94,6 +94,7 @@ export default function Reviewbook() {
         // await axios.post('http://113.173.154.51:9000/api/faculty/create', formData)
         axios.post(process.env.REACT_APP_API_URL+'/api/booking/create', formData)
         .then(response =>{
+            console.log(response.data);
             Swal.fire(
                 'Đặt khám thành công',
                 ' ',

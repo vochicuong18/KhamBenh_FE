@@ -8,7 +8,7 @@ function EditUser (props) {
         autoClose: 2000,
         draggable: true,
         position: toast.POSITION.TOP_RIGHT
-      })   
+      })
     const id = props.match.params._id
     const fileInput= useRef();
     function handleClick(event) {

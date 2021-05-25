@@ -9,7 +9,12 @@ import Image from 'react-bootstrap/Image'
 import { useForm } from "react-hook-form";
 import RegisterModal from '../components/Register/RegisterModal'
 import {Link} from 'react-router-dom'
+import { yupResolver } from '@hookform/resolvers/yup';
+import yup from '../yupGlobal'
+
 function Login () {
+    // const {handleSubmit} = useForm()
+
     // const [ggID,setGgID] = useState('')
     // const [avatar,setAvatar] = useState('')
     // const [fullname,setFullname] = useState('')
@@ -19,11 +24,9 @@ function Login () {
         draggable: true,
         position: toast.POSITION.TOP_RIGHT
       })
-    const {handleSubmit} = useForm()
-    const[username, setUserName]= useState('')
-    const[password, setPassword] = useState('')
+
     let history = useHistory();
-   
+      
     const responseGoogle = response =>{
         const formDataGG = {
             googleId:response.profileObj.googleId,
@@ -45,12 +48,9 @@ function Login () {
         })
     }
    
-    const login = () =>{
-        const formData = {
-            username:username,
-            password:password
-        }
-        axios.post(process.env.REACT_APP_API_URL+'/api/login/log',formData)
+    const login = (data) =>{
+        console.log(data);
+        axios.post(process.env.REACT_APP_API_URL+'/api/login/log',data)
         .then(response=>{
             if(response.data.admin){
                 console.log(response.data.admin);
@@ -76,22 +76,21 @@ function Login () {
 
         })
     }
-    function handleUserName(e){
-        e.preventDefault();
-        setUserName(e.target.value)
-    }   
-    function handlePassword(e){
-        e.preventDefault();
-        setPassword(e.target.value)
-    }
+    
 
-    // const loginMembers {
-
-    // }
-
-
+    const schema = yup.object().shape({
+        username: yup.string().required('*Vui lòng không để trống').username('*Username không có kí tự đặt biệt, phải từ 3 đến 16 kí tự'),
+        password: yup.string().required('*Vui lòng không để trống'),
+      })
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        mode: 'onChange',
+        resolver: yupResolver(schema)
+    });
+    
     return (
+        
         <div>
+              <RegisterModal/>
             <div>
                 <Image src='https://imagebucketkhambenhonl-1.s3-ap-southeast-1.amazonaws.com/1.png'
                     style={{position: 'absolute',width:'100%',height:'100vh',objectFit: 'cover'}}
@@ -115,15 +114,20 @@ function Login () {
                                             <Form.Control 
                                                 type="text" 
                                                 className = 'login__input'
-                                                onChange={handleUserName}
-                                            />                                               
+                                                // defaultValue="test" {...register("example")}
+                                                {...register('username', { required: true })}
+                                            /> 
+                                            {errors.username && <p className="error">{errors.username.message}</p>}
+
                                         </FormGroup>
                                         <FormGroup>
                                             <Form.Label className="lable">Password:</Form.Label>
                                             <Form.Control 
                                                 className = 'login__input' 
                                                 type="password"
-                                                onChange={handlePassword}/>
+                                                 {...register('password', { required: true })}
+                                                />
+                                            {errors.password && <p className="error">{errors.password.message}</p>}
                                         </FormGroup>
                                         <Button type="submit" className = 'btn__login' variant='primary' style = {{marginBottom:'20px'}}>
                                             Sign in
@@ -137,7 +141,9 @@ function Login () {
                                                 onFailure={responseGoogle}
                                             >
                                             </GoogleLogin>
+                                            
                                         </div>
+                                      
                                         <Link to={"/forgotpassword"}>
                                         <div  className="forgot">
                                             <p>Forgot Password?</p>
@@ -147,9 +153,9 @@ function Login () {
                                         <Button className = 'btn__login' variant='success' type = 'button' data-toggle="modal" data-target="#DangKi">
                                             Đăng kí
                                         </Button>
-
-                                        <RegisterModal/>
+                                        
                                     </Form>
+                                  
                                 </div>
                             </div>
                         </Col>

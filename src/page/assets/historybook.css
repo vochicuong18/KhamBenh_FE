@@ -1,5 +1,6 @@
 .wapper1 {
-    display: flex;
+    /* display: flex; */
+    font-size: 20px;
     margin: 0 auto;
     border-radius: 8px;
     box-shadow: 0 2px 4px 0 rgba(158, 158, 158, 0), 0 2px 15px 0 rgba(0, 0, 0, 0.12);
@@ -30,8 +31,11 @@
 }
 
 .item__nameKhoa {
-    margin-left: 10px;
     margin-top: 12px;
+}
+
+.item__logoKhoa {
+    margin-right: 10px;
 }
 
 .doctor {

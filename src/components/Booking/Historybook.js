@@ -67,6 +67,7 @@ export default function Historybook() {
             <Button onClick={ChangeStatus(data.set)} className="thanhtoan" variant = 'danger' style= {{marginLeft:'10px'}}>Hủy lịch hẹn</Button>
         );
     }
+   
     return (
         <div>
             <Header/>
