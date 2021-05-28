@@ -4,7 +4,7 @@ import Admin from '../page/admin';
 import Home from '../page/home';
 import Edit from './Admin/Bacsi/Edit';
 import Login from '../page/Login';
-import ListDoc from '../page/listdoctor';
+// import ListDoc from '../page/listdoctor';
 import Ketqua from '../page/Booking1'
 import DashboardDoctor from './Admin/Bacsi/Dashboard';
 import DashboardBook from './Admin/Book/DashboardBooking';
@@ -23,10 +23,14 @@ import ForgotPass from '../components/Password/ForgotPass'
 import ChangePass from '../components/Password/ChangePass'
 import CheckPay from './Booking/CheckPaySuccess'
 import CheckPayFailed from './Booking/CheckPayFailed'
-
 import HistorybookNotUser from '../components/Booking/HistorybookNotUser'
-
-// import Result from './Result/Result';
+import AdminDoctor from '../components/Doctor/DashboarDoctor'
+import DBDoctorBooking from '../components/Doctor/Book/DBDoctorBooking'
+import DoctorUser from '../components/Doctor/User/DashboardUser'
+import ListDoctor from '../components/Doctor/Bacsi/Dashboard'
+import ChanDoan from '../components/Doctor/Diagnosis/DashboardDiagnosis'
+import BookAllDoctor from '../components/Doctor/BookAll/DBDoctorBooking'
+import NewList from '../components/listdoctor/NewList'
 export default class RouterURL extends Component {
     render() {
         return ( 
@@ -34,9 +38,14 @@ export default class RouterURL extends Component {
             <Switch >
                 <Route exact path = "/" > <Login/></Route> 
                 <Route path = "/home" > <Home/> </Route>
-                <Route path = "/admin" > <Admin/>
-                </Route> <Route path = "/list-doc" ><ListDoc/></Route>
-
+                <Route path = "/admin" > <Admin/></Route>
+                <Route path = "/doctor"><AdminDoctor/></Route>
+                <Route path = "/list-doc" ><NewList/></Route>
+                <Route path = "/doctor-your-booking"><DBDoctorBooking/></Route>
+                <Route path = "/doctor-user"><DoctorUser/></Route>
+                <Route path = "/doctor-listdoctor"><ListDoctor/></Route>
+                <Route path = "/doctor-chandoan"><ChanDoan/></Route>
+                <Route path = "/doctor-bookall"><BookAllDoctor/></Route>
                 <Route path = "/edit/:_id"
                     render = {
                         (props) => (<Edit {...props}
@@ -51,7 +60,6 @@ export default class RouterURL extends Component {
                 <Route path = "/admin-user"><DBoardListUser/></Route>
                 <Route path = "/admin-account"><DashboardAccount/></Route>
                 <Route path = "/admin-book"> <DashboardBook / > </Route> 
-
 
 
                 <Route path = "/history-book-notuser/:_id"
@@ -108,8 +116,6 @@ export default class RouterURL extends Component {
                 <Route path = "/result"> <Ketqua/> </Route>
                 <Route path = "/booking"><Booking/> </Route>
                 <Route path = "/history-book"><Historybook/></Route>
-                    
-                {/* <Route> <Home/> </Route>  */}
             </Switch> 
         </div>
         )

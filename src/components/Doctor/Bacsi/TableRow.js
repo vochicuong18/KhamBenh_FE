@@ -21,15 +21,7 @@ function TableRow (props) {
             return(props.obj.idFaculty.name)
         }
     }
-    const delDoctor =  async () => {
-        console.log(props.obj._id);
-        axios.delete(process.env.REACT_APP_API_URL+'/api/doctor/delete/'+ props.obj._id)
-            .then(response => {
-                toast.success('Xóa thành công!')  
-            })
-            .catch(err => console.log(err))
-            window.location.reload()
-    }
+   
     return (
         <tr>
             <td></td>
@@ -38,13 +30,7 @@ function TableRow (props) {
             <td>{address}</td>
             <td>{degree}</td>
             <td width="200"><Image src={avatar} width="25%" height="50px" style = {{objectFit:'cover'}}/></td>
-            <td>
-            <Link to={"/edit/"+ props.obj._id}>
-                <FontAwesomeIcon icon ={faUserEdit} style={{fontSize:'20px'}} />
-            </Link>
-
-            <button className='btn__row' onClick = {delDoctor}><FontAwesomeIcon icon ={faTrash} style={{fontSize:'20px', color:'red',marginLeft:'5px'}}/></button> 
-            </td>
+           
             
         </tr>       
     );

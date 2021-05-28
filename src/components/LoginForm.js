@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { Row, Col } from 'antd';
 import {FormGroup, Form,Button } from 'react-bootstrap';
 import {useHistory} from "react-router-dom"
@@ -66,7 +66,7 @@ function Login () {
             }
             if(response.data.idUser.idAccount.idRole._id === '608d10b88057022ea4f4c2c6'){
                 localStorage.setItem('idUser',response.data._id)
-                history.push("/admin-user")
+                history.push("/doctor")
                 toast.success('Đăng nhập thành công')
                 return
             }

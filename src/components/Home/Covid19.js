@@ -36,7 +36,8 @@ export default function Covid19() {
                         <div className="data tuvong">Tử vong {death}</div>
                     </div>
                     <br/>
-                    Theo thống kê từ https://ncov.moh.gov.vn/
+                    <strong>Hãy khai báo y tế <a href="https://tokhaiyte.vn">tại đây</a> vì sức khỏe của cá nhân và cộng đồng</strong>
+                     
                 </div>
                 
             </div>

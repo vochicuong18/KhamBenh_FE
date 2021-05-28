@@ -48,7 +48,7 @@ export default function Historybook(props) {
             });
         }
         getAPI();
-    },[])
+    },[props.match.params._id])
    
     return (
 

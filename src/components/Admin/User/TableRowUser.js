@@ -16,7 +16,7 @@ function TableRowUser (props) {
     console.log( props.obj._id);
     const delDoctor =  async () => {
         axios.delete(process.env.REACT_APP_API_URL+'/api/member/delete/'+ props.obj._id)
-        .then() 
+        .then(response => console.log(response.data)) 
         .catch(err => console.log(err))
         window.location.reload();       
 }

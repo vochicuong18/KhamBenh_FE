@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-
+import Image from 'react-bootstrap/Image'
 class Footer extends Component {
   render () {  
     return (
@@ -9,7 +9,9 @@ class Footer extends Component {
         </div> 
         <footer>
             <div className='box__footer'>
-              <h4>PHÒNG KHÁM LCHealthy</h4>
+            <Image src='https://imagebucketkhambenhonl-1.s3-ap-southeast-1.amazonaws.com/logo12.png'
+                            style={{width:'250px',objectFit: 'cover',marginLeft:'-10px',marginTop:'-10px'}}
+                        />
               <p>Địa chỉ: 12, Nguyễn Văn Bảo, Phường 5, Gò Vấp, TP. Hồ Chí Minh</p>
               <p>Thời gian làm việc: 8:00 - 17:00</p>
               <p>Làm việc tất cả ngày lễ, Tết</p>

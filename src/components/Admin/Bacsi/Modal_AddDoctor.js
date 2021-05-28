@@ -1,6 +1,9 @@
 import React, {useRef, useState,useEffect} from 'react';
 import axios from 'axios';
 import S3 from 'react-aws-s3';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import yup from '../../../yupGlobal'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 function Modal_AddDoctor() {
@@ -49,83 +52,27 @@ function Modal_AddDoctor() {
         }
         getAPI();
     },[])
-    const [fullname, setFullName] = useState('');
-    const [avatar, setAvatar] = useState('')
-    const [nickname, setNickName] = useState('')
-    const [address, setAddress] = useState('')
-    const [phoneNumber, setPhoneNumber] = useState('')
-    const [mail, setMail] = useState('')
-    const [idFaculty, setKhoa] = useState([])
-    const [savekhoa, setSaveKhoa] = useState('')
-    const [username, setUserName] = useState('')
-    const [password, setPassword] = useState('')
-    const [trainingPlaces, settrainingPlaces] = useState('')
-    const [degree , setBangCap] = useState('')
-    const [description , setDescription] = useState('')
-    const [idRole] = useState('608d10b88057022ea4f4c2c6')
-    function handleNameBS(e){
-        e.preventDefault()
-        setFullName(e.target.value)
-    }
-    function handleNickName(e){
-        e.preventDefault()
-        setNickName(e.target.value)
-    }
-    function handleAddress(e){
-        e.preventDefault()
-        setAddress(e.target.value)
-    }
-    function handlePhone(e){
-        e.preventDefault()
-        setPhoneNumber(e.target.value)
-    }
-    function handleMail(e){
-        e.preventDefault()
-        setMail(e.target.value)
-    }
-    function handleKhoa (e){
-        e.preventDefault()
-        setSaveKhoa(e.target.value)
-    }
-    function handleUserName(e){
-        e.preventDefault()
-        setUserName(e.target.value)
-    }
-    function handlePassword(e){
-        e.preventDefault()
-        setPassword(e.target.value)
-    }
-    function handleNoiDaoTao(e){
-        e.preventDefault()
-        settrainingPlaces(e.target.value)
-    }
-    function handleBangCap(e){
-        e.preventDefault()
-        setBangCap(e.target.value)
-    }
-    function handleDes(e){
-        e.preventDefault()
-        setDescription(e.target.value)
-    }
-    const formData = {
-        fullname:fullname,
-        avatar:avatar,
-        nickname:nickname,
-        address:address,
-        phoneNumber:phoneNumber,
-        mail:mail,
-        idFaculty:savekhoa,
-        username:username,
-        password:password,
-        degree:degree,
-        trainingPlaces:trainingPlaces,
-        description:description,
-        idRole:idRole,
-    }
 
-      
-    
-    const addDoctor = async () =>{
+    const [avatar, setAvatar] = useState('https://imagebucketkhambenhonl-1.s3-ap-southeast-1.amazonaws.com/user.png')
+    const [idFaculty, setKhoa] = useState([])
+    const [idRole] = useState('608d10b88057022ea4f4c2c6')
+   
+    const addDoctor = async (data) =>{
+        const formData = {
+            fullname:data.fullname,
+            avatar:avatar,
+            nickname:data.nickname,
+            address:data.address,
+            phoneNumber:data.phoneNumber,
+            mail:data.mail,
+            idFaculty:data.idFaculty,
+            username:data.username,
+            password:data.password,
+            degree:data.degree,
+            trainingPlaces:data.trainingPlaces,
+            description:data.description,
+            idRole:idRole,
+        }
         axios.post(process.env.REACT_APP_API_URL+'/api/doctor/admin/create', formData)
         .then(response => {
             toast.success('Thêm thành công')
@@ -135,6 +82,23 @@ function Modal_AddDoctor() {
             toast.error(err.response.data.message)
         })
      }
+     const schema = yup.object().shape({
+        username: yup.string().required('*Vui lòng không để trống').username('*Username không có kí tự đặt biệt, phải từ 3 đến 16 kí tự'),
+        password: yup.string().required('*Vui lòng không để trống'),
+        phoneNumber: yup.string().phone('*Sai địng dạng số điện thoại'),
+        fullname :yup.string().required('*Vui lòng không để trống').fullName('*Sai định dạng tên'),
+        address:yup.string().required('*Vui lòng không để trống').address('*Sai định dạng địa chỉ'),
+        email:yup.string().required('*Vui lòng không để trống').email('*Sai định dạng email'),
+        trainingPlaces:yup.string().required('*Vui lòng không để trống').trainingPlaces('*Sai định dạng nơi đào tạo'),
+        degree:yup.string().required('*Vui lòng không để trống').degree('*Sai địng dạng bằng cấp'),
+        idFaculty:yup.string().required('Vui lòng chọn khoa'),
+        nickname:yup.string().degree('*Sai địng dạng nickname'),
+        description:yup.string().degree('Sai định dạng mô tả')
+      })
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        mode: 'onChange',
+        resolver: yupResolver(schema)
+    });
     return(
         <div>
             <div className="modal fade" id="themBacSi" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -146,7 +110,7 @@ function Modal_AddDoctor() {
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form>
+                    <form onSubmit={handleSubmit(addDoctor)}>
                         <div className="modal-body">                           
                             <div className="form-group ">
                                 <div className='form__info'>
@@ -156,21 +120,24 @@ function Modal_AddDoctor() {
                                     <div className="row"> 
                                         <div className="col">
                                             <label htmlFor="">Họ tên:</label>
-                                            <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                            onChange = {handleNameBS} />   
+                                            <input type="text" name='fullname' className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                            {...register('fullname', { required: true })} />
+                                            {errors.fullname && <p className="error">{errors.fullname.message}</p>} 
                                         </div>
                                         <div className="col">
                                             <label htmlFor="">Nick name:</label>
-                                            <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                            onChange = {handleNickName} />   
+                                            <input type="text" name='nickname' className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                            {...register('nickname', { required: true })} />
+                                            {errors.nickname && <p className="error">{errors.nickname.message}</p>} 
                                         </div>
                                     </div>
                                     
                                     <div className="row">
                                         <div className="col">
-                                            <label htmlFor="">Description:</label>
-                                            <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                            onChange = {handleDes} />   
+                                            <label htmlFor="">Mô tả:</label>
+                                            <input type="text" name="description" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                            {...register('description', { required: true })} />
+                                            {errors.description && <p className="error">{errors.description.message}</p>} 
                                         </div>
                                         <div className="col">
                                             <label htmlFor="">Avatar:</label>
@@ -178,18 +145,21 @@ function Modal_AddDoctor() {
                                         </div>
                                     </div>
                                     <label htmlFor="">Địa chỉ:</label>
-                                    <input type="text"  className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                    onChange = {handleAddress} />
+                                    <input type="text" name='address' className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                   {...register('address', { required: true })} />
+                                   {errors.address && <p className="error">{errors.address.message}</p>} 
                                     <div className="row">
                                         <div className="col">
                                             <label htmlFor="">Phone number:</label>
-                                            <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                            onChange={handlePhone} />
+                                            <input type="text" name='phoneNumber' className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                           {...register('phoneNumber', { required: true })} />
+                                           {errors.phoneNumber && <p className="error">{errors.phoneNumber.message}</p>} 
                                         </div>
                                         <div className="col">
                                             <label htmlFor="">Email:</label>
-                                            <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                            onChange ={handleMail} />
+                                            <input type="text" name='email' className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                         {...register('email', { required: true })} />
+                                          {errors.email && <p className="error">{errors.email.message}</p>}
                                         </div>
                                     </div>
                                 </div>
@@ -198,10 +168,10 @@ function Modal_AddDoctor() {
                                         <h5>Trình độ học vấn</h5>
                                     </div>
                                     <label htmlFor="">Chuyên khoa:</label>
-                                    <select className= 'form-control' onChange = {handleKhoa}> 
+                                    <select className= 'form-control' name='idFaculty'  {...register('idFaculty', { required: true })} >
+                                          {errors.idFaculty && <p className="error">{errors.idFaculty.message}</p>}
                                         <option>Chọn khoa</option>
                                         {idFaculty.map((item) => (
-                                            
                                             <option
                                                 key={item._id}
                                                 value={item._id}
@@ -214,13 +184,15 @@ function Modal_AddDoctor() {
                                     <div className='row'>
                                         <div className='col'>
                                             <label htmlFor="">Nơi đào tạo:</label>
-                                            <input type="text" className="form-control" placeholder="" aria-describedby="helpId"
-                                            onChange={handleNoiDaoTao}/>
+                                            <input type="text" name='trainingPlaces' className="form-control" placeholder="" aria-describedby="helpId"
+                                             {...register('trainingPlaces', { required: true })} />
+                                             {errors.trainingPlaces && <p className="error">{errors.trainingPlaces.message}</p>}
                                         </div>
                                         <div className='col'>
                                             <label htmlFor="">Bằng cấp:</label>
-                                            <input type="text" className="form-control" placeholder="" aria-describedby="helpId"
-                                            onChange={handleBangCap} />
+                                            <input type="text" name='degree' className="form-control" placeholder="" aria-describedby="helpId"
+                                             {...register('degree', { required: true })} />
+                                             {errors.degree && <p className="error">{errors.degree.message}</p>} 
                                         </div>
                                     </div>                              
                                 </div>
@@ -231,13 +203,15 @@ function Modal_AddDoctor() {
                                     <div className='row'>
                                         <div className='col'>
                                             <label htmlFor="">Username:</label>
-                                            <input type="text" className="form-control" placeholder="" aria-describedby="helpId"
-                                            onChange = {handleUserName}/>
+                                            <input type="text" name='username' className="form-control" placeholder="" aria-describedby="helpId"
+                                            {...register('username', { required: true })}/>
+                                            {errors.username && <p className="error">{errors.username.message}</p>}
                                         </div>
                                         <div className='col'>
                                             <label htmlFor="">Mật khẩu:</label>
-                                            <input type="text" className="form-control" placeholder="" aria-describedby="helpId" 
-                                            onChange = {handlePassword}/>
+                                            <input type="text" name='password' className="form-control" placeholder="" aria-describedby="helpId" 
+                                              {...register('password', { required: true })}/>
+                                              {errors.password && <p className="error">{errors.password.message}</p>}
                                         </div>
                                     </div>              
                                 </div>
@@ -246,7 +220,7 @@ function Modal_AddDoctor() {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                            <button type="button" onClick = {addDoctor} className="btn btn-primary">Lưu</button>
+                            <button type="submit"  className="btn btn-primary">Lưu</button>
                         </div>
                     </form>  
                 </div>

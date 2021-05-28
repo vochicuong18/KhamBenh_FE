@@ -50,28 +50,28 @@ export default function ChangePass() {
     return (
         <div>
             <Header/>
-            <Form className='form__info forgotpass'>
+            <Form className='form__info forgotpass' onSubmit={ChangePass}>
                 <Form.Group controlId="formBasicPassword">
                     <h3>Đặt lại mật khẩu</h3>
                     <h6>Vui lòng điền thông tin mới</h6>
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Mật khẩu hiện tại:</Form.Label>
-                    <Form.Control type="password" className="login__input" style={{width:'440px'}} onChange={handleCurrentPass}/>
+                    <Form.Control type="password" required className="login__input" style={{width:'440px'}} onChange={handleCurrentPass}/>
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Mật khẩu mới:</Form.Label>
-                    <Form.Control type="password" className="login__input" style={{width:'440px'}} onChange={handleNewPass}/>
+                    <Form.Control type="password" required className="login__input" style={{width:'440px'}} onChange={handleNewPass}/>
                     <Form.Text className="text-muted">
                     </Form.Text>
                 </Form.Group>
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Nhập lại mật khẩu mới:</Form.Label>
-                    <Form.Control type="password" className="login__input" style={{width:'440px'}} onChange={handleNewPassCheck}/>
+                    <Form.Control type="password" required className="login__input" style={{width:'440px'}} onChange={handleNewPassCheck}/>
                 </Form.Group>
-                <Button variant="primary" onClick={ChangePass} style={{marginLeft:'350px'}}>
+                <Button type="submit" variant="primary" style={{marginLeft:'350px'}}>
                     Xác nhận
                 </Button>
             </Form>

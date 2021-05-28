@@ -69,7 +69,6 @@ export default function Reviewbook() {
         async function getAPI(){
              await axios.get(process.env.REACT_APP_API_URL+'/api/faculty/get/'+ localStorage.getItem('bookFac'))
             .then((response) => {
-                // console.log(response.data.name);
                 setNameFaculty(response.data.name)
                 return response.data
             })
@@ -89,9 +88,8 @@ export default function Reviewbook() {
         day:bookDate,
         time:bookTime,
     }
-   
-    const addBook = async () => {
-        // await axios.post('http://113.173.154.51:9000/api/faculty/create', formData)
+    const addBook = async (e) => {
+        e.preventDefault();
         axios.post(process.env.REACT_APP_API_URL+'/api/booking/create', formData)
         .then(response =>{
             console.log(response.data);
@@ -107,8 +105,6 @@ export default function Reviewbook() {
         })
     }
     const Payment = async () => {
-        // console.log(formData);
-        // await axios.post('http://113.173.154.51:9000/api/faculty/create', formData)
         await axios.post(process.env.REACT_APP_API_URL+'/api/booking/create', formData)
         .then(response =>{
             console.log('thành công');
@@ -148,7 +144,7 @@ export default function Reviewbook() {
 				<Image src='https://cdn.jiohealth.com/jio-website/home-page/jio-website-v2.1.4/assets/icons/smart-clinic/note-icon.svg' alt = 'iconchonkhoa'/> 
 				<h3 style={{marginLeft:'15px',marginTop:'18px'}}>Thông tin hóa đơn</h3>
 			</div>
-            <Form>
+            <Form onSubmit={addBook}>
                 <div className='form__info'>
                     <div className="title__info first__title">
                         <h5>Thông tin bệnh nhân</h5>
@@ -157,13 +153,13 @@ export default function Reviewbook() {
                         <div className='col'>
                             <Form.Group>
                                 <Form.Label>Họ tên:</Form.Label>
-                                <Form.Control type="text" defaultValue = {customer} onChange = {handleName}/>
+                                <Form.Control type="text" required defaultValue = {customer} onChange = {handleName} pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"/>
                             </Form.Group>
                         </div>
                         <div className='col'>
                             <Form.Group>
                                 <Form.Label>Số điện thoại:</Form.Label>
-                                <Form.Control type="text" defaultValue = {phone}  onChange = {handlePhone}/>
+                                <Form.Control type="text" defaultValue = {phone}  onChange = {handlePhone} pattern="^\+?(\d.*){3,}$"/>
                             </Form.Group>   
                         </div>
                     </div>
@@ -171,13 +167,13 @@ export default function Reviewbook() {
                         <div className='col'>
                             <Form.Group>
                                 <Form.Label>Đỉa chỉ:</Form.Label>
-                                <Form.Control type="text" defaultValue = {address} />
+                                <Form.Control type="text" defaultValue = {address} pattern="^(?!^\d+$)^.{5,}$" />
                             </Form.Group>
                         </div>
                         <div className='col'>
                             <Form.Group>
                                 <Form.Label>Email:</Form.Label>
-                                <Form.Control type="text" defaultValue = {email}  onChange = {handleMail}/>
+                                <Form.Control type="email" required defaultValue = {email}  onChange = {handleMail}/>
                             </Form.Group>   
                         </div>
                     </div>
@@ -190,13 +186,13 @@ export default function Reviewbook() {
                         <div className='col'>
                             <Form.Group>
                                 <Form.Label>Bác sĩ:</Form.Label>
-                                <Form.Control type="text" defaultValue = {nameDoctor}/>
+                                <Form.Control disabled type="text" defaultValue = {nameDoctor}/>
                             </Form.Group>
                         </div>
                         <div className='col'>
                             <Form.Group>
                                 <Form.Label>Khoa:</Form.Label>
-                                <Form.Control type="text" defaultValue = {nameFaculty} />
+                                <Form.Control disabled type="text" defaultValue = {nameFaculty} />
                             </Form.Group>   
                         </div>
                     </div>
@@ -204,20 +200,20 @@ export default function Reviewbook() {
                         <div className='col'>
                             <Form.Group>
                                 <Form.Label>Ngày: </Form.Label>
-                                <Form.Control type="text" defaultValue = {bookDate} />
+                                <Form.Control required type="text" defaultValue = {bookDate} />
                             </Form.Group>
                         </div>
                         <div className='col'>
                             <Form.Group>
                                 <Form.Label>Giờ:</Form.Label>
-                                <Form.Control type="text" defaultValue = {bookTime} />
+                                <Form.Control required type="text" defaultValue = {bookTime} />
                             </Form.Group>   
                         </div>
                     </div>
                 </div>
                 <div className='button__bill'>
                     <Button variant="primary"
-                        onClick = {addBook}
+                        type='submit'
                         style = {{marginRight:'10px'}}>
                         Đặt khám
                     </Button>

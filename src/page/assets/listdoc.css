@@ -8,16 +8,17 @@
 .wapper_listdoc {
     display: flex;
     justify-content: space-between;
+    min-width: 400px;
     height: 76.7vh;
 }
 
 .list__doc {
     display: flex;
     width: 70%;
-    padding-top: 0px;
     margin: 0 auto;
+    padding-right: 15px;
     flex-wrap: wrap;
-    /* justify-content: space-evenly; */
+    justify-content: space-between;
     overflow-y: scroll;
 }
 
@@ -122,6 +123,7 @@
     margin: 0 auto;
     box-shadow: 0 2px 4px 0 rgba(158, 158, 158, 0), 0 2px 15px 0 rgba(0, 0, 0, 0.12);
     margin-top: 3%;
+    min-height: 450px;
 }
 
 .faculty {
@@ -144,4 +146,45 @@
     width: 30%;
     margin-top: 20px;
     margin-left: 70%;
+}
+
+.tb {
+    display: table;
+    width: 100%;
+}
+
+.td {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+* {
+    outline: none;
+}
+
+.input__search {
+    font-size: 30px;
+    height: 80px;
+    position: absolute;
+    right: 5%;
+    width: 540px;
+    padding-left: 30px;
+    box-shadow: 0 2px 4px 0 rgba(158, 158, 158, 0), 0 2px 15px 0 rgba(0, 0, 0, 0.12);
+}
+
+#cover {
+    position: absolute;
+    top: 25%;
+    left: 3;
+    right: 0;
+    width: 550px;
+    padding: 0px 20px;
+    margin: -83px auto 0 auto;
+    background-color: #fff;
+    border-radius: 20px;
+    transform: scale(0.6);
+}
+
+.form__search {
+    height: 96px;
 }

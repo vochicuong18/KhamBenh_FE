@@ -96,14 +96,14 @@ export default function ForgotPass() {
                     </Form.Group>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Username</Form.Label>
-                        <Form.Control type="email" className="login__input" style={{width:'440px'}} onChange={handleUserName}/>
+                        <Form.Control type="email" required className="login__input" style={{width:'440px'}} onChange={handleUserName}/>
                         <Form.Text className="text-muted">
                         </Form.Text>
                     </Form.Group>
 
                     <Form.Group controlId="formBasicPassword">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="text" className="login__input" style={{width:'440px'}} defaultValue='sugiadianguc2030@gmail.com' onChange={handleEmail}/>
+                        <Form.Control type="email" required className="login__input" style={{width:'440px'}}  onChange={handleEmail}/>
                     </Form.Group>
                     <Button variant="primary" onClick = {Verify} style={{marginLeft:'350px'}}>
                         Xác nhận

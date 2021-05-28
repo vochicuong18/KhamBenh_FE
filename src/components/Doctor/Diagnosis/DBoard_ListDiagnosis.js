@@ -2,8 +2,7 @@ import React,{ Component } from 'react';
 import { Layout, Breadcrumb } from 'antd';
 import axios from 'axios';
 import TableRowDiagnosis from './TableRowDiagnosis';
-import Importfile from '../Diagnosis/ImportExcel';
-import ModalAddDiagnosis  from '../Diagnosis/Modal_AddDiag';
+
 
 const Content = Layout;
 class DBoard_ListDiagnosis extends Component{
@@ -34,8 +33,6 @@ class DBoard_ListDiagnosis extends Component{
                 <strong className="title__table">Danh sách triệu chứng</strong>              
               </Breadcrumb.Item>
               <Breadcrumb.Item> 
-                <button type="button" className="btn btn-info btn-sm button__table" data-toggle="modal" data-target="#themBacSi">Import File</button>
-                <button type="button" className="btn btn-info btn-sm button__table" data-toggle="modal" data-target="#diagnosis" style ={{marginLeft:'10px'}}>Thêm mới</button>
               </Breadcrumb.Item>
             </Breadcrumb>
             <div>
@@ -56,8 +53,7 @@ class DBoard_ListDiagnosis extends Component{
                         </tbody>
                     </table>
                 </div>             
-                <Importfile></Importfile> 
-                <ModalAddDiagnosis></ModalAddDiagnosis> 
+
             </div>
           </Content>
 

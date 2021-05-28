@@ -64,3 +64,14 @@
       box-shadow: 0 2px 4px 0 rgba(158, 158, 158, 0), 0 2px 15px 0 rgba(0, 0, 0, 0.12);
       padding: 20px 20px;
   }
+  
+  .Edit__Doctor {
+      width: 70%;
+      margin-left: 50px;
+      margin: 0 auto
+  }
+  
+  .formflex {
+      display: flex;
+      justify-content: space-around
+  }

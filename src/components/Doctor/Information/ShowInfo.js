@@ -2,9 +2,7 @@ import React, {useRef, useState,useEffect} from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify'
 import S3 from 'react-aws-s3';
-import {useHistory} from 'react-router-dom'
-function Edit (props) {
-    const history = useHistory();
+export default function ShowInfo(){
     toast.configure({
         autoClose: 2000,
         draggable: true,
@@ -151,33 +149,28 @@ function Edit (props) {
     },[])
 
     const updateDoctor = async () => {
+        console.log(formData);
         axios.put(process.env.REACT_APP_API_URL+'/api/doctor/admin/update/' + localStorage.getItem('idUser'),formData)
         .then(response => {
-            console.log('a');
+            console.log(response.data);
+            
         })
         .catch((err) => {
             console.log(err);
             toast.error(err.response.data.message)
         })
         toast.success("Chỉnh sửa thành công")
-        history.push("/admin-doctor")
     }
-    function cancel(){
-        history.push("/admin-doctor")
-    }          
+     
     return (
-        <div className="">
-            <div className="" id="themBacSi" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h3 className="modal-title" id="exampleModalLabel">Cập nhật thông tin bác sĩ</h3>
-                        </div>
-                    <form onSubmit={updateDoctor}>
-                        <div className="modalbody">                           
-                            <div className="form-group">
-                                <div className='form__info'>
-                                <div className="title__info">
+        <div>
+            <div  className='Edit__Doctor'>
+                <form onSubmit={updateDoctor}>
+                    <div className='formflex' >
+                            <div className="modalbody" >                           
+                                <div className="form-group">
+                                    <div className='form__info' style={{backgroundColor:'white'}}>
+                                        <div className="title__info">
                                             <h5>Thông tin cá nhân</h5>
                                         </div>
                                         <div className="row"> 
@@ -219,9 +212,9 @@ function Edit (props) {
                                                 defaultValue = {mail} required onChange = {handleMail}/>
                                             </div>
                                         </div>
-                                </div>
-                                <div className="form__info">
-                                <div className="title__info">
+                                    </div>
+                                    <div className="form__info" style={{backgroundColor:'white'}}>
+                                        <div className="title__info">
                                             <h5>Trình độ học vấn</h5>
                                         </div>
                                         <label htmlFor="">Chuyên khoa:</label>
@@ -250,14 +243,16 @@ function Edit (props) {
                                                 <input type="text" name="degree" className="form-control" placeholder="" aria-describedby="helpId"
                                                 defaultValue={degree} required pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$" onChange = {handleBangCap}/>
                                             </div>
-                                    </div>                             
-                                </div>
-                                <div className='form__info'>
-                                <div className="title__info">
-                                    <h5>Tài khoản</h5>
-                                </div>
-                                <div className='row'>
-                                <div className='col'>
+                                        </div>                             
+                                    </div>
+                                </div>  
+                            </div>
+                            <div className='form__info' style={{backgroundColor:'white', height:'200px'}}>
+                                        <div className="title__info">
+                                            <h5>Tài khoản</h5>
+                                        </div>
+                                        <div className='row'>
+                                            <div className='col'>
                                                 <label htmlFor="">Username:</label>
                                                 <input type="text" name="username" className="form-control" placeholder="" aria-describedby="helpId"
                                                 defaultValue={username} required pattern="^[a-z0-9_-]{3,16}$" onChange = {handleUserName}/>
@@ -267,21 +262,14 @@ function Edit (props) {
                                                 <input type="text" name="password" className="form-control" placeholder="" aria-describedby="helpId" 
                                             defaultValue ={password} required onChange = {handlePassword} />
                                             </div>
-                                </div>         
-                                </div>
-                                            
-                            </div>  
+                                        </div>   
+                                        <div className="modal-footer">
+                                <button type="submit" className="btn btn-primary">Cập nhật thông tin</button>
+                            </div>      
                         </div>
-                        <div className="modal-footer">
-                            <button type="button" onClick={cancel} className="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                            <button type="submit" className="btn btn-primary">Lưu</button>
-                        </div>
-                    </form>  
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     )
-                    
 }
-export default Edit;

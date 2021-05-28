@@ -16,7 +16,7 @@ function TableRowUser (props) {
     const delAcc =  async () => {
         axios.delete(process.env.REACT_APP_API_URL+'/api/member/delete/'+ props.obj._id)
         .then((response) => {
-            console.log('a');
+            console.log(props.obj._id);
            
         })
         .catch((err) => {

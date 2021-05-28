@@ -13,25 +13,25 @@ class Services extends Component {
                
                 <div className="services__item" data-aos="fade-up" >
                     <div className="itemsv csvc">
-                        <img alt ='' src="./images/icon1.png"></img>
+                        <img alt ='' src="https://imagebucketkhambenhonl-1.s3-ap-southeast-1.amazonaws.com/icon1m1.png" width="25%"></img>
                         <h5>Điều trị trong ngày</h5>
                         <p>Không cần nằm viện, tiết kiệm thời gian, giảm tối đa chi phí</p>
                         <button type="button" className="btn btn-light">Xem thêm</button>
                     </div>
                     <div  className="itemsv bs">
-                        <img alt ='' src="./images/icon1.png"></img>
+                        <img alt ='' src="https://imagebucketkhambenhonl-1.s3-ap-southeast-1.amazonaws.com/icon1m2.png" width='25%'></img>
                        <h5>Tư vấn miễn phí</h5>
                        <p>Giải đáp chính xác, tương tác dễ dàng và bảo mật thông tin cho bạn</p>
                        <button type="button" className="btn btn-light">Xem thêm</button>
                     </div>
                     <div  className="itemsv kt">
-                        <img alt ='' src="./images/icon1.png"></img>
+                        <img alt ='' src="https://imagebucketkhambenhonl-1.s3-ap-southeast-1.amazonaws.com/icon1m3.png" width='25%'></img>
                         <h5>Dịch vụ khám ngoài giờ</h5>
                         <p>Chủ động thời gian, quy trình nhanh chống, hiệu quả cao</p>
                         <button type="button" className="btn btn-light">Xem thêm</button>
                     </div>
                     <div  className="itemsv dv">
-                        <img alt ='' src="./images/icon1.png"></img>
+                        <img alt ='' src="https://imagebucketkhambenhonl-1.s3-ap-southeast-1.amazonaws.com/icon1m4.png" width='25%'></img>
                         <h5>Đặt lịch khám online</h5>
                         <p>Đặt lịch online nhận ưu đãi, tiết kiệm thời gian</p>
                         <button type="button" className="btn btn-light">Xem thêm</button>

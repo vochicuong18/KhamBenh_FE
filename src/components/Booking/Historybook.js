@@ -67,7 +67,7 @@ export default function Historybook() {
             <Button onClick={ChangeStatus(data.set)} className="thanhtoan" variant = 'danger' style= {{marginLeft:'10px'}}>Hủy lịch hẹn</Button>
         );
     }
-   
+
     return (
         <div>
             <Header/>
@@ -87,10 +87,10 @@ export default function Historybook() {
                                         </div>
                                         <div className = 'book__item doctor'>
                                             <div className = 'item__degree'>
-                                                {item.idDoctor.degree}: 
+                                                {item.idDoctor ? item.idDoctor.degree : 'Chưa có bác sĩ'}: 
                                             </div>
                                             <div className = 'item__fullname'>
-                                                {item.idDoctor.idUser.fullname}
+                                                {item.idDoctor ? item.idDoctor.idUser.fullname :''}
                                             </div>
                                         </div>
                                         <div className = 'book__item timeb'>
@@ -123,10 +123,10 @@ export default function Historybook() {
                                     </div>
                                     <div className = 'book__item doctor'>
                                         <div className = 'item__degree'>
-                                            {item.idDoctor.degree}: 
+                                            {item.idDoctor ? item.idDoctor.degree : 'Chưa có bác sĩ'}:
                                         </div>
                                         <div className = 'item__fullname'>
-                                            {item.idDoctor.idUser.fullname}
+                                            {item.idDoctor ? item.idDoctor.idUser.fullname :''}
                                         </div>
                                     </div>
                                     <div className = 'book__item timeb'>
