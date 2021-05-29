@@ -31,6 +31,7 @@ import ListDoctor from '../components/Doctor/Bacsi/Dashboard'
 import ChanDoan from '../components/Doctor/Diagnosis/DashboardDiagnosis'
 import BookAllDoctor from '../components/Doctor/BookAll/DBDoctorBooking'
 import NewList from '../components/listdoctor/NewList'
+import ChangePassDoctor from '../components/Password/ChangePassDoctor'
 export default class RouterURL extends Component {
     render() {
         return ( 
@@ -38,8 +39,12 @@ export default class RouterURL extends Component {
             <Switch >
                 <Route exact path = "/" > <Login/></Route> 
                 <Route path = "/home" > <Home/> </Route>
-                <Route path = "/admin" > <Admin/></Route>
-                <Route path = "/doctor"><AdminDoctor/></Route>
+                <Route path = "/admin" > 
+                    {localStorage.getItem('idAdmin')?<Admin/>:<Login/>}
+                </Route>
+                <Route path = "/doctor">
+                    {localStorage.getItem('idDoctor')?<AdminDoctor/>:<Login/>}
+                </Route>
                 <Route path = "/list-doc" ><NewList/></Route>
                 <Route path = "/doctor-your-booking"><DBDoctorBooking/></Route>
                 <Route path = "/doctor-user"><DoctorUser/></Route>
@@ -55,6 +60,7 @@ export default class RouterURL extends Component {
                 </Route>
                 <Route path = "/forgotpassword"><ForgotPass/></Route>
                 <Route path = "/change-pass"><ChangePass/></Route>
+                <Route path = "/doctor-change-pass"><ChangePassDoctor/></Route>
                 <Route path = "/admin-doctor" > <DashboardDoctor /> </Route> 
                 <Route path = "/admin-khoa" > <DBoardListKhoa/> </Route>
                 <Route path = "/admin-user"><DBoardListUser/></Route>

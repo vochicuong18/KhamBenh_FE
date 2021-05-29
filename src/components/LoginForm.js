@@ -38,8 +38,8 @@ function Login () {
         axios.post(process.env.REACT_APP_API_URL+'/api/login/gg', formDataGG)
         .then(response => {
             console.log(response.data);
-            // toast.success('Thêm thành công')
             localStorage.setItem('idUser',response.data._id)
+            localStorage.setItem('idGoogle','idGoogle')
             history.push("/home")
             toast.success('Đăng nhập thành công')
         })
@@ -54,7 +54,9 @@ function Login () {
         .then(response=>{
             if(response.data.admin){
                 console.log(response.data.admin);
+                localStorage.setItem('idAdmin','Admin nè')
                 history.push("/admin")
+                window.location.reload()
                 toast.success('Đăng nhập thành công')
                 return
             }
@@ -69,6 +71,7 @@ function Login () {
                 localStorage.setItem('idDoctor','608d10b88057022ea4f4c2c6')
                 localStorage.setItem('idUser',response.data._id)
                 history.push("/doctor")
+                history.go(0)
                 toast.success('Đăng nhập thành công')
                 return
             }

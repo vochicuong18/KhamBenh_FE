@@ -1,7 +1,7 @@
 import React,{ useEffect, useState} from 'react';
 import axios from 'axios';
 import {useHistory} from "react-router-dom"
-
+import Infomember from '../Password/InforMember'
 import { Navbar, Nav, NavDropdown,Form, Image,Button } from "react-bootstrap"
 function Header(props) {
     const history = useHistory();
@@ -43,6 +43,7 @@ function Header(props) {
     if(localStorage.getItem('idUser')){
         return (
             <div>
+                <Infomember/>
                 <Navbar className="navbar" bg="light" expand="lg" style={{height:'70px'}}>
                     <Navbar.Brand href="/home">
                         <Image src='https://imagebucketkhambenhonl-1.s3-ap-southeast-1.amazonaws.com/logo12.png'
@@ -54,28 +55,40 @@ function Header(props) {
                     <Nav className="mr-auto">
                         <Nav.Link href="/booking">Đặt khám ngay</Nav.Link>
                         <Nav.Link href="/list-doc">Đội Ngũ Bác Sĩ</Nav.Link>
-                        <NavDropdown title="Các Dịch Vụ" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1"></NavDropdown.Item>
-                            <NavDropdown.Item href="/list-doc">Hô Hấp</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Nội</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.4">Tim Mạch</NavDropdown.Item>
-                        </NavDropdown>
+                        <Nav.Link href="https://tokhaiyte.vn/">Khai báo y tế</Nav.Link>
                         </Nav>
                         <Form inline>
+                            <Button data-toggle="modal" data-target="#infomember">Xem thông tin</Button>
                             <Form.Label className="mr-sm-2" >{fullname}</Form.Label>
-                            <NavDropdown  
-                                title={
-                                    <Image 
-                                        roundedCircle 
-                                        src={avatar} alt=''
-                                        style={{width: '50px', height:'50px', objectFit: 'cover'}}
-                                    />
-                                }
-                            >
-                                <NavDropdown.Item onClick = {logout}>Đăng xuất</NavDropdown.Item>
-                                <NavDropdown.Item onClick = {ChangePass}>Đổi mật khẩu</NavDropdown.Item>
-                                <NavDropdown.Item onClick = {historybook}>Lịch khám của tôi</NavDropdown.Item>
-                            </NavDropdown>
+                            {localStorage.getItem('idGoogle') ?
+                                <NavDropdown  
+                                    title={
+                                        <Image 
+                                            roundedCircle 
+                                            src={avatar} alt=''
+                                            style={{width: '50px', height:'50px', objectFit: 'cover'}}
+                                        />
+                                    }
+                                >   
+                                    <NavDropdown.Item onClick = {historybook}>Lịch khám của tôi</NavDropdown.Item>
+                                </NavDropdown>
+                            :
+                                <NavDropdown  
+                                    title={
+                                        <Image 
+                                            roundedCircle 
+                                            src={avatar} alt=''
+                                            style={{width: '50px', height:'50px', objectFit: 'cover'}}
+                                        />
+                                    }
+                                >   
+                                
+                                    <NavDropdown.Item onClick = {logout}>Đăng xuất</NavDropdown.Item>
+                                    <NavDropdown.Item onClick = {ChangePass}>Đổi mật khẩu</NavDropdown.Item>
+                                    <NavDropdown.Item onClick = {historybook}>Lịch khám của tôi</NavDropdown.Item>
+                                </NavDropdown>
+                            }
+                            
                                 
                         </Form>
                         
@@ -98,12 +111,7 @@ function Header(props) {
                     <Nav className="mr-auto">
                         <Nav.Link href="/booking">Đặt khám ngay</Nav.Link>
                         <Nav.Link href="/list-doc">Đội Ngũ Bác Sĩ</Nav.Link>
-                        <NavDropdown title="Các Dịch Vụ" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1"></NavDropdown.Item>
-                            <NavDropdown.Item href="/list-doc">Hô Hấp</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Nội</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.4">Tim Mạch</NavDropdown.Item>
-                        </NavDropdown>
+                        <Nav.Link href="https://tokhaiyte.vn/">Khai báo y tế</Nav.Link>
                         </Nav>
                         <Form inline>
                             <Button onClick={login} variant="outline-success">Đăng nhập</Button>

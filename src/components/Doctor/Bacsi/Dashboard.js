@@ -5,14 +5,12 @@ import DBoardListDoctor from '../Bacsi/DBoard_ListDoctor';
 import Image from 'react-bootstrap/Image'
 import axios from 'axios';
 import {Link} from "react-router-dom"
-
 import {
   SettingOutlined,
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
-
 const { Header, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 class Dashboard extends Component {
@@ -61,6 +59,11 @@ class Dashboard extends Component {
           {localStorage.getItem('idDoctor')?
           <div>
              <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+             <Menu.Item icon={ <Image 
+                src='https://imagebucketkhambenhonl-1.s3-ap-southeast-1.amazonaws.com/logo12.png'
+                style={{width:'150px',objectFit: 'cover',marginLeft:'-5px',marginTop:'-10px'}}
+                />}>
+            </Menu.Item>
              <Menu.Item icon={<Image src={this.state.avata} roundedCircle  width="25%"  height="38px" style = {{objectFit:'cover'}}/>}>
                 <Link to={'/doctor'}>{this.state.name}</Link>
             </Menu.Item>
@@ -78,6 +81,7 @@ class Dashboard extends Component {
             <SubMenu icon={<SettingOutlined />} title="Cài đặt">
               <Menu.Item><Link to={'/home'}>Trang Chủ</Link></Menu.Item>
               <Menu.Item onClick={this.logout}>Đăng xuất</Menu.Item>
+              <Menu.Item><Link to={'/doctor-change-pass'}>Đổi mật khẩu</Link></Menu.Item>
             </SubMenu>
             </Menu>
           </div> :<div>
@@ -104,7 +108,8 @@ class Dashboard extends Component {
           }
         </Sider>
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }}></Header>
+          <Header className="site-layout-background" style={{ padding: 0 }}>
+          </Header>
           <DBoardListDoctor/>
           <Footer style={{ textAlign: 'center' }}></Footer>
         </Layout>

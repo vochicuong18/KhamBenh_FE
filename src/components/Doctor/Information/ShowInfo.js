@@ -1,7 +1,9 @@
 import React, {useRef, useState,useEffect} from 'react';
 import axios from 'axios';
+import {Button} from 'react-bootstrap'
 import { toast } from 'react-toastify'
 import S3 from 'react-aws-s3';
+import Image from 'react-bootstrap/Image'
 export default function ShowInfo(){
     toast.configure({
         autoClose: 2000,
@@ -48,6 +50,8 @@ export default function ShowInfo(){
         }
         getAPI();
     },[])
+    const [show,setShow] = useState(true)
+    const [showEdit,setShowEdit] = useState(false)
     const [fullname, setFullName] = useState('')
     const [nameKhoa, setNameKhoa] = useState('')
     const [nickname, setNickName] = useState('')
@@ -161,10 +165,130 @@ export default function ShowInfo(){
         })
         toast.success("Chỉnh sửa thành công")
     }
-     
+    function Change(){
+        setShow(false)
+        setShowEdit(true)
+    }
+    function BackChange(){
+        setShow(true)
+        setShowEdit(false)
+    }
     return (
-        <div>
-            <div  className='Edit__Doctor'>
+        <div style={{display:'flex'}}>
+            <div>
+                {/* <Image src={avatar} roundedCircle style={{objectFit: 'cover',width:'60%',height:'40%' }} /> */}
+            </div>
+            <div className='Edit__Doctor' style={{display: show ? 'block' : 'none' }}>
+                <form onSubmit={updateDoctor}>
+                    <div className='formflex' >
+                            <div className="modalbody" >                           
+                                <div className="form-group">
+                                    <div className='form__info' style={{backgroundColor:'white'}}>
+                                        <div className="title__info">
+                                            <h5>Thông tin cá nhân</h5>
+                                        </div>
+                                        <div className="row"> 
+                                            <div className="col">
+                                                <label htmlFor="">Họ tên:</label>
+                                                <input type="text" disabled  name ='fullname' className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                                defaultValue = {fullname} />
+                                            </div>
+                                            <div className="col">
+                                                <label htmlFor="">Nick name:</label>
+                                                <input type="text" disabled name="nickname" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                                defaultValue = {nickname}  pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$" onChange = {handleNickName}/>
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="row">
+                                            <div className="col">
+                                                <label htmlFor="">Description:</label>
+                                                <input type="text" disabled name="description" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                                defaultValue = {description} pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$" onChange = {handleDes}/> 
+                                            </div>
+                                            <div className="col">
+                                                <label htmlFor="">Avatar:</label>
+                                                <input type="file" disabled ref={fileInput} className="form-control-file" onChange ={handleClick}/>
+                                            </div>
+                                        </div>
+                                        <label htmlFor="">Địa chỉ:</label>
+                                        <input type="text" name='address' disabled className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                        defaultValue = {address} required pattern="^(?!^\d+$)^.{5,}$" nChange = {handleAddress} />
+                                        <div className="row">
+                                            <div className="col">
+                                                <label htmlFor="">Phone number:</label>
+                                                <input type="text" disabled name='phoneNumber' className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                                defaultValue = {phoneNumber} disabled required pattern="^\+?(\d.*){3,}$" onChange = {handlePhone} />
+                                            </div>
+                                            <div className="col">
+                                                <label htmlFor="">Email:</label>
+                                                <input type="email" disabled name="email" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                                defaultValue = {mail} required onChange = {handleMail}/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="form__info" style={{backgroundColor:'white'}}>
+                                        <div className="title__info">
+                                            <h5>Trình độ học vấn</h5>
+                                        </div>
+                                        <label htmlFor="">Chuyên khoa:</label>
+                                        <select disabled className= 'form-control' name='idFaculty'  onChange={handleKhoa}>
+                                            
+                                            <option>{nameKhoa}</option>
+                                            <option>-------------------------------------------------------------------</option>
+                                            {idFaculty.map((item) => (
+                                                <option
+                                                    key={item._id}
+                                                    value={item._id}
+                                                >
+                                                    {item.name}
+                                                </option>
+                                            ))} 
+                                        </select>
+                                        <br/>
+                                        <div className='row'>
+                                            <div className='col'>
+                                                <label htmlFor="">Nơi đào tạo:</label>
+                                                <input type="text" disabled  name='trainingPlaces' className="form-control" placeholder="" aria-describedby="helpId"
+                                                defaultValue={trainingPlaces} required pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$"  onChange={handleNoiDaoTao}/>
+                                            </div>
+                                            <div className='col'>
+                                                <label htmlFor="">Bằng cấp:</label>
+                                                <input type="text" disabled name="degree" className="form-control" placeholder="" aria-describedby="helpId"
+                                                defaultValue={degree} required pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$" onChange = {handleBangCap}/>
+                                            </div>
+                                           
+                                        </div>    
+                                            <div className="modal-footer">
+                                                <button onClick={Change} type='button' class="btn btn-primary">Đổi thông tin</button>
+                                            </div>                  
+                                    </div>
+                                </div>  
+                            </div>
+                            {/* <div className='form__info' style={{backgroundColor:'white', height:'200px'}}>
+                                        <div className="title__info">
+                                            <h5>Tài khoản</h5>
+                                        </div>
+                                        <div className='row'>
+                                            <div className='col'>
+                                                <label htmlFor="">Username:</label>
+                                                <input type="text" name="username" className="form-control" placeholder="" aria-describedby="helpId"
+                                                defaultValue={username} required pattern="^[a-z0-9_-]{3,16}$" onChange = {handleUserName}/>
+                                            </div>
+                                            <div className='col'>
+                                                <label htmlFor="">Mật khẩu:</label>
+                                                <input type="text" name="password" className="form-control" placeholder="" aria-describedby="helpId" 
+                                            defaultValue ={password} required onChange = {handlePassword} />
+                                            </div>
+                                        </div>   
+                                        <div className="modal-footer">
+                                <button type="submit" className="btn btn-primary">Cập nhật thông tin</button>
+                            </div>      
+                        </div> */}
+                    </div>
+                </form>
+            </div>
+            <div className='Edit__Doctor' style={{display: showEdit ? 'block' : 'none' }}>
                 <form onSubmit={updateDoctor}>
                     <div className='formflex' >
                             <div className="modalbody" >                           
@@ -243,11 +367,15 @@ export default function ShowInfo(){
                                                 <input type="text" name="degree" className="form-control" placeholder="" aria-describedby="helpId"
                                                 defaultValue={degree} required pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$" onChange = {handleBangCap}/>
                                             </div>
-                                        </div>                             
+                                        </div>
+                                        <div className="modal-footer">
+                                            <Button onClick={BackChange} type='button' variant='outline-secondary'>Trở về</Button>
+                                            <Button type="submit" className="btn btn-primary">Cập nhật</Button>
+                                        </div>                              
                                     </div>
                                 </div>  
                             </div>
-                            <div className='form__info' style={{backgroundColor:'white', height:'200px'}}>
+                            {/* <div className='form__info' style={{backgroundColor:'white', height:'200px'}}>
                                         <div className="title__info">
                                             <h5>Tài khoản</h5>
                                         </div>
@@ -266,10 +394,11 @@ export default function ShowInfo(){
                                         <div className="modal-footer">
                                 <button type="submit" className="btn btn-primary">Cập nhật thông tin</button>
                             </div>      
-                        </div>
+                        </div> */}
                     </div>
                 </form>
             </div>
+            
         </div>
     )
 }

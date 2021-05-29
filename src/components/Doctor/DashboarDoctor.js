@@ -5,6 +5,7 @@ import {Link} from "react-router-dom"
 import Image from 'react-bootstrap/Image'
 import axios from 'axios';
 import ShowInfo from '../Doctor/Information/ShowInfo'
+import Header1 from '../Default/Header'
 import {
   SettingOutlined,
   PieChartOutlined,
@@ -40,6 +41,7 @@ class Dashboard extends Component {
             console.log(error);
         })
   }
+  
   logout(props){
     localStorage.removeItem('idUser')
     localStorage.removeItem('bookDoctor')
@@ -54,12 +56,19 @@ class Dashboard extends Component {
   render() {
     const { collapsed } = this.state;
     return (
+      
       <Layout style={{ minHeight: '100vh' }}>
+        
         <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
           <div className="logo" /> 
           {localStorage.getItem('idDoctor')?
           <div>
              <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+             <Menu.Item icon={ <Image 
+                src='https://imagebucketkhambenhonl-1.s3-ap-southeast-1.amazonaws.com/logo12.png'
+                style={{width:'150px',objectFit: 'cover',marginLeft:'-5px',marginTop:'-10px'}}
+                />}>
+            </Menu.Item>
              <Menu.Item icon={<Image src={this.state.avata} roundedCircle  width="25%"  height="38px" style = {{objectFit:'cover'}}/>}>
                 <Link to={'/doctor'}>{this.state.name}</Link>
             </Menu.Item>
@@ -77,6 +86,7 @@ class Dashboard extends Component {
             <SubMenu icon={<SettingOutlined />} title="Cài đặt">
               <Menu.Item><Link to={'/home'}>Trang Chủ</Link></Menu.Item>
               <Menu.Item onClick={this.logout}>Đăng xuất</Menu.Item>
+              <Menu.Item><Link to={'/doctor-change-pass'}>Đổi mật khẩu</Link></Menu.Item>
             </SubMenu>
             </Menu>
           </div> :<div>
@@ -103,7 +113,8 @@ class Dashboard extends Component {
           }
         </Sider>
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }}></Header>
+          <Header className="site-layout-background" style={{ padding: 0 }}>
+          </Header>
           <ShowInfo/>
           <Footer style={{ textAlign: 'center' }}></Footer>
         </Layout>

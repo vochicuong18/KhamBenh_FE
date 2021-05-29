@@ -56,6 +56,7 @@ function FrmNhapTC() {
                 </InputGroup.Prepend>
               <FormControl 
                 aria-label="trieuchung"
+                placeholder="Các triệu chứng"
                 aria-describedby="basic-addon1"
                 onChange={handleChangeTC}
               />

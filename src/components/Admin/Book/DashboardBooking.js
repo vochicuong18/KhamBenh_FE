@@ -2,7 +2,7 @@ import React,{ Component } from 'react';
 import 'antd/dist/antd.css';
 import { Layout, Menu } from 'antd';
 import DBoardListBooking from '../Book/DBoard_ListBooking';
-
+import Image from 'react-bootstrap/Image'
 import {Link} from "react-router-dom"
 
 import {
@@ -30,6 +30,11 @@ class Dashboard extends Component {
         <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
           <div className="logo" />
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+          <Menu.Item icon={ <Image 
+                src='https://imagebucketkhambenhonl-1.s3-ap-southeast-1.amazonaws.com/logo12.png'
+                style={{width:'150px',objectFit: 'cover',marginLeft:'-5px',marginTop:'-10px'}}
+                />}>
+            </Menu.Item>
           <Menu.Item key="1" icon={<PieChartOutlined />}>
               <Link to={'/admin-book'}>Danh sách Đặt khám</Link>
             </Menu.Item>

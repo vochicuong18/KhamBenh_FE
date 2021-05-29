@@ -39,7 +39,7 @@ class DBoard_ListDiagnosis extends Component{
               </Breadcrumb.Item>
             </Breadcrumb>
             <div>
-                <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
+                <div className="site-layout-background" style={{ padding: 24, minHeight: 360,height:'80vh',overflow: 'auto'}}>
                     <table className = "table">
                         <thead className="thead-light">
                             <tr>
