@@ -1,6 +1,6 @@
 {
     "homepage": "http://vochicuong18.github.io/qlkhambenh",
-    "name": "qlkhambenh",
+    "name": "home",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
@@ -61,7 +61,7 @@
     },
     "scripts": {
         "predeploy": "npm run build",
-        "deploy": "gh-pages -d build",
+        "deploy": "npm run build & cd build & copy index.html 200.html & surge",
         "start": "set PORT=4000 && react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",

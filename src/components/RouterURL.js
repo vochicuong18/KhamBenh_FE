@@ -62,7 +62,7 @@ export default class RouterURL extends Component {
                 <Route path = "/admin-book"> <DashboardBook / > </Route> 
 
 
-                <Route path = "/history-book-notuser/:_id"
+                <Route path = "/history-book-details/:_id"
                   render = {
                     (props) => ( <HistorybookNotUser {...props}
                         key = {this.props._id}/>
@@ -70,10 +70,7 @@ export default class RouterURL extends Component {
                 }></Route> 
 
                 <Route path = "/home-thanhcongne"><CheckPay/></Route>
-
-
                 <Route path = "/home-thatbaine"><CheckPayFailed/></Route>
-
                 <Route path = "/edituser/:_id"
                     render = {
                         (props) => ( <EditUser {...props}
@@ -116,6 +113,7 @@ export default class RouterURL extends Component {
                 <Route path = "/result"> <Ketqua/> </Route>
                 <Route path = "/booking"><Booking/> </Route>
                 <Route path = "/history-book"><Historybook/></Route>
+                <Route><Home /> </Route>
             </Switch> 
         </div>
         )

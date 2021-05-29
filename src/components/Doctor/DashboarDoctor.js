@@ -6,6 +6,7 @@ import Image from 'react-bootstrap/Image'
 import axios from 'axios';
 import ShowInfo from '../Doctor/Information/ShowInfo'
 import {
+  SettingOutlined,
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
@@ -13,8 +14,8 @@ import {
 
 const { Header, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
-
 class Dashboard extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {name:'',avata:''};
@@ -39,16 +40,24 @@ class Dashboard extends Component {
             console.log(error);
         })
   }
-
+  logout(props){
+    localStorage.removeItem('idUser')
+    localStorage.removeItem('bookDoctor')
+    localStorage.removeItem('bookDate')
+    localStorage.removeItem('bookTime')
+    localStorage.removeItem('bookFac')
+    localStorage.removeItem('Khoa')
+    localStorage.removeItem('Name')
+    localStorage.removeItem('idDoctor')
+    window.location.reload()
+}
   render() {
     const { collapsed } = this.state;
     return (
       <Layout style={{ minHeight: '100vh' }}>
-        
         <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
           <div className="logo" /> 
-         
-          {localStorage.getItem('idUser')?
+          {localStorage.getItem('idDoctor')?
           <div>
              <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
              <Menu.Item icon={<Image src={this.state.avata} roundedCircle  width="25%"  height="38px" style = {{objectFit:'cover'}}/>}>
@@ -64,6 +73,10 @@ class Dashboard extends Component {
             <SubMenu icon={<TeamOutlined />} title="Hệ thống">
               <Menu.Item><Link to={'/doctor-bookall'}>Danh sách Đặt khám</Link></Menu.Item>
               <Menu.Item><Link to={'/doctor-chandoan'}>Danh sách Chẩn đoán</Link></Menu.Item>
+            </SubMenu>
+            <SubMenu icon={<SettingOutlined />} title="Cài đặt">
+              <Menu.Item><Link to={'/home'}>Trang Chủ</Link></Menu.Item>
+              <Menu.Item onClick={this.logout}>Đăng xuất</Menu.Item>
             </SubMenu>
             </Menu>
           </div> :<div>
@@ -82,11 +95,12 @@ class Dashboard extends Component {
               <Menu.Item><Link to={'/'}>Danh sách Đặt khám</Link></Menu.Item>
               <Menu.Item><Link to={'/'}>Danh sách Chẩn đoán</Link></Menu.Item>
             </SubMenu>
+            <SubMenu icon={<SettingOutlined />} title="Cài đặt">
+              <Menu.Item><Link to={'/home'}>Trang Chủ</Link></Menu.Item>
+            </SubMenu>
             </Menu>
           </div>
-          
           }
-           
         </Sider>
         <Layout className="site-layout">
           <Header className="site-layout-background" style={{ padding: 0 }}></Header>

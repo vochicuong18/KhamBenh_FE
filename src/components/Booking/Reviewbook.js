@@ -140,11 +140,11 @@ export default function Reviewbook() {
     }
     return (
         <div className='wapper__faculty' style= {{padding: '20px 200px'}}>
-            <div style={{display: 'flex' , marginLeft:'70px'}} >
+            <div className='header__booking' style={{display: 'flex' , marginLeft:'70px'}} >
 				<Image src='https://cdn.jiohealth.com/jio-website/home-page/jio-website-v2.1.4/assets/icons/smart-clinic/note-icon.svg' alt = 'iconchonkhoa'/> 
 				<h3 style={{marginLeft:'15px',marginTop:'18px'}}>Thông tin hóa đơn</h3>
 			</div>
-            <Form onSubmit={addBook}>
+            <Form onSubmit={addBook} className ='form__review'>
                 <div className='form__info'>
                     <div className="title__info first__title">
                         <h5>Thông tin bệnh nhân</h5>

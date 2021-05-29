@@ -1,9 +1,10 @@
 import React, {useRef, useState,useEffect} from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify'
-
+import {useHistory} from 'react-router-dom'
 import S3 from 'react-aws-s3';
 function EditUser (props) {  
+    let history = useHistory()
     toast.configure({
         autoClose: 2000,
         draggable: true,
@@ -45,7 +46,6 @@ function EditUser (props) {
     const [mail, setMail] = useState('')
     const [username, setUserName] = useState('')
     const [password, setPassword] = useState('')
-
     const [idRole] = useState('608d10b88057022ea4f4c2c6')
     function handleNameBS(e){
         e.preventDefault()
@@ -89,13 +89,13 @@ function EditUser (props) {
         async function getAPI(props){
              await axios.get(process.env.REACT_APP_API_URL+'/api/member/get/' + id)
              .then(response => {
-                 console.log(response.data);
                     setFullName(response.data.idUser.fullname)
                     setAddress(response.data.idUser.address)
                     setPhoneNumber(response.data.idUser.phoneNumber)
                     setMail(response.data.idUser.mail)
                     setUserName(response.data.idUser.idAccount.username)
                     setPassword(response.data.idUser.idAccount.password)
+                    setAvatar(response.data.idUser.avatar)
              })
              .catch(function (error) {
                  console.log(error);              
@@ -105,17 +105,17 @@ function EditUser (props) {
     },[id])
         
     
-    const updateDoctor = async () => {
+    const updateMember = async () => {
         console.log(formData);
         axios.put(process.env.REACT_APP_API_URL+'/api/member/admin/update/' +id, formData)
         .then(response => {
-            toast.success("Chỉnh sửa thành công")
-            props.history.push('/admin-user')
         })
-
         .catch((err) => {
             toast.error(err.response.data.message)
         })
+        toast.success("Chỉnh sửa thành công")
+        history.push("/admin-user")
+        history.go(0)
         
     }
 
@@ -131,7 +131,7 @@ function EditUser (props) {
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form>
+                    <form onSubmit={updateMember}>
                         <div className="modal-body">                           
                             <div className="form-group ">
                                 <div className='form__info'>
@@ -141,7 +141,7 @@ function EditUser (props) {
                                     <div className="row"> 
                                         <div className="col">
                                             <label htmlFor="">Họ tên:</label>
-                                            <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                            <input type="text" className="form-control" placeholder="" required pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$" aria-describedby="helpId" maxLength ={50}
                                             defaultValue = {fullname}
                                             onChange = {handleNameBS} />   
                                         </div>
@@ -152,7 +152,7 @@ function EditUser (props) {
                                         </div>
                                     </div>
                                     <label htmlFor="">Địa chỉ:</label>
-                                    <input type="text"  className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                    <input type="text" required pattern="^(?!^\d+$)^.{5,}$" nChange = {handleAddress}  className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
                                     defaultValue = {address}
                                     onChange = {handleAddress} />
                                     <div className="row">
@@ -160,11 +160,11 @@ function EditUser (props) {
                                             <label htmlFor="">Phone number:</label>
                                             <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
                                             defaultValue = {phoneNumber}
-                                            onChange={handlePhone} />
+                                            onChange={handlePhone} required pattern="^\+?(\d.*){3,}$" />
                                         </div>
                                         <div className="col">
                                             <label htmlFor="">Email:</label>
-                                            <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                            <input type="email" required className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
                                             defaultValue = {mail}
                                             onChange ={handleMail} />
                                         </div>
@@ -180,13 +180,13 @@ function EditUser (props) {
                                             <label htmlFor="">Username:</label>
                                             <input type="text" className="form-control" placeholder="" aria-describedby="helpId"
                                             defaultValue = {username}
-                                            onChange = {handleUserName}/>
+                                            onChange = {handleUserName} required pattern="^[a-z0-9_-]{3,16}$"/>
                                         </div>
                                         <div className='col'>
                                             <label htmlFor="">Mật khẩu:</label>
                                             <input type="text" className="form-control" placeholder="" aria-describedby="helpId" 
                                             defaultValue = {password}
-                                            onChange = {handlePassword}/>
+                                            onChange = {handlePassword} required/>
                                         </div>
                                     </div>              
                                 </div>
@@ -195,7 +195,7 @@ function EditUser (props) {
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                            <button type="button" onClick = {updateDoctor} className="btn btn-primary">Lưu</button>
+                            <button type="submit" className="btn btn-primary">Lưu</button>
                         </div>
                     </form>  
                 </div>

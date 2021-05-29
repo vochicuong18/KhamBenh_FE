@@ -1,6 +1,7 @@
 import React, {useEffect,useState} from 'react'
 import Header from '../Default/Header'
 import axios from 'axios'
+import {Link} from 'react-router-dom'
 import {Button} from 'react-bootstrap'
 import Image from 'react-bootstrap/Image'
 export default function Historybook() {
@@ -74,7 +75,9 @@ export default function Historybook() {
             {listBooking.map((item) =>(
                 <div>
                     {item.status ? (
+                        
                         <div>
+                            <Link to={"/history-book-details/" + item.idOrder.idBooking} style={{color: '#000'}}>
                             <div className='wapper1'>
                                 <div className = 'wapper__history'>
                                     <div className = 'book__item khoa'>
@@ -106,8 +109,9 @@ export default function Historybook() {
                                 {item.idOrder.status ? <DaThanhToan/> : <ChuaThanhToan set = {item.idOrder._id}/>}
                                     {item.status ? <Active set = {item._id}/> : <Cancel/>}
                                 </div>
-                                
                             </div>
+                            </Link>
+                            
                         </div>
                     ): (
                     <div>

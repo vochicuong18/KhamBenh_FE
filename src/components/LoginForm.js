@@ -59,12 +59,14 @@ function Login () {
                 return
             }
             if(response.data.idUser.idAccount.idRole._id === '608d70c9c7b4fa2708e30e6a'){
+                localStorage.setItem('idMember','608d70c9c7b4fa2708e30e6a')
                 localStorage.setItem('idUser',response.data._id)
                 history.push("/home")
                 toast.success('Đăng nhập thành công')
                 return
             }
             if(response.data.idUser.idAccount.idRole._id === '608d10b88057022ea4f4c2c6'){
+                localStorage.setItem('idDoctor','608d10b88057022ea4f4c2c6')
                 localStorage.setItem('idUser',response.data._id)
                 history.push("/doctor")
                 toast.success('Đăng nhập thành công')

@@ -20,7 +20,7 @@ class Post extends Component {
             // scrollbar={{ draggable: true }}
             onSwiper={(swiper) => console.log(swiper)}
             onSlideChange={() => console.log('slide change')}>
-            <SwiperSlide>
+            <SwiperSlide className='test2'>
                 <div className="item__swiper">
                     <img alt ='' className="item__swiper__img" src="https://znews-photo.zadn.vn/w860/Uploaded/qxjwpprjv/2021_05_26/DSC_0006_zing.jpg" height="250px" style={{objectFit:'cover'}}></img>
                    <div className="item__swiper_desc">

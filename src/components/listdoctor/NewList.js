@@ -1,7 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import Image from 'react-bootstrap/Image'
-import {Form} from 'react-bootstrap'
+import { Form, InputGroup} from "react-bootstrap"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import Header from '../Default/Header'
 import TitleDoc from '../listdoctor/titlelist'
 export default function NewList() {
@@ -25,14 +27,23 @@ export default function NewList() {
             <Header/>
             <TitleDoc/>
             <div id="cover">
-                <form method="get" action="" className='form__search'>
-                    <input className="form-control input__search" type="text" placeholder="Nhập tên bác sĩ" required onChange={(event)=>{setKeyword(event.target.value)}} />
-                </form>
+                <InputGroup>
+                        <Form.Control
+                            type="text"
+                            className= 'input__search   '
+                            placeholder="Nhập tên bác sĩ" required onChange={(event)=>{setKeyword(event.target.value)}}
+                        />
+                        <InputGroup.Prepend>
+                            <InputGroup.Text>
+                                <FontAwesomeIcon icon={faSearch} style={{fontSize:'30px'}}/>
+                            </InputGroup.Text>
+                        </InputGroup.Prepend>
+                    </InputGroup>
             </div>
             <div className="wapper__faculty" style={{paddingTop: '50px',marginTop:'50px'}}>
                 <div className="list__doc">
-                    {listDoctor.filter((item)=>{
-                        if(keyword==""){
+                    {listDoctor.filter((item) => {
+                        if(keyword===""){
                             return item
                         }else if(item.idUser.fullname.toLowerCase().includes(keyword.toLowerCase())){
                             return item

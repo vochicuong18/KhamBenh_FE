@@ -44,7 +44,7 @@ function TableRowUser (props) {
                 <FontAwesomeIcon icon ={faUserEdit} style={{fontSize:'20px'}} />
             </Link>
 
-            <button className='btn__row' onClick = {delAcc}><FontAwesomeIcon icon ={faTrash} style={{fontSize:'20px', color:'red',marginLeft:'5px'}}/></button> 
+            <button disable className='btn__row' onClick = {delAcc}><FontAwesomeIcon icon ={faTrash} style={{fontSize:'20px', color:'red',marginLeft:'5px'}}/></button> 
             </td>
             
         </tr>       

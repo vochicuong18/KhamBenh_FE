@@ -165,9 +165,7 @@
 .input__search {
     font-size: 30px;
     height: 80px;
-    position: absolute;
-    right: 5%;
-    width: 540px;
+    /* right: 5%; */
     padding-left: 30px;
     box-shadow: 0 2px 4px 0 rgba(158, 158, 158, 0), 0 2px 15px 0 rgba(0, 0, 0, 0.12);
 }
@@ -183,8 +181,4 @@
     background-color: #fff;
     border-radius: 20px;
     transform: scale(0.6);
-}
-
-.form__search {
-    height: 96px;
 }

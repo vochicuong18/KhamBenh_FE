@@ -448,6 +448,11 @@ iframe {
     color: red;
 }
 
+.collapse.show button {
+    background-color: #28A745;
+    color: white
+}
+
 
 /* ----------------------------------------------------------------------------- */
 
@@ -461,9 +466,29 @@ iframe {
     h2 {
         font-size: 30px;
     }
+    .carousel {
+        display: none
+    }
     .slide {
         width: 50%;
         height: 50%;
+    }
+    .covid {
+        position: relative;
+        width: 90%;
+        margin: 0 auto;
+        right: 0%;
+        margin-bottom: 20px;
+        z-index: -1;
+    }
+    h3 {
+        font-size: 18px;
+    }
+    .data {
+        font-size: 15px;
+    }
+    .wapper_feel {
+        width: 90%;
     }
     .services {
         margin-bottom: 0px;
@@ -497,7 +522,7 @@ iframe {
     .img__cause {
         margin-top: 200px;
         height: 60%;
-        opacity: 0.7;
+        opacity: 0.2;
     }
     .card__cause {
         width: 100%;
@@ -515,6 +540,68 @@ iframe {
     .img__call {
         opacity: 0.5;
     }
+    .item__swiper {
+        width: 300px;
+    }
+    .swiper-wrapper {
+        display: block !important;
+    }
+    .wapper {
+        width: 100%;
+        justify-content: center;
+    }
+    footer {
+        padding: 0px;
+        font-size: 12px;
+        padding-top: 10px;
+    }
+    footer h4 {
+        font-size: 15px;
+    }
+    .wapper__faculty {
+        margin-top: 90px;
+        width: 300px;
+    }
+    .list__doc {
+        width: 320px;
+        padding-bottom: 20px;
+        display: block;
+    }
+    .faculty {
+        width: 200px;
+        margin: 0 auto;
+        height: 270px;
+        margin-top: 20px;
+    }
+    .doctor {
+        width: 200px;
+        margin: 0 auto;
+        height: 240px;
+    }
+    .form__info {
+        width: 300px;
+        margin-left: -170px;
+    }
+    .button__bill {
+        width: 300px;
+        margin-left: -150px;
+    }
+    .form__review {
+        right: 20%;
+        margin-top: 50px;
+    }
+    .header__booking {
+        position: absolute;
+        width: 400px;
+        left: 0%;
+        top: -2%;
+    }
+    .title__list {
+        width: 300px
+    }
+    #cover {
+        display: none;
+    }
 }
 
 @media screen and (min-width:46.25em) and (max-width: 63.8375em) {
@@ -527,6 +614,22 @@ iframe {
     }
     h5 {
         font-size: 15px;
+    }
+    .covid {
+        width: 80%;
+        margin: 0 auto;
+        right: 10%;
+        top: 30%;
+        margin-bottom: 20px;
+    }
+    .wapper_feel {
+        width: 90%;
+    }
+    .item__swiper {
+        width: 150px;
+    }
+    .item__swiper p {
+        font-size: 14px;
     }
     .services__item {
         width: 100%;
@@ -559,5 +662,30 @@ iframe {
     }
     .img__call {
         opacity: 0.5;
+    }
+    footer {
+        padding: 10px 10px;
+    }
+    .faculty {
+        flex-basis: 42%;
+    }
+    .doctor {
+        flex-basis: 42%
+    }
+    .form__info {
+        position: relative;
+        right: 90%;
+        width: 500px;
+        margin: 0 auto;
+    }
+    .button__bill {
+        position: relative;
+        width: 300px;
+        right: 20%;
+    }
+    .header__booking {
+        position: relative;
+        width: 400px;
+        left: -100%
     }
 }

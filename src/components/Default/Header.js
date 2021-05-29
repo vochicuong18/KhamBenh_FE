@@ -22,6 +22,7 @@ function Header(props) {
     },[])
     function logout(){
         localStorage.removeItem('idUser')
+        localStorage.removeItem('idDoctor')
         localStorage.removeItem('bookDoctor')
         localStorage.removeItem('bookDate')
         localStorage.removeItem('bookTime')

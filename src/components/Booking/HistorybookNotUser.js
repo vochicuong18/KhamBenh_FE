@@ -2,7 +2,6 @@ import React, {useEffect,useState} from 'react'
 import Header from '../Default/Header'
 import axios from 'axios'
 import {Button} from 'react-bootstrap'
-import Image from 'react-bootstrap/Image'
 import {Container,Row, Col}  from 'react-bootstrap'
 import NumberFormat from 'react-number-format';
 import {useHistory} from 'react-router-dom'
@@ -18,9 +17,25 @@ export default function Historybook(props) {
     const [phone,setPhone] = useState('')
     const [price,setPrice] = useState('')
     const [status,setStatus] = useState('')
+    const [checkPay,setCheckPay] = useState('')
     const history = useHistory()
     function returnHome (){
         history.push('/home')
+    }
+    const Payment  = value => event =>{
+        const formData={
+            idOrder: value,
+        }
+        // axios.post('http://113.173.154.51:9000/api/faculty/create', formData)
+        axios.post(process.env.REACT_APP_API_URL+'/api/payment/create/',formData)
+        .then((response) => {
+            console.log(response.data);
+            window.location.href = response.data.data
+            // history.push()
+        })
+        .catch((err) => {
+            console.log(err.response.data);
+        })
     }
     useEffect(() => {
         async function getAPI(){
@@ -35,6 +50,7 @@ export default function Historybook(props) {
                 setEmail(response.data.mail)
                 setPhone(response.data.phoneNumber)
                 setPrice(response.data.idOrder.price)
+                setCheckPay(response.data.idOrder.status)
                 if(response.data.idOrder.status===true){
                     setStatus('Đã thanh toán')
                 }
@@ -49,7 +65,16 @@ export default function Historybook(props) {
         }
         getAPI();
     },[props.match.params._id])
-   
+    function ButtonDisable () {
+        return(
+            <Button disabled style = {{marginLeft:'20px'}}variant="" onClick={returnHome}>Thanh toán</Button> 
+        );
+    }
+    function ButtonEnable () {
+        return(
+            <Button style = {{marginLeft:'20px'}}variant="outline-danger" onClick={returnHome}>Thanh toán</Button>
+        );
+    }
     return (
 
             <div>
@@ -89,8 +114,13 @@ export default function Historybook(props) {
                                     </div> 
                                 </div>
                                 <br/>
+                                <div className = 'book__item doctor' style = {{display: 'flex'}}>
+                                   <Button onClick={returnHome}> Trang chủ </Button>
+                                   {checkPay ? <ButtonDisable/> :<ButtonEnable/> }
+                                   
+                                </div>
                                 <div className = 'book__item doctor'>
-                                   <Button onClick={returnHome}>Quay về trang chủ</Button>
+                                   
                                 </div>
                                
                             </Col>
@@ -132,13 +162,13 @@ export default function Historybook(props) {
                                 <div className = 'book__item timeb'>
                                     <div className = 'item__day'>
                                         <strong>Trạng thái:</strong> {status}
+                                   
                                     </div>
                                 </div>
                             </Col>
                         </Row>
                     </Container>
-                    <Image style={{position: 'absolute',zIndex:'-1',marginTop:'-35%',opacity:'0.2',marginLeft:'200px'}}
-                        src='https://imagebucketkhambenhonl-1.s3-ap-southeast-1.amazonaws.com/undraw_Booking_re_gw4j.png'/>
+                    
                 </div>
             </div>
     )

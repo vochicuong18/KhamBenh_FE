@@ -55,7 +55,6 @@ function Modal_AddUser() {
         axios.post(process.env.REACT_APP_API_URL+'/api/member/admin/create', formData)
         .then(response => {
             toast.success('Thêm thành công')
-            
         })
         .catch((err) => {
             toast.error(err.response.data.message)
