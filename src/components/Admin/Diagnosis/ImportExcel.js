@@ -4,6 +4,11 @@ import { toast } from 'react-toastify'
 import * as XLSX from 'xlsx'
 import 'react-toastify/dist/ReactToastify.css'
 function ImportExcel() {
+    toast.configure({
+        autoClose: 2000,
+        draggable: true,
+        position: toast.POSITION.TOP_RIGHT
+    })   
     const readExcel=(file)=>{
         const promise = new Promise((resolve,reject) =>{
             const fileReader = new FileReader();

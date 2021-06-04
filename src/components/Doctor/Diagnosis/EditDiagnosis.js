@@ -1,7 +1,9 @@
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify'
+import {useHistory}  from 'react-router-dom'
 function EditDiagnosis (props) {  
+    const history = useHistory();
     toast.configure({
         autoClose: 2000,
         draggable: true,
@@ -47,7 +49,9 @@ function EditDiagnosis (props) {
         description:description,
        
     }
-   
+    function returnPage(){
+        history.push('/doctor-chandoan');
+    }
     useEffect(() => {
         async function getAPI(props){
              await axios.get(process.env.REACT_APP_API_URL+'/api/diagnostic/get/' + id)
@@ -66,11 +70,10 @@ function EditDiagnosis (props) {
         
     
     const updateDoctor = async () => {
-        console.log(formData);
         axios.put(process.env.REACT_APP_API_URL+'/api/diagnostic/update/' + id, formData)
         .then(response => {
             toast.success("Chỉnh sửa thành công")
-            props.history.push('/admin-chandoan')
+            props.history.push('/doctor-chandoan')
         })
 
         .catch((err) => {
@@ -122,7 +125,7 @@ function EditDiagnosis (props) {
                             </div>  
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="button" onClick={returnPage} className="btn btn-secondary" data-dismiss="modal">Đóng</button>
                             <button type="button" onClick={updateDoctor} className="btn btn-primary">Lưu</button>
                         </div>
                     </form>  

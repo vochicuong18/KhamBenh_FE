@@ -13,16 +13,15 @@ function TableRowUser (props) {
         draggable: true,
         position: toast.POSITION.TOP_RIGHT
     })
-    const delAcc =  async () => {
-        axios.delete(process.env.REACT_APP_API_URL+'/api/member/delete/'+ props.obj._id)
+    const delAcc =  async (e) => {
+        e.preventDefault()
+        axios.delete(process.env.REACT_APP_API_URL+'/api/account/delete/'+ props.obj._id)
         .then((response) => {
-            console.log(props.obj._id);
-           
+            console.log(response);
         })
         .catch((err) => {
             console.log(err.response.data.message);
         });
-            window.location.reload()
     }
     function checkName(){
         if(!props.obj.idRole){
@@ -41,10 +40,10 @@ function TableRowUser (props) {
             <td>{name}</td>
              <td>
             <Link to={"/editaccount/"+ props.obj._id}>
-                <FontAwesomeIcon icon ={faUserEdit} style={{fontSize:'20px'}} />
+                <FontAwesomeIcon  icon ={faUserEdit} style={{fontSize:'20px'}} />
             </Link>
 
-            <button disable className='btn__row' onClick = {delAcc}><FontAwesomeIcon icon ={faTrash} style={{fontSize:'20px', color:'red',marginLeft:'5px'}}/></button> 
+            <button className='btn__row' onClick = {delAcc}><FontAwesomeIcon icon ={faTrash} style={{fontSize:'20px', color:'red',marginLeft:'5px'}}/></button> 
             </td>
             
         </tr>       

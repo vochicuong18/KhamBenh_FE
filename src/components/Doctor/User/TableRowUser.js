@@ -18,7 +18,6 @@ function TableRowUser (props) {
             <td>{props.obj.idUser.phoneNumber}</td>
             <td>{props.obj.idUser.mail}</td>
             <td>{props.obj.idUser.idAccount.username}</td>
-            <td>{props.obj.idUser.idAccount.password}</td>
             <td width="200"><Image src={props.obj.idUser.avatar} style={{objectFit: 'cover',height:'50px',width:'50px'}}/></td>
         </tr>       
     );

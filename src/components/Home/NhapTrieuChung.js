@@ -21,11 +21,10 @@ function FrmNhapTC() {
     idMember:localStorage.getItem('idUser'),
     symptom:symptom
   }
-  const Chuandoan = async () =>{
-    console.log(formData);
+  const Chuandoan = async (e) =>{
+    e.preventDefault()
     axios.post(process.env.REACT_APP_API_URL+'/api/diagnostic/searchdiagnostic', formData)
     .then(res =>{
-      console.log(res.data)
        if(res.data.message){
            toast.error(res.data.message)
        }else{
@@ -36,18 +35,19 @@ function FrmNhapTC() {
        }
     })
     .catch((err) => {
+      console.log(err);
         toast.error(err.response.data.message)
     })
  }
     return (
-      <div data-aos="fade-up">
+      <div id="nhaptrieuchung">
           <div className='wapper_feel'>
             <div>
               <h3 className='title'>Hôm nay bạn có khỏe không?</h3>
               <p>Cho chúng tôi biết những vấn đề của bạn</p>
             </div>
             <div>
-              <form>
+              <form onSubmit={Chuandoan}>
               <InputGroup className='mb-3' >
                 <InputGroup.Prepend>
                 <InputGroup.Text id="basic-addon1">
@@ -63,10 +63,9 @@ function FrmNhapTC() {
                             
               {/* <Button type="submit" className='btn__chandoan'>Chẩn đoán</Button> */}
               {/* <input type="text" className="form-control"  onChange = {this.handleChangeTC}/> */}
-              <Button onClick = {Chuandoan} className='btn__chandoan'>Chẩn đoán</Button>
+              <Button type="submit" className='btn__chandoan'>Chẩn đoán</Button>
               </InputGroup>
               </form>
-             
             </div>
           </div>
       </div>

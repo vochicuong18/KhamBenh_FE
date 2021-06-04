@@ -3,8 +3,15 @@ import axios from 'axios'
 import {Form, Button} from "react-bootstrap"
 import Image from 'react-bootstrap/Image'
 import { toast } from 'react-toastify'
-
+import {useHistory} from 'react-router-dom'
+import moment from 'moment'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import 'moment/locale/es'
+moment.locale('vi')
+moment().format("l")
 export default function Reviewbook() {
+    let history = useHistory();
     toast.configure({
         autoClose: 2000,
         draggable: true,
@@ -19,9 +26,11 @@ export default function Reviewbook() {
     const [email,setEmail] = useState('')
     const [customer,setCustomer] = useState('')
     const [nameDoctor, setNameDoctor] = useState('')
-    const [bookDate] = useState(localStorage.getItem('bookDate'))
-    const [bookTime] = useState(localStorage.getItem('bookTime'))
+    const [bookDate,setBookDate] = useState(localStorage.getItem('bookDate'))
+    const [bookTime,setBookTime] = useState(localStorage.getItem('bookTime'))
     const [nameFaculty,setNameFaculty] = useState('')
+    const [idBooking, setIdBooking] = useState('')
+
     useEffect(() => {
         async function getAPI(){
              await axios.get(process.env.REACT_APP_API_URL+'/api/member/get/'+localStorage.getItem('idUser'))
@@ -50,6 +59,14 @@ export default function Reviewbook() {
     function handleMail(e){
         e.preventDefault();
         setEmail(e.target.value)
+    }
+    function handleDate(e){
+        e.preventDefault();
+        setBookDate(e.target.value)
+    }
+    function handleTime(e){
+        e.preventDefault();
+        setBookTime(e.target.value)
     }
     useEffect(() => {
         async function getAPI(){
@@ -92,12 +109,20 @@ export default function Reviewbook() {
         e.preventDefault();
         axios.post(process.env.REACT_APP_API_URL+'/api/booking/create', formData)
         .then(response =>{
-            console.log(response.data);
-            Swal.fire(
-                'Đặt khám thành công',
-                ' ',
-                'success'
-            )
+            console.log(response.data.idOrder.idBooking);
+            const idBooking = response.data.idOrder.idBooking
+            Swal.fire({
+                title: 'Đặt khám thành công',
+                icon: 'success',
+                showCancelButton: false,
+                confirmButtonText: 'Xác nhận'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    history.push('/history-book-details/'+idBooking)
+                    console.log(idBooking);
+                }
+              })
+            
         })
         .catch((err) => {
             toast.error(err.response.data.message)
@@ -119,8 +144,6 @@ export default function Reviewbook() {
             .then((response) => {
                 console.log(response.data);
                 window.location.href = response.data.data
-
-                // history.push()
             })
             .catch((err) => {
                 console.log(err.response.data);
@@ -131,13 +154,18 @@ export default function Reviewbook() {
                 ' ',
                 'success'
             )
-            
         })
         .catch((err) => {
             console.log(err.response.data.message)
         })
        
     }
+
+	
+	function getDate (date){
+		setBookDate(moment(date).format("l"));
+	}	
+
     return (
         <div className='wapper__faculty' style= {{padding: '20px 200px'}}>
             <div className='header__booking' style={{display: 'flex' , marginLeft:'70px'}} >
@@ -200,13 +228,32 @@ export default function Reviewbook() {
                         <div className='col'>
                             <Form.Group>
                                 <Form.Label>Ngày: </Form.Label>
-                                <Form.Control required type="text" defaultValue = {bookDate} />
+                                <br/> 
+                                <DatePicker className = 'form-control' style="width: 390px;"
+                                    value={bookDate}
+                                    defaultValue={new Date()}
+                                    placeholderText={localStorage.getItem('bookDate')}
+                                    onChange={getDate}
+                                    minDate={new Date()}
+                                />
+                                {/* <Form.Control required type="text" pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$" defaultValue = {bookDate} onChange={handleDate} /> */}
                             </Form.Group>
                         </div>
                         <div className='col'>
                             <Form.Group>
                                 <Form.Label>Giờ:</Form.Label>
-                                <Form.Control required type="text" defaultValue = {bookTime} />
+                                <Form.Control as="select" onChange={handleTime}>
+                                    <option selected='selected'>{localStorage.getItem('bookTime')}</option>
+                                    <option>Chọn giờ</option>
+                                    <option>8:00</option>
+                                    <option>9:00</option>
+                                    <option>10:00</option>
+                                    <option>11:00</option>
+                                    <option>13:00</option>
+                                    <option>14:00</option>
+                                    <option>15:00</option>
+                                    <option>16:00</option>
+                                </Form.Control>
                             </Form.Group>   
                         </div>
                     </div>

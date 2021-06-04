@@ -46,7 +46,6 @@ class DBoard_ListDortor extends Component{
                                 <th scope="col">Số điện thoại</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Username</th>
-                                <th scope="col">Password</th>
                                 <th scope="col">Avatar</th>
                                 <th scope="col">Action</th>
                             </tr>

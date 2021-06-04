@@ -8,6 +8,7 @@ import { faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons'
 import Image from 'react-bootstrap/Image'
 
 function TableRow (props) {
+    const Swal = require('sweetalert2')
     const [fullName] = useState(props.obj.idUser.fullname)
     const [khoa] = useState(getKhoa)
     const [address] = useState(props.obj.idUser.address)
@@ -22,13 +23,31 @@ function TableRow (props) {
         }
     }
     const delDoctor =  async () => {
-        console.log(props.obj._id);
-        axios.delete(process.env.REACT_APP_API_URL+'/api/doctor/delete/'+ props.obj._id)
-            .then(response => {
-                toast.success('Xóa thành công!')  
-            })
-            .catch(err => console.log(err))
-            window.location.reload()
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(process.env.REACT_APP_API_URL+'/api/doctor/delete/'+ props.obj._id)
+                .then(response => {
+                    window.location.reload() 
+                })
+                .catch(err => console.log(err))
+               
+                Swal.fire({
+                    position: 'center',
+                    title: 'Đã xóa thành công',
+                    showConfirmButton: false,
+                    timer: 1000
+                  })
+            }
+          })
+       
     }
     return (
         <tr>

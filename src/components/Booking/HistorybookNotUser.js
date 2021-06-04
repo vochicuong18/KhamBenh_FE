@@ -5,7 +5,9 @@ import {Button} from 'react-bootstrap'
 import {Container,Row, Col}  from 'react-bootstrap'
 import NumberFormat from 'react-number-format';
 import {useHistory} from 'react-router-dom'
-
+import moment from 'moment'
+import 'moment/locale/vi'  
+moment.locale('vi')
 export default function Historybook(props) {
     const [nameKhoa,setNameKhoa] = useState('')
     const [day,setDay] = useState('')
@@ -18,19 +20,19 @@ export default function Historybook(props) {
     const [price,setPrice] = useState('')
     const [status,setStatus] = useState('')
     const [checkPay,setCheckPay] = useState('')
+    const [idOrder, setId] = useState('')
     const history = useHistory()
     function returnHome (){
         history.push('/home')
     }
-    const Payment  = value => event =>{
+    function Payment (){
         const formData={
-            idOrder: value,
+            idOrder: idOrder
         }
         axios.post(process.env.REACT_APP_API_URL+'/api/payment/create/',formData)
         .then((response) => {
             console.log(response.data);
             window.location.href = response.data.data
-            // history.push()
         })
         .catch((err) => {
             console.log(err.response.data);
@@ -40,6 +42,7 @@ export default function Historybook(props) {
         async function getAPI(){
              await axios.get(process.env.REACT_APP_API_URL+'/api/booking/get/' + props.match.params._id)
             .then((response) => {
+                setId(response.data.idOrder._id)
                 setNameKhoa(response.data.idFaculty.name)
                 setDay(response.data.day)
                 setTime(response.data.time)
@@ -66,12 +69,12 @@ export default function Historybook(props) {
     },[props.match.params._id])
     function ButtonDisable () {
         return(
-            <Button disabled style = {{marginLeft:'20px'}}variant="" onClick={returnHome}>Thanh toán</Button> 
+            <Button disabled style = {{marginLeft:'20px'}}variant="" onClick={Payment}>Thanh toán</Button> 
         );
     }
     function ButtonEnable () {
         return(
-            <Button style = {{marginLeft:'20px'}}variant="outline-danger" onClick={returnHome}>Thanh toán</Button>
+            <Button style = {{marginLeft:'20px'}}variant="outline-danger" onClick={Payment}>Thanh toán</Button>
         );
     }
     return (
@@ -142,7 +145,7 @@ export default function Historybook(props) {
                                 <br/>
                                 <div className = 'book__item timeb'>
                                     <div className = 'item__day'>
-                                    <strong>Ngày:</strong> {day}
+                                    <strong>Ngày:</strong> {moment({day}).format("ll")}
                                     </div>
                                     <div className = 'item__time'>
                                         <strong>Thời gian:</strong> {time}

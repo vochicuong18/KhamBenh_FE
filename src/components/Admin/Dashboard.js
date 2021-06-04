@@ -5,6 +5,7 @@ import {Link} from "react-router-dom"
 import DBoardListBooking from '../Admin/Book/DBoard_ListBooking';
 import Image from 'react-bootstrap/Image'
 import {
+  SettingOutlined,
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
@@ -33,6 +34,7 @@ class Dashboard extends Component {
                 src='https://imagebucketkhambenhonl-1.s3-ap-southeast-1.amazonaws.com/logo12.png'
                 style={{width:'150px',objectFit: 'cover',marginLeft:'-5px',marginTop:'-10px'}}
                 />}>
+                  <Link to={'/'}></Link>
             </Menu.Item>
             <Menu.Item key="1" icon={<PieChartOutlined />}>
               <Link to={'/admin-book'}>Danh sách Đặt khám</Link>
@@ -46,7 +48,9 @@ class Dashboard extends Component {
               <Menu.Item key="5"><Link to={'/admin-khoa'}>Danh sách khoa</Link></Menu.Item>
               <Menu.Item key="6"><Link to={'/admin-chandoan'}>Danh sách chẩn đoán</Link></Menu.Item>
             </SubMenu>
-
+            <SubMenu icon={<SettingOutlined />} title="Cài đặt">
+              <Menu.Item key="7"><Link to={'/'}>Đăng xuất</Link></Menu.Item>
+            </SubMenu>
           </Menu>
         </Sider>
         <Layout className="site-layout">

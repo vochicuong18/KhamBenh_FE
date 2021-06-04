@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Header from '../components/Default/Header'
 import './assets/listdoc.css'
-// import SearchDoc from '../components/listdoctor/searchdoctor'
 import ListDoc from '../components/listdoctor/list'
 import TitleDoc from '../components/listdoctor/titlelist'
 import axios from 'axios'
@@ -28,7 +27,9 @@ export default class listdoctor extends Component {
     }
     render() {
         return (
-            <div>                
+            
+            <div className="background__image">       
+                       
                 <Header></Header> 
                 <TitleDoc/>
                 {/* <SearchDoc></SearchDoc> */}

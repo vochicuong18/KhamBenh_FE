@@ -26,7 +26,7 @@ function TableRow (props) {
             <td>{symptom}</td>
             <td>{faculty}</td>
             <td>
-            <Link to={"/editdiagnosis/"+ props.obj._id}>
+            <Link to={"/doctor-editdiagnosis/"+ props.obj._id}>
                 <FontAwesomeIcon icon ={faUserEdit} style={{fontSize:'20px'}} />
             </Link>
 

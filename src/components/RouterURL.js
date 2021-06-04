@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch,Redirect } from "react-router-dom";
 import Admin from '../page/admin';
 import Home from '../page/home';
 import Edit from './Admin/Bacsi/Edit';
@@ -12,6 +12,8 @@ import DBoardListKhoa from './Admin/Khoa/DashboardKhoa'
 import EditKhoa from './Admin/Khoa/EditKhoa';
 import Diagnosis from './Admin/Diagnosis/DashboardDiagnosis';
 import EditDiagnosis from './Admin/Diagnosis/EditDiagnosis';
+import DoctorEditDiagnosis from './Doctor/Diagnosis/EditDiagnosis';
+
 import DBoardListUser from './Admin/User/DashboardUser'
 import EditUser from './Admin/User/EditUser';
 import DashboardAccount from './Admin/Account/DashboardAccount'
@@ -37,7 +39,10 @@ export default class RouterURL extends Component {
         return ( 
         <div>
             <Switch >
-                <Route exact path = "/" > <Login/></Route> 
+                <Route exact path="/">
+                    <Redirect to="/home" />
+                </Route>
+                <Route exact path = "/login"> <Login/></Route> 
                 <Route path = "/home" > <Home/> </Route>
                 <Route path = "/admin" > 
                     {localStorage.getItem('idAdmin')?<Admin/>:<Login/>}
@@ -58,6 +63,9 @@ export default class RouterURL extends Component {
                         )
                     }> 
                 </Route>
+                {/* <Route exact path="/"> <Home/>
+                    <Redirect to="/home"/>
+                </Route> */}
                 <Route path = "/forgotpassword"><ForgotPass/></Route>
                 <Route path = "/change-pass"><ChangePass/></Route>
                 <Route path = "/doctor-change-pass"><ChangePassDoctor/></Route>
@@ -66,16 +74,14 @@ export default class RouterURL extends Component {
                 <Route path = "/admin-user"><DBoardListUser/></Route>
                 <Route path = "/admin-account"><DashboardAccount/></Route>
                 <Route path = "/admin-book"> <DashboardBook / > </Route> 
-
-
                 <Route path = "/history-book-details/:_id"
                   render = {
                     (props) => ( <HistorybookNotUser {...props}
-                        key = {this.props._id}/>
+                        key = {this.props._id}/> 
                     )
                 }></Route> 
 
-                <Route path = "/home-thanhcongne"><CheckPay/></Route>
+                <Route path = " "><CheckPay/></Route>
                 <Route path = "/home-thatbaine"><CheckPayFailed/></Route>
                 <Route path = "/edituser/:_id"
                     render = {
@@ -116,10 +122,18 @@ export default class RouterURL extends Component {
                         )
                     } >
                 </Route> 
+                <Route path = "/doctor-editdiagnosis/:_id"
+                    render = {
+                        (props) => ( <DoctorEditDiagnosis {...props}
+                            key = { this.props._id}/>
+                        )
+                    } >
+                </Route> 
                 <Route path = "/result"> <Ketqua/> </Route>
                 <Route path = "/booking"><Booking/> </Route>
                 <Route path = "/history-book"><Historybook/></Route>
                 <Route><Home /> </Route>
+                
             </Switch> 
         </div>
         )

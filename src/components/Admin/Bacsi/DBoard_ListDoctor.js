@@ -13,6 +13,7 @@ class DBoard_ListDortor extends Component{
     componentDidMount() {
         axios.get(process.env.REACT_APP_API_URL+'/api/doctor/get')
             .then(response => {
+                console.log(response.data);
                 this.setState({bacsi: response.data});               
             })
             .catch(function (error) {

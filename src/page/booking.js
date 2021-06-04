@@ -21,7 +21,6 @@ export default function Booking(props) {
     const step2Content = <ListDoc/>
     const step3Content = <Date/>
     const step4content = <Reviewbook/>
-
     return(
         <div>
         <Header/>

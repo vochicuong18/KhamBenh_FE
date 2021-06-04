@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import axios from 'axios'
 import Image from 'react-bootstrap/Image'
+import bg from "../../Video/backgroundwebsite.png"
 import { Form, InputGroup} from "react-bootstrap"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -24,6 +25,9 @@ export default function NewList() {
     },[])
     return (
         <div>
+            <div>
+                    <img src={bg} alt='VN' style = {{position:"absolute", zIndex:'-1', width:'100%',height:'100%', objectFit: 'cover'}} />
+                </div>  
             <Header/>
             <TitleDoc/>
             <div id="cover">
@@ -40,7 +44,7 @@ export default function NewList() {
                         </InputGroup.Prepend>
                     </InputGroup>
             </div>
-            <div className="wapper__faculty" style={{paddingTop: '50px',marginTop:'50px'}}>
+            <div className="wapper__faculty" style={{paddingTop: '50px',marginTop:'50px', maxHeight:'450px',overflow: 'auto', backgroundColor:'rgba(255,255,255,0.3)'}}>
                 <div className="list__doc">
                     {listDoctor.filter((item) => {
                         if(keyword===""){
@@ -49,7 +53,7 @@ export default function NewList() {
                             return item
                         }
                     }).map((item,key)=>
-                    <div className="list__item doctor" key={key}>
+                    <div className="list__item doctor" key={key} style={{height:'250px',backgroundColor:'rgba(255,255,255,0.9)'}}>
                         <div  className="item__avatar">
                             <Image src={item.idUser.avatar} width="100px" height="100px" roundedCircle style={{objectFit:'cover'}}/>
                         </div>

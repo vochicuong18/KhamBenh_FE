@@ -19,13 +19,34 @@ function TableRow (props) {
         return props.obj.idFaculty.name
         }
     }
+    const Swal = require('sweetalert2')
+
     const delDoctor =  async () => {
-        axios.delete(process.env.REACT_APP_API_URL+'/api/diagnostic/delete/'+ props.obj._id)
-            .then(response => {
-                toast.success('Xóa thành công!')  
-            })
-            .catch(err => console.log(err))
-            window.location.reload()
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(process.env.REACT_APP_API_URL+'/api/diagnostic/delete/'+ props.obj._id)
+                .then(response => {
+                    window.location.reload()
+                })
+                .catch(err => console.log(err))
+                Swal.fire({
+                    position: 'center',
+                    title: 'Đã xóa thành công',
+                    showConfirmButton: false,
+                    timer: 1000
+                  })
+            }
+          })
+      
+            
     }
     return (
         <tr>

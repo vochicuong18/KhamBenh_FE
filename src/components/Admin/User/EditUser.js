@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import {useHistory} from 'react-router-dom'
 import S3 from 'react-aws-s3';
 function EditUser (props) {  
-    let history = useHistory()
+    const history = useHistory();
     toast.configure({
         autoClose: 2000,
         draggable: true,
@@ -105,20 +105,22 @@ function EditUser (props) {
     },[id])
         
     
-    const updateMember = async () => {
-        console.log(formData);
+    const updateMember = async (e) => {
+        e.preventDefault();
         axios.put(process.env.REACT_APP_API_URL+'/api/member/admin/update/' +id, formData)
         .then(response => {
+            props.history.push("/admin-user")
+            toast.success("Chỉnh sửa thành công")
         })
         .catch((err) => {
             toast.error(err.response.data.message)
         })
-        toast.success("Chỉnh sửa thành công")
-        history.push("/admin-user")
-        history.go(0)
         
     }
-
+    function returnPage(){
+        history.push('/admin-user');
+        
+    }
 
     return(
         <div>
@@ -141,7 +143,7 @@ function EditUser (props) {
                                     <div className="row"> 
                                         <div className="col">
                                             <label htmlFor="">Họ tên:</label>
-                                            <input type="text" className="form-control" placeholder="" required pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$" aria-describedby="helpId" maxLength ={50}
+                                            <input type="text" className="form-control" placeholder="" required pattern="^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$" aria-describedby="helpId" maxLength ={50}
                                             defaultValue = {fullname}
                                             onChange = {handleNameBS} />   
                                         </div>
@@ -194,7 +196,7 @@ function EditUser (props) {
                             </div>  
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="button" onClick={returnPage} className="btn btn-secondary" data-dismiss="modal">Đóng</button>
                             <button type="submit" className="btn btn-primary">Lưu</button>
                         </div>
                     </form>  

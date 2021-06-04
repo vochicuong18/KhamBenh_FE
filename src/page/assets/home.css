@@ -159,7 +159,7 @@ iframe {
 
 .services {
     margin-top: 70px;
-    margin-bottom: 200px;
+    margin-bottom: 100px;
     /* padding-left: 50px; */
 }
 
@@ -451,6 +451,37 @@ iframe {
 .collapse.show button {
     background-color: #28A745;
     color: white
+}
+
+.nav-item a>img {
+    transition: transform .3s;
+}
+
+.nav-item a>img:hover {
+    border: 1px solid #0075E2;
+    transform: scale(1.04);
+}
+
+.form-inline label {
+    transition: transform .3s;
+}
+
+.form-inline label:hover {
+    transform: scale(1.04);
+}
+
+
+/* .nav-item a:hover {
+    background-color: red;
+} */
+
+._3uApM {
+    padding: 0 8%;
+}
+
+._1Lo2h {
+    width: 70%;
+    margin: 0 auto !important;
 }
 
 

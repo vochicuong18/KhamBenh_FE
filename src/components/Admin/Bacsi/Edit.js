@@ -126,7 +126,7 @@ function Edit (props) {
     }
     useEffect(() => {
         async function getAPI(){
-             await axios.get(process.env.REACT_APP_API_URL+'/api/doctor/get/' + localStorage.getItem('idUser'))
+             await axios.get(process.env.REACT_APP_API_URL+'/api/doctor/get/' + props.match.params._id)
              .then(response => {
                     console.log(response.data);
                     setAvatar(response.data.idUser.avatar)
@@ -150,17 +150,19 @@ function Edit (props) {
         getAPI();
     },[])
 
-    const updateDoctor = async () => {
-        axios.put(process.env.REACT_APP_API_URL+'/api/doctor/admin/update/' + localStorage.getItem('idUser'),formData)
+    const updateDoctor = async (e) => {
+        e.preventDefault();
+        axios.put(process.env.REACT_APP_API_URL+'/api/doctor/admin/update/' + props.match.params._id,formData)
         .then(response => {
-            console.log('a');
+            props.history.push("/admin-doctor")
+            toast.success("Chỉnh sửa thành công")
+            // window.location.reload()
         })
         .catch((err) => {
             console.log(err);
             toast.error(err.response.data.message)
         })
-        toast.success("Chỉnh sửa thành công")
-        history.push("/admin-doctor")
+        
     }
     function cancel(){
         history.push("/admin-doctor")
@@ -184,7 +186,7 @@ function Edit (props) {
                                             <div className="col">
                                                 <label htmlFor="">Họ tên:</label>
                                                 <input type="text" name ='fullname' className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                                defaultValue = {fullname} required pattern="^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$" onChange = {handleNameBS}/>
+                                                defaultValue = {fullname} required pattern="^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$" onChange = {handleNameBS}/>
                                             </div>
                                             <div className="col">
                                                 <label htmlFor="">Nick name:</label>

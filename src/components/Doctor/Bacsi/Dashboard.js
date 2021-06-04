@@ -63,6 +63,7 @@ class Dashboard extends Component {
                 src='https://imagebucketkhambenhonl-1.s3-ap-southeast-1.amazonaws.com/logo12.png'
                 style={{width:'150px',objectFit: 'cover',marginLeft:'-5px',marginTop:'-10px'}}
                 />}>
+                  <Link to={'/'}></Link>
             </Menu.Item>
              <Menu.Item icon={<Image src={this.state.avata} roundedCircle  width="25%"  height="38px" style = {{objectFit:'cover'}}/>}>
                 <Link to={'/doctor'}>{this.state.name}</Link>

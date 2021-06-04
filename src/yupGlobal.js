@@ -3,7 +3,7 @@ import * as yup from 'yup'
 const REGEX_PASSWORD= /^(?=.*\d)(?=.*[a-zA-Z])[\da-zA-Z_.\-@]{8,}$/
 const REGEX_PHONE= /^\+?(\d.*){3,}$/
 const REGEX_USERNAME = /^[a-z0-9_-]{3,16}$/
-const REGEX_NAME =/^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/
+const REGEX_NAME =/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$/
 const REGEX_ADDRESS =  /^(?!^\d+$)^.{5,}$/
 const REGEX_NOIDAOTAO = /^(?!^\d+$)^.{3,}$/
 const REGEX_DEGREE = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/

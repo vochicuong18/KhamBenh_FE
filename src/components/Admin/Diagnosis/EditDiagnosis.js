@@ -1,7 +1,19 @@
 import React, {useState,useEffect} from 'react';
 import axios from 'axios';
+import {useHistory} from 'react-router-dom'
 import { toast } from 'react-toastify'
 function EditDiagnosis (props) {  
+    let history = useHistory()
+    const [idFaculty, setKhoa] = useState([])
+    const [savekhoa, setSaveKhoa] = useState('')
+    const [name, setName] = useState('')
+    const [symptom,setSymtom] = useState([])
+    const [description , setDescription] = useState('')
+    function handleSymptom(e) {
+        const string = (e.target.value);
+        const array = string.split(', ');
+        setSymtom(array)
+    }
     toast.configure({
         autoClose: 2000,
         draggable: true,
@@ -21,13 +33,6 @@ function EditDiagnosis (props) {
         }
         getAPI();
     },[])
-
-    const [idFaculty, setKhoa] = useState([])
-    const [savekhoa, setSaveKhoa] = useState('')
-    const [name, setName] = useState('')
-    const [symptom,setSymtom] = useState([])
-    const [description , setDescription] = useState('')
-    
     function handleName(e){
         e.preventDefault();
         setName(e.target.value)
@@ -41,13 +46,6 @@ function EditDiagnosis (props) {
         e.preventDefault()
         setDescription(e.target.value)
     }
-    const formData = {
-        name: name,
-        idFaculty:savekhoa,
-        description:description,
-       
-    }
-   
     useEffect(() => {
         async function getAPI(props){
              await axios.get(process.env.REACT_APP_API_URL+'/api/diagnostic/get/' + id)
@@ -63,20 +61,28 @@ function EditDiagnosis (props) {
             }         
         getAPI();
     },[id])
-        
-    
     const updateDoctor = async () => {
+        console.log(symptom)
+        const formData = {
+            symptom: symptom,
+            name: name,
+            idFaculty:savekhoa,
+            description:description,
+        }
         console.log(formData);
         axios.put(process.env.REACT_APP_API_URL+'/api/diagnostic/update/' + id, formData)
         .then(response => {
             toast.success("Chỉnh sửa thành công")
+            console.log(response.data);
             props.history.push('/admin-chandoan')
         })
 
         .catch((err) => {
             toast.error(err.response.data.message)
         })
-        
+    }
+    function returnPage(){
+        history.push('/admin-chandoan');
     }
     return (
         <div>
@@ -86,7 +92,7 @@ function EditDiagnosis (props) {
                         <div className="modal-header">
                             <h3 className="modal-title" id="exampleModalLabel">Cập nhật thông tin</h3>
                         </div>
-                    <form >
+                    <form>
                         <div className="modalbody">                           
                             <div className="form-group">
                                 <div className='form__info'>
@@ -94,7 +100,7 @@ function EditDiagnosis (props) {
                                         <h5>Thông tin bệnh</h5>
                                     </div>
                                         <label htmlFor="">Tên bệnh:</label>
-                                        <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                        <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={150}
                                             defaultValue = {name} onChange={handleName}/>   
                                         <br/>
 
@@ -103,8 +109,8 @@ function EditDiagnosis (props) {
                                             defaultValue = {description} onChange = {handleDes}/>   
                                         <br/>
                                         <label htmlFor="">Triệu chứng:</label>
-                                        <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50} disabled
-                                            defaultValue = {symptom}/>   
+                                        <input type="text" className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                            defaultValue = {symptom} onChange={handleSymptom}/>   
                                         <br/>
                                         <label htmlFor="">Chuyên khoa:</label>
                                         <select className= 'form-control' onChange={handleKhoa}>
@@ -122,7 +128,7 @@ function EditDiagnosis (props) {
                             </div>  
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="button" onClick={returnPage} className="btn btn-secondary" data-dismiss="modal">Đóng</button>
                             <button type="button" onClick={updateDoctor} className="btn btn-primary">Lưu</button>
                         </div>
                     </form>  

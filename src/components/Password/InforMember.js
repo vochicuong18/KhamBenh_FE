@@ -104,17 +104,20 @@ function InforMember () {
     },[])
         
     
-    const updateMember = async () => {
+    const updateMember = async (e) => {
+        e.preventDefault();
         console.log(formData);
         axios.put(process.env.REACT_APP_API_URL+'/api/member/admin/update/' +localStorage.getItem('idUser'), formData)
         .then(response => {
+            console.log(response.data);
+            history.go(0)
+        
         })
         .catch((err) => {
             toast.error(err.response.data.message)
         })
         toast.success("Chỉnh sửa thành công")
-        history.push("/admin-user")
-        history.go(0)
+        // history.push("/admin-user")
         
     }
 
@@ -151,7 +154,7 @@ function InforMember () {
                                         </div>
                                     </div>
                                     <label htmlFor="">Địa chỉ:</label>
-                                    <input type="text" required pattern="^(?!^\d+$)^.{5,}$" nChange = {handleAddress}  className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
+                                    <input type="text" required pattern="^(?!^\d+$)^.{5,}$" onChange = {handleAddress}  className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
                                     defaultValue = {address}
                                     onChange = {handleAddress} />
                                     <div className="row">
@@ -169,27 +172,6 @@ function InforMember () {
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div className='form__info'>
-                                    <div className="title__info">
-                                        <h5>Tài khoản</h5>
-                                    </div>
-                                    <div className='row'>
-                                        <div className='col'>
-                                            <label htmlFor="">Username:</label>
-                                            <input type="text" className="form-control" placeholder="" aria-describedby="helpId"
-                                            defaultValue = {username}
-                                            onChange = {handleUserName} required pattern="^[a-z0-9_-]{3,16}$"/>
-                                        </div>
-                                        <div className='col'>
-                                            <label htmlFor="">Mật khẩu:</label>
-                                            <input type="text" className="form-control" placeholder="" aria-describedby="helpId" 
-                                            defaultValue = {password}
-                                            onChange = {handlePassword} required/>
-                                        </div>
-                                    </div>              
-                                </div>
-                                     
                             </div>  
                         </div>
                         <div className="modal-footer">

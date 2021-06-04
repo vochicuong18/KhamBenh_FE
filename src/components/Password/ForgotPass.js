@@ -78,7 +78,7 @@ export default function ForgotPass() {
             axios.put(process.env.REACT_APP_API_URL+'/api/login/changepasswordforgot/'+ idAccount,formData)
             .then(response =>{
                 toast.success(response.data)
-                history.push("/")
+                history.push("/login")
             })
             .catch(err => toast.error(err.response.data.message));
         }else{

@@ -13,12 +13,32 @@ function TableRowUser (props) {
         draggable: true,
         position: toast.POSITION.TOP_RIGHT
     })
-    console.log( props.obj._id);
+    const Swal = require('sweetalert2')
     const delDoctor =  async () => {
-        axios.delete(process.env.REACT_APP_API_URL+'/api/member/delete/'+ props.obj._id)
-        .then(response =>toast.success(response.data.message)) 
-        .catch(err => console.log(err))
-        window.location.reload();       
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete(process.env.REACT_APP_API_URL+'/api/member/delete/'+ props.obj._id)
+                .then(response => {
+                    window.location.reload() 
+                })
+                .catch(err => console.log(err))
+                Swal.fire({
+                    position: 'center',
+                    title: 'Đã xóa thành công',
+                    showConfirmButton: false,
+                    timer: 1000
+                  })
+            }
+          })
+         
 }
     return (
         <tr>
@@ -28,9 +48,8 @@ function TableRowUser (props) {
             <td>{props.obj.idUser.phoneNumber}</td>
             <td>{props.obj.idUser.mail}</td>
             <td>{props.obj.idUser.idAccount.username}</td>
-            <td>{props.obj.idUser.idAccount.password}</td>
-            <td width="200"><Image src={props.obj.idUser.avatar} style={{objectFit: 'cover',height:'50px',width:'50px'}}/></td>
-            <td>
+            <td width="100"><Image src={props.obj.idUser.avatar} style={{objectFit: 'cover',height:'50px',width:'50px'}}/></td>
+            <td width="100"> 
             <Link to={"/edituser/"+ props.obj._id}>
                 <FontAwesomeIcon icon ={faUserEdit} style={{fontSize:'20px'}} />
             </Link>

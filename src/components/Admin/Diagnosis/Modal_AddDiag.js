@@ -7,6 +7,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import yup from '../../../yupGlobal'
 import { Form} from 'react-bootstrap';
 function ImportExcel() {
+    toast.configure({
+        autoClose: 2000,
+        draggable: true,
+        position: toast.POSITION.TOP_RIGHT
+    })   
     const [idFaculty, setKhoa] = useState([])
     const [symptom,setSymtom] = useState('')
     function handleSymptom(e) {
@@ -35,10 +40,10 @@ function ImportExcel() {
             description: data.description,
             idFaculty:data.idFaculty
         }
-        console.log(formData);
         axios.post(process.env.REACT_APP_API_URL+'/api/diagnostic/admin/create',formData)
         .then(response => {
-            console.log('thêm thành công');
+            toast.success(response.data.message)
+            window.location.reload()
         })
 
         .catch((err) => {
@@ -47,7 +52,7 @@ function ImportExcel() {
         })
     }
     const schema = yup.object().shape({
-        name: yup.string().required('*Vui lòng không để trống').fullName('*Sai định dạng triệu chứng'),
+        name: yup.string().required('*Vui lòng không để trống'),
         description:yup.string().degree('Sai định dạng mô tả'),
         idFaculty:yup.string().required('Vui lòng chọn khoa'),
       })
@@ -73,7 +78,7 @@ function ImportExcel() {
                                 <div className="row"> 
                                     <div className="col">
                                         <label htmlFor="">Triệu chứng:</label>
-                                        <input type="text" name='symptom' className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50} onChange={handleSymptom}/>
+                                        <input type="text" name='symptom' className="form-control" placeholder="" aria-describedby="helpId" maxLength ={150} onChange={handleSymptom}/>
                                          
                                     </div>
                                 </div>

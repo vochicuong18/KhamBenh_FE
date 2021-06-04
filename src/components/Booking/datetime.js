@@ -1,23 +1,29 @@
 import React, {useState} from 'react'
+import moment from 'moment'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Image from 'react-bootstrap/Image'
 import {Form} from 'react-bootstrap';
+import 'moment/locale/es'
+moment.locale('vi')
+moment().format("l")
 function Datetime() {
 	const [time,setTime] = useState('')
+	const [saveDate, setDate] = useState('')
 	localStorage.setItem('bookTime',time)
 	function handleTime (e){
 		setTime(e.target.value)
-		console.log(e.target.value);
 	}
 	
 	function getDate (date){
-		const month = date.getMonth()+1;
-		localStorage.setItem('bookDate',date.getDate() +'/'+ month +'/'+ date.getFullYear())
+		setDate(moment(date).format("l"));
+		
 	}	
-		
-		
-    return (
+	localStorage.setItem('bookDate',saveDate)
+	var today = new Date(),
+	checkday = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+	console.log(checkday);
+    return (	
         <div className="wapper__faculty">
 			<div style={{display: 'flex' , marginLeft:'70px'}} >
 				<Image src='https://cdn.jiohealth.com/jio-website/home-page/jio-website-v2.1.4/assets/icons/smart-clinic/note-icon.svg' alt = 'iconchonkhoa'/> 
@@ -26,6 +32,8 @@ function Datetime() {
 			<div className='datetime'>
 			<div className="date">
 				<DatePicker className = 'form-control' 
+					value={saveDate}
+					defaultValue={new Date()}
 					placeholderText="Chọn ngày khám"
 					onChange={getDate}
 					minDate={new Date()}
@@ -46,6 +54,7 @@ function Datetime() {
 					</Form.Control>
 				</div>
 			</div>
+			
 			</div>
     	</div>
      

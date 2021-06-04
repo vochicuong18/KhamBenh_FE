@@ -13,9 +13,11 @@ class TableRow extends Component {
     }
     delete() {
         axios.delete(process.env.REACT_APP_API_URL+'/api/faculty/delete/'+ this.props.obj._id)
-            .then(console.log(this.props.obj._id)) 
+            .then(response => {
+                console.log(response.data);
+            }) 
             .catch(err => console.log(err))
-            window.location.reload();       
+            // window.location.reload();       
     }
 
     render() {      
@@ -32,7 +34,7 @@ class TableRow extends Component {
                 <Link to={"/editkhoa/"+ this.props.obj._id}>
                     <FontAwesomeIcon icon ={faUserEdit} style={{fontSize:'20px'}} />
                 </Link>
-                <button disabled className='btn__row' onClick = {this.delete}><FontAwesomeIcon icon ={faTrash} style={{fontSize:'20px', color:'red',marginLeft:'5px'}}/></button> 
+                <button  className='btn__row' onClick = {this.delete}><FontAwesomeIcon icon ={faTrash} style={{fontSize:'20px', color:'red',marginLeft:'5px'}}/></button> 
                 </td>
             </tr>       
         );

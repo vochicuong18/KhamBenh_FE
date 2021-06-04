@@ -1,9 +1,11 @@
 import React,{ useEffect, useState} from 'react';
 import axios from 'axios';
-import {useHistory} from "react-router-dom"
+import {useHistory, Link} from "react-router-dom"
 import Infomember from '../Password/InforMember'
-import { Navbar, Nav, NavDropdown,Form, Image,Button } from "react-bootstrap"
+import { Navbar, Nav, NavDropdown,Form, Image,Button} from "react-bootstrap"
 function Header(props) {
+    localStorage.removeItem('idAdmin')
+    localStorage.removeItem('idDoctor')
     const history = useHistory();
     const [fullname,setFullname] = useState('')
     const [avatar, setAvatar] = useState('')
@@ -20,8 +22,10 @@ function Header(props) {
       }
       getAPI();
     },[])
+   
     function logout(){
         localStorage.removeItem('idUser')
+        localStorage.removeItem('idAdmin')
         localStorage.removeItem('idDoctor')
         localStorage.removeItem('bookDoctor')
         localStorage.removeItem('bookDate')
@@ -29,10 +33,11 @@ function Header(props) {
         localStorage.removeItem('bookFac')
         localStorage.removeItem('Khoa')
         localStorage.removeItem('Name')
+        localStorage.removeItem('idGoogle')
         window.location.reload()
     }
     function login(){
-        history.push("/")
+        history.push("/login")
     }
     function historybook(){
         history.push("/history-book")
@@ -56,10 +61,10 @@ function Header(props) {
                         <Nav.Link href="/booking">Đặt khám ngay</Nav.Link>
                         <Nav.Link href="/list-doc">Đội Ngũ Bác Sĩ</Nav.Link>
                         <Nav.Link href="https://tokhaiyte.vn/">Khai báo y tế</Nav.Link>
+                        <Nav.Link href="#nhaptrieuchung">Chẩn đoán</Nav.Link>
                         </Nav>
                         <Form inline>
-                            <Button data-toggle="modal" data-target="#infomember">Xem thông tin</Button>
-                            <Form.Label className="mr-sm-2" >{fullname}</Form.Label>
+                            <Form.Label className="mr-sm-2"  data-toggle="modal" data-target="#infomember">{fullname}</Form.Label>
                             {localStorage.getItem('idGoogle') ?
                                 <NavDropdown  
                                     title={
@@ -69,7 +74,7 @@ function Header(props) {
                                             style={{width: '50px', height:'50px', objectFit: 'cover'}}
                                         />
                                     }
-                                >   
+                                >   <NavDropdown.Item onClick = {logout}>Đăng xuất</NavDropdown.Item>
                                     <NavDropdown.Item onClick = {historybook}>Lịch khám của tôi</NavDropdown.Item>
                                 </NavDropdown>
                             :
@@ -112,6 +117,7 @@ function Header(props) {
                         <Nav.Link href="/booking">Đặt khám ngay</Nav.Link>
                         <Nav.Link href="/list-doc">Đội Ngũ Bác Sĩ</Nav.Link>
                         <Nav.Link href="https://tokhaiyte.vn/">Khai báo y tế</Nav.Link>
+                        <Nav.Link href="#nhaptrieuchung">Chẩn đoán</Nav.Link>
                         </Nav>
                         <Form inline>
                             <Button onClick={login} variant="outline-success">Đăng nhập</Button>

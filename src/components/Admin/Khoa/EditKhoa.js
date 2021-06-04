@@ -86,10 +86,13 @@ export default class Edit extends Component {
             
         }
         axios.put(process.env.REACT_APP_API_URL+'/api/faculty/update/'+ this.props.match.params._id, obj)
-            .then(res => {console.log(res.data)});
-            this.props.history.push('/admin-khoa');
-            window.location.reload()
-    
+        .then(response => {
+            this.props.history.push("/admin-khoa")
+            alert("Chỉnh sửa thành công")
+        })
+         .catch((err) => {
+            alert(err.response.data.message)
+        })
     }
     return = event => {
         event.preventDefault();

@@ -3,9 +3,10 @@ import 'react-toastify/dist/ReactToastify.css'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash,faCheck,faTimes,faEdit} from '@fortawesome/free-solid-svg-icons'
+import { faTrash,faCheck,faTimes,faBan} from '@fortawesome/free-solid-svg-icons'
 import NumberFormat from 'react-number-format';
 function TableRow (props) {
+    const Swal = require('sweetalert2')
     const [date] = useState(props.obj.day)
     const [time] = useState(props.obj.time)
     const [khoa] = useState(setFac)
@@ -46,26 +47,63 @@ function TableRow (props) {
         }
     }
     const delBook =  async () => {
-        axios.delete(process.env.REACT_APP_API_URL+'/api/booking/delete/'+ props.obj._id)
+        Swal.fire({
+            title: 'Bạn có chắc muốn xóa?',
+            text: "Bạn sẽ không thể hoàn tác lại điều này!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xác nhận'
+          }).then((result) => {
+            if (result.isConfirmed) {
+            axios.delete(process.env.REACT_APP_API_URL+'/api/booking/delete/'+ props.obj._id)
             .then(response => {
-                toast.success('Xóa thành công!')  
+                window.location.reload()
             })
             .catch(err => console.log(err))
-            window.location.reload()
+            Swal.fire({
+                position: 'center',
+                title: 'Đã xóa thành công',
+                showConfirmButton: false,
+                timer: 1000
+              })
+            }
+          })
+        
     }
     const formData={
 
     }
     const ChangeStatus = async () => {
-        axios.put(process.env.REACT_APP_API_URL+'/api/booking/cancel/'+ props.obj._id,formData)
-        .then(response => {
-            window.location.reload()
-        })
-
-        .catch((err) => {
-            toast.error(err.response.data.message)
-        })
-
+        Swal.fire({
+            title: 'Thay đổi trạng thái lịch?',
+            text: "Lịch khám sẽ hủy sao khi bạn làm điều này!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Xác nhận'
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axios.put(process.env.REACT_APP_API_URL+'/api/booking/cancel/'+ props.obj._id,formData)
+                .then(response => {
+                    window.location.reload()
+                })
+        
+                .catch((err) => {
+                    toast.error(err.response.data.message)
+                })
+            Swal.fire({
+                position: 'center',
+                title: 'Hủy lịch thành công',
+                showConfirmButton: false,
+                timer: 1000
+              })
+            }
+          })
+        
+        
     }
     return (
         <tr style={{marginTop:'20px'}}>
@@ -82,7 +120,7 @@ function TableRow (props) {
                 {/* <Link to={"/editbook/"+ props.obj._id}>
                     <FontAwesomeIcon icon ={faEdit} style={{fontSize:'20px'}} />
                 </Link> */}
-                <button className='btn__row' onClick = {ChangeStatus}><FontAwesomeIcon icon ={faEdit} style={{fontSize:'20px', color:'blue',marginLeft:'5px'}}/></button> 
+                <button className='btn__row' onClick = {ChangeStatus}><FontAwesomeIcon icon ={faBan} style={{fontSize:'20px',marginLeft:'5px'}}/></button> 
                 <button className='btn__row' onClick = {delBook}><FontAwesomeIcon icon ={faTrash} style={{fontSize:'20px', color:'red',marginLeft:'5px'}}/></button> 
             </td>
             

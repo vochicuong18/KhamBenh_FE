@@ -11,7 +11,6 @@ class App extends Component {
           <React.StrictMode>
             <RouterURL></RouterURL>
           </React.StrictMode>
-          
         </div>
       </Router>
     )

@@ -8,6 +8,11 @@
       background: #fff;
   }
   
+  .site-layout-background {
+      height: 80vh;
+      overflow: auto;
+  }
+  
   .title__table {
       font-size: 26px;
       color: black;

@@ -67,7 +67,7 @@ function EditUser (props) {
         axios.put(process.env.REACT_APP_API_URL+'/api/account/update/' +id, formData)
         .then(response => {
             toast.success("Chỉnh sửa thành công")
-            props.history.push('/admin-user')
+            props.history.push('/admin-account')
         })
 
         .catch((err) => {
@@ -75,7 +75,9 @@ function EditUser (props) {
         })
         
     }
-
+    function returnPage () {
+        props.history.push('/admin-account')
+    }
 
     return(
         <div>
@@ -125,7 +127,7 @@ function EditUser (props) {
                             </div>  
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <button type="button" onClick={returnPage} className="btn btn-secondary" data-dismiss="modal">Đóng</button>
                             <button type="button" onClick={updateAccount} className="btn btn-primary">Lưu</button>
                         </div>
                     </form>  
