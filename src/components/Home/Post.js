@@ -13,13 +13,20 @@ class Post extends Component {
                     <div className='color__title' ></div>
                 </div>
             <Swiper className='wapper' 
-            spaceBetween={60}
+            spaceBetween={40}
             slidesPerView={4}
-            // navigation
             pagination={{ clickable: true }}
-            // scrollbar={{ draggable: true }}
-            onSwiper={(swiper) => console.log(swiper)}
-            onSlideChange={() => console.log('slide change')}>
+            breakpoints={{
+                300:{
+                    slidesPerView:1
+                },
+                740: {
+                    slidesPerView: 2
+                },
+                1150:{
+                    slidesPerView: 4
+                }
+            }}>
             <SwiperSlide className='test2'>
                 <div className="item__swiper">
                     <img alt ='' className="item__swiper__img" src="https://znews-photo.zadn.vn/w860/Uploaded/qxjwpprjv/2021_05_26/DSC_0006_zing.jpg" height="250px" style={{objectFit:'cover'}}></img>

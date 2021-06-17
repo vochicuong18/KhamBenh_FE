@@ -64,15 +64,6 @@ function InforMember () {
         setMail(e.target.value)
     }
 
-    function handleUserName(e){
-        e.preventDefault()
-        setUserName(e.target.value)
-    }
-    function handlePassword(e){
-        e.preventDefault()
-        setPassword(e.target.value)
-    }
-
     const formData = {
         fullname:fullname,
         avatar:avatar,
@@ -97,7 +88,7 @@ function InforMember () {
                     setAvatar(response.data.idUser.avatar)
              })
              .catch(function (error) {
-                 console.log(error);              
+                             
              }) 
             }         
         getAPI();
@@ -109,7 +100,6 @@ function InforMember () {
         console.log(formData);
         axios.put(process.env.REACT_APP_API_URL+'/api/member/admin/update/' +localStorage.getItem('idUser'), formData)
         .then(response => {
-            console.log(response.data);
             history.go(0)
         
         })
@@ -156,7 +146,7 @@ function InforMember () {
                                     <label htmlFor="">Địa chỉ:</label>
                                     <input type="text" required pattern="^(?!^\d+$)^.{5,}$" onChange = {handleAddress}  className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
                                     defaultValue = {address}
-                                    onChange = {handleAddress} />
+                                   />
                                     <div className="row">
                                         <div className="col">
                                             <label htmlFor="">Phone number:</label>

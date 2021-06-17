@@ -3,7 +3,6 @@ import axios from 'axios';
 import {Button} from 'react-bootstrap'
 import { toast } from 'react-toastify'
 import S3 from 'react-aws-s3';
-import Image from 'react-bootstrap/Image'
 export default function ShowInfo(){
     toast.configure({
         autoClose: 2000,
@@ -90,14 +89,6 @@ export default function ShowInfo(){
     function handleKhoa (e){
         e.preventDefault()
         setSaveKhoa(e.target.value)
-    }
-    function handleUserName(e){
-        e.preventDefault()
-        setUserName(e.target.value)
-    }
-    function handlePassword(e){
-        e.preventDefault()
-        setPassword(e.target.value)
     }
     function handleNoiDaoTao(e){
         e.preventDefault()
@@ -218,7 +209,7 @@ export default function ShowInfo(){
                                             <div className="col">
                                                 <label htmlFor="">Phone number:</label>
                                                 <input type="text" disabled name='phoneNumber' className="form-control" placeholder="" aria-describedby="helpId" maxLength ={50}
-                                                defaultValue = {phoneNumber} disabled required pattern="^\+?(\d.*){3,}$" onChange = {handlePhone} />
+                                                defaultValue = {phoneNumber} required pattern="^\+?(\d.*){3,}$" onChange = {handlePhone} />
                                             </div>
                                             <div className="col">
                                                 <label htmlFor="">Email:</label>
@@ -260,7 +251,7 @@ export default function ShowInfo(){
                                            
                                         </div>    
                                             <div className="modal-footer">
-                                                <button onClick={Change} type='button' class="btn btn-primary">Đổi thông tin</button>
+                                                <button onClick={Change} type='button' className="btn btn-primary">Đổi thông tin</button>
                                             </div>                  
                                     </div>
                                 </div>  

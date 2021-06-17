@@ -16,16 +16,16 @@
 .ketqua__khoa {
     margin-left: 100px;
     padding: 20px 20px;
-    /*  border: 1px solid #e6e6e6;
+    border: 1px solid #291a1a;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgb(0 0 0 / 5%), 0 8px 16px rgb(0 0 0 / 5%); */
+    box-shadow: 0 2px 4px rgb(0 0 0 / 5%), 0 8px 16px rgb(0 0 0 / 5%);
 }
 
 .ketqua__benh {
     padding: 20px 20px;
-    /* border: 1px solid #e6e6e6;
+    border: 1px solid #e6e6e6;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgb(0 0 0 / 5%), 0 8px 16px rgb(0 0 0 / 5%); */
+    box-shadow: 0 2px 4px rgb(0 0 0 / 5%), 0 8px 16px rgb(0 0 0 / 5%);
 }
 
 .result__bacsi {

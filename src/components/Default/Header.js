@@ -1,6 +1,6 @@
 import React,{ useEffect, useState} from 'react';
 import axios from 'axios';
-import {useHistory, Link} from "react-router-dom"
+import {useHistory} from "react-router-dom"
 import Infomember from '../Password/InforMember'
 import { Navbar, Nav, NavDropdown,Form, Image,Button} from "react-bootstrap"
 function Header(props) {
@@ -17,12 +17,10 @@ function Header(props) {
             setAvatar(response.data.idUser.avatar)
           })
           .catch((err) => {
-              console.log(err);
           });
       }
       getAPI();
     },[])
-   
     function logout(){
         localStorage.removeItem('idUser')
         localStorage.removeItem('idAdmin')
@@ -45,7 +43,6 @@ function Header(props) {
     function ChangePass(){
         history.push("/change-pass")
     }
-    if(localStorage.getItem('idUser')){
         return (
             <div>
                 <Infomember/>
@@ -61,8 +58,12 @@ function Header(props) {
                         <Nav.Link href="/booking">Đặt khám ngay</Nav.Link>
                         <Nav.Link href="/list-doc">Đội Ngũ Bác Sĩ</Nav.Link>
                         <Nav.Link href="https://tokhaiyte.vn/">Khai báo y tế</Nav.Link>
-                        <Nav.Link href="#nhaptrieuchung">Chẩn đoán</Nav.Link>
+                        <Nav.Link href="/home#nhaptrieuchung">Chẩn đoán</Nav.Link>
                         </Nav>
+                        {!avatar ?  
+                        <Form inline>
+                            <Button onClick={login} variant="outline-success">Đăng nhập</Button>
+                        </Form> : 
                         <Form inline>
                             <Form.Label className="mr-sm-2"  data-toggle="modal" data-target="#infomember">{fullname}</Form.Label>
                             {localStorage.getItem('idGoogle') ?
@@ -93,39 +94,12 @@ function Header(props) {
                                     <NavDropdown.Item onClick = {historybook}>Lịch khám của tôi</NavDropdown.Item>
                                 </NavDropdown>
                             }
-                            
-                                
                         </Form>
-                        
+                        }
                     </Navbar.Collapse>
                 </Navbar>
             </div>
         )
     }
-    else{
-        return (
-            <div>
-                <Navbar className="navbar" bg="light" expand="lg" style={{height:'70px'}}>
-                    <Navbar.Brand href="/home">
-                        <Image src='https://imagebucketkhambenhonl-1.s3-ap-southeast-1.amazonaws.com/logo12.png'
-                            style={{width:'200px',objectFit: 'cover'}}
-                        />
-                    </Navbar.Brand>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Nav.Link href="/booking">Đặt khám ngay</Nav.Link>
-                        <Nav.Link href="/list-doc">Đội Ngũ Bác Sĩ</Nav.Link>
-                        <Nav.Link href="https://tokhaiyte.vn/">Khai báo y tế</Nav.Link>
-                        <Nav.Link href="#nhaptrieuchung">Chẩn đoán</Nav.Link>
-                        </Nav>
-                        <Form inline>
-                            <Button onClick={login} variant="outline-success">Đăng nhập</Button>
-                        </Form>
-                    </Navbar.Collapse>
-                </Navbar>
-            </div>
-        )
-    }   
-}
+      
 export default Header;

@@ -5,7 +5,6 @@ import {Link} from "react-router-dom"
 import Image from 'react-bootstrap/Image'
 import axios from 'axios';
 import ShowInfo from '../Doctor/Information/ShowInfo'
-import Header1 from '../Default/Header'
 import {
   SettingOutlined,
   PieChartOutlined,
@@ -13,7 +12,7 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 
-const { Header, Footer, Sider } = Layout;
+const {  Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 class Dashboard extends Component {
     
@@ -51,6 +50,8 @@ class Dashboard extends Component {
     localStorage.removeItem('Khoa')
     localStorage.removeItem('Name')
     localStorage.removeItem('idDoctor')
+    localStorage.removeItem('idMember')
+    localStorage.removeItem('idUser')
     window.location.reload()
 }
   render() {
@@ -114,8 +115,6 @@ class Dashboard extends Component {
           }
         </Sider>
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }}>
-          </Header>
           <ShowInfo/>
           <Footer style={{ textAlign: 'center' }}></Footer>
         </Layout>

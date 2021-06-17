@@ -27,7 +27,7 @@ export default function ChangePass() {
             });
         }
         getAPI();
-    },[])
+    },[id])
     const [inputCurrent,setInputCurrent]=useState('')
     const [newPass,showNewPass] = useState('')
     const [newPassCheck,showNewPassCheck] = useState('')

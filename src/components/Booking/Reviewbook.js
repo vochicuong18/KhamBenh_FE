@@ -29,7 +29,6 @@ export default function Reviewbook() {
     const [bookDate,setBookDate] = useState(localStorage.getItem('bookDate'))
     const [bookTime,setBookTime] = useState(localStorage.getItem('bookTime'))
     const [nameFaculty,setNameFaculty] = useState('')
-    const [idBooking, setIdBooking] = useState('')
 
     useEffect(() => {
         async function getAPI(){
@@ -60,19 +59,16 @@ export default function Reviewbook() {
         e.preventDefault();
         setEmail(e.target.value)
     }
-    function handleDate(e){
-        e.preventDefault();
-        setBookDate(e.target.value)
-    }
+
     function handleTime(e){
         e.preventDefault();
         setBookTime(e.target.value)
+        localStorage.setItem('bookTime',e.target.value)
     }
     useEffect(() => {
         async function getAPI(){
              await axios.get(process.env.REACT_APP_API_URL+'/api/doctor/get/'+localStorage.getItem('bookDoctor'))
             .then((response) => {
-                console.log(response.data.idUser.fullname);
                 setNameDoctor(response.data.idUser.fullname)
                 return response.data
             })
@@ -105,8 +101,8 @@ export default function Reviewbook() {
         day:bookDate,
         time:bookTime,
     }
-    const addBook = async (e) => {
-        e.preventDefault();
+    const addBook = async () => {
+        console.log(formData);
         axios.post(process.env.REACT_APP_API_URL+'/api/booking/create', formData)
         .then(response =>{
             console.log(response.data.idOrder.idBooking);
@@ -160,19 +156,36 @@ export default function Reviewbook() {
         })
        
     }
-
+    const CheckandAddBook = async (e) => {
+        console.log((moment(new Date()).format("LT")).split(":",1).toString())
+        console.log(localStorage.getItem("bookTime").split(":",1).toString());
+        e.preventDefault()
+        if((moment(new Date()).format("l"))=== localStorage.getItem("bookDate")) {
+            if (parseInt((moment(new Date()).format("LT").split(":",1).toString())) >= parseInt(localStorage.getItem("bookTime").split(":",1).toString())){
+                toast.error("Vui lòng chọn thời gian hợp lệ")
+            }
+            else {
+                addBook();
+              
+            }
+        }
+        else {
+            addBook();
+            
+        }
+    }
 	
 	function getDate (date){
 		setBookDate(moment(date).format("l"));
-	}	
-
+        localStorage.setItem('bookDate',moment(date).format("l"))
+	}
     return (
-        <div className='wapper__faculty' style= {{padding: '20px 200px'}}>
+        <div className='wapper__faculty' style= {{padding: '20px 200px', marginTop:'3%'}}>
             <div className='header__booking' style={{display: 'flex' , marginLeft:'70px'}} >
 				<Image src='https://cdn.jiohealth.com/jio-website/home-page/jio-website-v2.1.4/assets/icons/smart-clinic/note-icon.svg' alt = 'iconchonkhoa'/> 
 				<h3 style={{marginLeft:'15px',marginTop:'18px'}}>Thông tin hóa đơn</h3>
 			</div>
-            <Form onSubmit={addBook} className ='form__review'>
+            <Form onSubmit={CheckandAddBook} className ='form__review'>
                 <div className='form__info'>
                     <div className="title__info first__title">
                         <h5>Thông tin bệnh nhân</h5>
@@ -226,25 +239,25 @@ export default function Reviewbook() {
                     </div>
                     <div className='row'>
                         <div className='col'>
-                            <Form.Group>
+                            <Form.Group >
                                 <Form.Label>Ngày: </Form.Label>
                                 <br/> 
-                                <DatePicker className = 'form-control' style="width: 390px;"
+                                <DatePicker className = 'form-control' 
                                     value={bookDate}
-                                    defaultValue={new Date()}
                                     placeholderText={localStorage.getItem('bookDate')}
                                     onChange={getDate}
                                     minDate={new Date()}
+                                   
+                                    
                                 />
-                                {/* <Form.Control required type="text" pattern="^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$" defaultValue = {bookDate} onChange={handleDate} /> */}
                             </Form.Group>
                         </div>
                         <div className='col'>
                             <Form.Group>
                                 <Form.Label>Giờ:</Form.Label>
                                 <Form.Control as="select" onChange={handleTime}>
-                                    <option selected='selected'>{localStorage.getItem('bookTime')}</option>
-                                    <option>Chọn giờ</option>
+                                    <option>{localStorage.getItem('bookTime')}</option>
+                                    <option disabled>Chọn giờ</option>
                                     <option>8:00</option>
                                     <option>9:00</option>
                                     <option>10:00</option>

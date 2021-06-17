@@ -14,7 +14,6 @@ export default function NewList() {
         async function getAPI(){
              await axios.get(process.env.REACT_APP_API_URL+'/api/doctor/get/')
             .then((response) => {
-                console.log(response.data)
                 setListDoctor(response.data)
             })
             .catch((err) => {
@@ -26,8 +25,8 @@ export default function NewList() {
     return (
         <div>
             <div>
-                    <img src={bg} alt='VN' style = {{position:"absolute", zIndex:'-1', width:'100%',height:'100%', objectFit: 'cover'}} />
-                </div>  
+                <img src={bg} alt='VN' style = {{position:"absolute", zIndex:'-1', width:'100%',height:'100%', objectFit: 'cover'}} />
+            </div>  
             <Header/>
             <TitleDoc/>
             <div id="cover">
@@ -44,7 +43,7 @@ export default function NewList() {
                         </InputGroup.Prepend>
                     </InputGroup>
             </div>
-            <div className="wapper__faculty" style={{paddingTop: '50px',marginTop:'50px', maxHeight:'450px',overflow: 'auto', backgroundColor:'rgba(255,255,255,0.3)'}}>
+            <div className="wapper__faculty" style={{paddingTop: '50px', maxHeight:'66vh',overflow: 'auto', backgroundColor:'rgba(255,255,255,0.3)'}}>
                 <div className="list__doc">
                     {listDoctor.filter((item) => {
                         if(keyword===""){
@@ -52,6 +51,7 @@ export default function NewList() {
                         }else if(item.idUser.fullname.toLowerCase().includes(keyword.toLowerCase())){
                             return item
                         }
+                        return false;
                     }).map((item,key)=>
                     <div className="list__item doctor" key={key} style={{height:'250px',backgroundColor:'rgba(255,255,255,0.9)'}}>
                         <div  className="item__avatar">

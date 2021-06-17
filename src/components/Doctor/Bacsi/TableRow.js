@@ -1,10 +1,5 @@
 import React, {useState} from 'react';
-import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-import axios from 'axios';
-import {Link} from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons'
 import Image from 'react-bootstrap/Image'
 
 function TableRow (props) {
@@ -30,8 +25,6 @@ function TableRow (props) {
             <td>{address}</td>
             <td>{degree}</td>
             <td width="200"><Image src={avatar} width="25%" height="50px" style = {{objectFit:'cover'}}/></td>
-           
-            
         </tr>       
     );
 }

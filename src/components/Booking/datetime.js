@@ -24,7 +24,7 @@ function Datetime() {
 	checkday = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 	console.log(checkday);
     return (	
-        <div className="wapper__faculty">
+        <div className="wapper__faculty" style={{marginTop:'3%'}}>
 			<div style={{display: 'flex' , marginLeft:'70px'}} >
 				<Image src='https://cdn.jiohealth.com/jio-website/home-page/jio-website-v2.1.4/assets/icons/smart-clinic/note-icon.svg' alt = 'iconchonkhoa'/> 
 				<h3 style={{marginLeft:'15px',marginTop:'18px'}}>Chọn thời gian khám</h3>

@@ -4,14 +4,19 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 import {Button} from 'react-bootstrap'
 import Image from 'react-bootstrap/Image'
+import { toast } from 'react-toastify'
 export default function Historybook() {
+    toast.configure({
+        autoClose: 2000,
+        draggable: true,
+        position: toast.POSITION.TOP_RIGHT
+    })  
     const [listBooking,setListBooking] = useState([])
     const [idOrder] = useState('')
     useEffect(() => {
         async function getAPI(){
              await axios.get(process.env.REACT_APP_API_URL+'/api/booking/member/get/' + localStorage.getItem('idUser'))
             .then((response) => {
-                console.log(response.data)
                 setListBooking(response.data)
             })
             .catch((err) => {
@@ -24,28 +29,25 @@ export default function Historybook() {
         idOrder: idOrder,
     }
     const ChangeStatus = value => event => {
-        console.log(value);
         axios.put(process.env.REACT_APP_API_URL+'/api/booking/cancel/' + value, formData)
         .then(response => {
             window.location.reload()
         })
 
         .catch((err) => {
+            toast.error(err.response.data.message);
         })
     }
     const Payment  = value => event =>{
         const formData={
             idOrder: value,
         }
-        // axios.post('http://113.173.154.51:9000/api/faculty/create', formData)
         axios.post(process.env.REACT_APP_API_URL+'/api/payment/create/',formData)
         .then((response) => {
-            console.log(response.data);
             window.location.href = response.data.data
-            // history.push()
         })
         .catch((err) => {
-            console.log(err.response.data);
+            toast.info(err.response.data.message);
         })
     }
     function ChuaThanhToan(data){
@@ -75,11 +77,11 @@ export default function Historybook() {
             {listBooking.map((item) =>(
                 <div>
                     {item.status ? (
-                        
                         <div>
-                            <Link to={"/history-book-details/" + item.idOrder.idBooking} style={{color: '#000'}}>
+                            
                             <div className='wapper1'>
                                 <div className = 'wapper__history'>
+                                <Link to={"/history-book-details/" + item.idOrder.idBooking} style={{color: '#000'}}>
                                     <div className = 'book__item khoa'>
                                             <div className = 'item__logoKhoa'>
                                                 <Image src = {item.idFaculty.logo} width='50px'/>
@@ -96,21 +98,18 @@ export default function Historybook() {
                                                 {item.idDoctor ? item.idDoctor.idUser.fullname :''}
                                             </div>
                                         </div>
-                                        <div className = 'book__item timeb'>
-                                            <div className = 'item__day'>
-                                                Ngày: {item.day}
-                                            </div>
-                                            <div className = 'item__time'>
-                                                Giờ: {item.time}
+                                        <div className = 'book__item'>
+                                            <div className = ''>
+                                                Ngày: {item.day}   Giờ: {item.time}
                                             </div>
                                     </div>
+                                </Link>
                                 </div>
                                 <div className='action__history'>
                                 {item.idOrder.status ? <DaThanhToan/> : <ChuaThanhToan set = {item.idOrder._id}/>}
                                     {item.status ? <Active set = {item._id}/> : <Cancel/>}
                                 </div>
                             </div>
-                            </Link>
                             
                         </div>
                     ): (
@@ -134,11 +133,8 @@ export default function Historybook() {
                                         </div>
                                     </div>
                                     <div className = 'book__item timeb'>
-                                        <div className = 'item__day'>
-                                            Ngày: {item.day}
-                                        </div>
-                                        <div className = 'item__time'>
-                                            Giờ: {item.time}
+                                        <div className = ''>
+                                            Ngày: {item.day}  Giờ: {item.time}
                                         </div>
                                 </div>
                             </div>

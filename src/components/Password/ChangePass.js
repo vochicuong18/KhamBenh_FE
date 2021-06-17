@@ -31,15 +31,17 @@ export default function ChangePass() {
         password:inputCurrent,
         newpassword:newPass
     }
+
     function ChangePass(e){
+
         e.preventDefault()
         console.log(formData);
         if(newPass === newPassCheck){
-            axios.put(process.env.REACT_APP_API_URL+'/api/login/changepasswordforgot/'+ localStorage.getItem('idUser'),formData)
+            axios.put(process.env.REACT_APP_API_URL+'/api/login/changepassword/'+ localStorage.getItem('idUser'),formData)
             .then(response =>{
-                console.log(response.data);
+                console.log(response);
                 toast.success(response.data.message);
-                // history.push("/home")
+                history.push("/home")
             })
             .catch(err => toast.error(err.response.data.message));
         }

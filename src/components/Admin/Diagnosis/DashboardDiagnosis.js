@@ -7,10 +7,11 @@ import Image from 'react-bootstrap/Image'
 import {
   PieChartOutlined,
   TeamOutlined,
-  UserOutlined,SettingOutlined
+  UserOutlined,SettingOutlined,
+  UnorderedListOutlined
 } from '@ant-design/icons';
 
-const { Header, Footer, Sider } = Layout;
+const { Sider } = Layout;
 const { SubMenu } = Menu;
 
 class Dashboard extends Component {
@@ -35,27 +36,27 @@ class Dashboard extends Component {
                 />}>
                   <Link to={'/'}></Link>
             </Menu.Item>
-          <Menu.Item key="1" icon={<PieChartOutlined />}>
+            <Menu.Item icon={<PieChartOutlined />}>
+              <Link to={'/admin'}>Thống kê</Link>
+            </Menu.Item>
+            <Menu.Item icon={<UnorderedListOutlined />}>
               <Link to={'/admin-book'}>Danh sách Đặt khám</Link>
             </Menu.Item>
-
-
-            <SubMenu key="sub1" icon={<UserOutlined />} title="User">
-            <Menu.Item key="2"><Link to={'/admin-account'}>Danh sách tài khoản</Link></Menu.Item>
-              <Menu.Item key="3"><Link to={'/admin-doctor'}>Danh sách bác sĩ</Link></Menu.Item>
-              <Menu.Item key="4"><Link to={'/admin-user'}>Danh sách bệnh nhân</Link></Menu.Item>
+            <SubMenu icon={<UserOutlined />} title="User">
+            <Menu.Item><Link to={'/admin-account'}>Danh sách tài khoản</Link></Menu.Item>
+              <Menu.Item><Link to={'/admin-doctor'}>Danh sách bác sĩ</Link></Menu.Item>
+              <Menu.Item><Link to={'/admin-user'}>Danh sách bệnh nhân</Link></Menu.Item>
             </SubMenu>
-            <SubMenu key="sub2" icon={<TeamOutlined />} title="Hệ thống">
-              <Menu.Item key="5"><Link to={'/admin-khoa'}>Danh sách khoa</Link></Menu.Item>
-              <Menu.Item key="6"><Link to={'/admin-chandoan'}>Danh sách chẩn đoán</Link></Menu.Item>
+            <SubMenu icon={<TeamOutlined />} title="Hệ thống">
+              <Menu.Item><Link to={'/admin-khoa'}>Danh sách khoa</Link></Menu.Item>
+              <Menu.Item><Link to={'/admin-chandoan'}>Danh sách chẩn đoán</Link></Menu.Item>
             </SubMenu>
             <SubMenu icon={<SettingOutlined />} title="Cài đặt">
-              <Menu.Item key="7"><Link to={'/'}>Đăng xuất</Link></Menu.Item>
+              <Menu.Item><Link to={'/'}>Đăng xuất</Link></Menu.Item>
             </SubMenu>
           </Menu>
         </Sider>
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }} />
             <DBoardListDiagnosis/>
        
         </Layout>

@@ -30,6 +30,7 @@ function FrmNhapTC() {
        }else{
          localStorage.setItem('Name',res.data.name)
          localStorage.setItem('Khoa',res.data.idFaculty.name)
+         localStorage.setItem('logo',res.data.idFaculty.logo)
          localStorage.setItem('bookFac',res.data.idFaculty._id)
          history.push("/result")
        }

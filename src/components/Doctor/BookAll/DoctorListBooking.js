@@ -1,65 +1,108 @@
-import React,{ Component } from 'react';
+import React,{ useState,useEffect } from 'react';
 import { Layout, Breadcrumb } from 'antd';
 import axios from 'axios';
-import TableRow from './TableRow';
-// import ModalAddDoctor from './Modal_AddDoctor';
-const Content = Layout;
-class DBoard_ListDortor extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {book: []};
-    }
-    componentDidMount() {
-        axios.get(process.env.REACT_APP_API_URL+'/api/booking/get')
-            .then(response => {
-                console.log(response.data);
-                this.setState({book: response.data});               
+import { toast } from 'react-toastify'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck,faTimes} from '@fortawesome/free-solid-svg-icons'
+import NumberFormat from 'react-number-format';
+import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+
+function DBoard_ListBooking(){
+    toast.configure({
+        autoClose: 2000,
+        draggable: true,
+        position: toast.POSITION.TOP_RIGHT
+    })
+    const Content = Layout;
+
+
+    const [listBook, setListBooking] = useState([])
+    useEffect(() => {
+        async function getAPI(){
+            await axios.get(process.env.REACT_APP_API_URL+'/api/booking/get')
+            .then((response) => {
+                return setListBooking(response.data)             
             })
             .catch(function (error) {
                 console.log(error);
             })
-    }
-    tabRow() {
-        return this.state.book.map(function (object, i) {
-            return <TableRow obj={object} key={i}/>;
-        });
-    }
-    render () {        
-        return (
-            <Content style={{ margin: '0 16px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>
-                <strong className="title__table">Danh sách đặt khám</strong>              
-              </Breadcrumb.Item>
-              <Breadcrumb.Item> 
-              </Breadcrumb.Item>
-            </Breadcrumb>
-            <div>
-                <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-                    <table className = "table">
-                        <thead className="thead-light">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Tên bệnh nhân</th>
-                                <th scope="col">Tên bác sĩ</th>
-                                <th scope="col">Chuyên khoa</th>
-                                <th scope="col">Ngày</th>
-                                <th scope="col">Giờ</th>
-                                <th scope="col">Đơn giá</th>
-                                <th scope="col">Thanh toán</th>
-                                <th scope='col'>Trạng thái</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.tabRow()}                         
-                        </tbody>
-                    </table>
-                </div>             
-            </div>
-          </Content>
-
+        }
+        getAPI();
+    },[])
+    const { SearchBar } = Search;
+    const options = {
+        defaultPageSize:10,
+        sizePerPage: 10,
+        hideSizePerPage: true,
+        hidePageListOnlyOnePage: true
+    };
+   
+    const btnPayment = (cell, row, rowIndex, formatExtraData)=>{
+        return(
+            cell ? <FontAwesomeIcon icon ={faCheck} style={{fontSize:'20px', color:'green',marginLeft:'20px'}}/> :<FontAwesomeIcon icon ={faTimes} style={{fontSize:'20px', color:'red',marginLeft:'20px'}}/>
+                
         );
     }
+    const Status = (cell, row, rowIndex, formatExtraData)=>{
+        return(
+            <div>
+                {cell ?
+                    <span className="active">Active</span>:
+                    <span className="cancel">Cancel</span>}
+            </div>
+        );
+    }
+    const price = (cell, row, rowIndex, formatExtraData)=>{
+        return(
+            <NumberFormat value = {cell} thousandSeparator={true} suffix={' VND'} displayType={'text'}/>  
+        );
+    }
+    const columns = [
+        {dataField: 'id',text: '#'},
+        {dataField: 'customer',text: 'Tên bệnh nhân'},
+        {dataField: 'idDoctor.idUser.fullname',text: 'Tên bác sĩ'},
+        {dataField: 'idFaculty.name',text: 'Chuyên khoa'},
+        {dataField: 'day',text: 'Ngày'}, 
+        {dataField: 'time',text: 'Giờ'},
+        {dataField: 'idOrder.price',text: 'Đơn giá',formatter:price}, 
+        {dataField: 'idOrder.status',text: 'Thanh toán',formatter: btnPayment},
+        {dataField: 'status',text: 'Trạng thái',formatter: Status},
+    ];
+    return (
+        <Content style={{ margin: '0 16px' }}>
+        <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>
+                <strong className="title__table">Danh sách đặt khám</strong>              
+            </Breadcrumb.Item>
+        </Breadcrumb>
+        <div>
+            <div className="site-layout-background" style={{ padding: 10}}>
+            <ToolkitProvider
+                keyField="id"
+                data={ listBook }
+                columns={ columns }
+                search
+            >
+                {
+                    props => (
+                    <div>
+                        <div  className = 'float-right'>
+                            <SearchBar { ...props.searchProps } placeholder ='Tìm kiếm những gì bạn muốn' style={{ width:'300px'}}/>
+                        </div>
+                        <BootstrapTable
+                        bootstrap4
+                        { ...props.baseProps }
+                        pagination={paginationFactory(options) }
+                        />
+                    </div>
+                    )
+                }
+            </ToolkitProvider>
+            </div>   
+        </div>
+        </Content>
+    );
 }
-export default DBoard_ListDortor;
+export default DBoard_ListBooking;

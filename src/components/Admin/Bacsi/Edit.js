@@ -148,7 +148,7 @@ function Edit (props) {
              }) 
             }         
         getAPI();
-    },[])
+    },[props.match.params._id])
 
     const updateDoctor = async (e) => {
         e.preventDefault();

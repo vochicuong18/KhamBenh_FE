@@ -2,6 +2,12 @@ import React, {useState,useEffect} from 'react';
 import flagVN from "../../Video/vietnam1.png"
 import axios from 'axios'
 export default function Covid19() {
+    localStorage.removeItem('bookDoctor')
+    localStorage.removeItem('bookDate')
+    localStorage.removeItem('bookTime')
+    localStorage.removeItem('bookFac')
+    localStorage.removeItem('Khoa')
+    localStorage.removeItem('Name')
     const [infec,setInfec] = useState('')
     const [death,setDeath] = useState('')
     const [treated,setTreated] = useState('')

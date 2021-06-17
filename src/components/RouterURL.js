@@ -13,7 +13,7 @@ import EditKhoa from './Admin/Khoa/EditKhoa';
 import Diagnosis from './Admin/Diagnosis/DashboardDiagnosis';
 import EditDiagnosis from './Admin/Diagnosis/EditDiagnosis';
 import DoctorEditDiagnosis from './Doctor/Diagnosis/EditDiagnosis';
-
+import ListBooking from '../components/Admin/Book/DashboardBooking'
 import DBoardListUser from './Admin/User/DashboardUser'
 import EditUser from './Admin/User/EditUser';
 import DashboardAccount from './Admin/Account/DashboardAccount'
@@ -56,6 +56,7 @@ export default class RouterURL extends Component {
                 <Route path = "/doctor-listdoctor"><ListDoctor/></Route>
                 <Route path = "/doctor-chandoan"><ChanDoan/></Route>
                 <Route path = "/doctor-bookall"><BookAllDoctor/></Route>
+                <Route path = "/admin-book"><ListBooking/></Route>
                 <Route path = "/edit/:_id"
                     render = {
                         (props) => (<Edit {...props}
@@ -81,7 +82,7 @@ export default class RouterURL extends Component {
                     )
                 }></Route> 
 
-                <Route path = " "><CheckPay/></Route>
+                <Route path = "/home-thatbaine"><CheckPay/></Route>
                 <Route path = "/home-thatbaine"><CheckPayFailed/></Route>
                 <Route path = "/edituser/:_id"
                     render = {

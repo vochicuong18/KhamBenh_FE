@@ -13,7 +13,7 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 
-const { Header, Footer, Sider } = Layout;
+const {  Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 class Dashboard extends Component {
     
@@ -111,8 +111,7 @@ class Dashboard extends Component {
           }
         </Sider>
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }}>
-          </Header>
+
           <DBoardListBooking/>
           <Footer style={{ textAlign: 'center' }}></Footer>
         </Layout>
